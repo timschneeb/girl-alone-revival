@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/secondaryProgress">
+        <shape>
+            <solid android:color="@color/ia_video_progressbar_background" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip android:gravity="left" android:drawable="@color/ia_video_progressbar_green" android:clipOrientation="horizontal" />
+    </item>
+</layer-list>

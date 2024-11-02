@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button android:textSize="16.0sp" android:textColor="#ffffffff" android:id="@id/tt_browser_download_btn" android:background="@drawable/tt_browser_download_selector" android:layout_width="fill_parent" android:layout_height="48.0dip" android:text="@string/tt_video_download_apk"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

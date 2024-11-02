@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_google_play_services_enable_button">Povolit</string>
+    <string name="common_google_play_services_enable_text">Ke spuštění aplikace %1$s je třeba aktivovat služby Google Play.</string>
+    <string name="common_google_play_services_enable_title">Aktivace služeb Google Play</string>
+    <string name="common_google_play_services_install_button">Instalovat</string>
+    <string name="common_google_play_services_install_text">Ke spuštění aplikace %1$s jsou potřeba služby Google Play, které v zařízení nemáte.</string>
+    <string name="common_google_play_services_install_title">Instalace služeb Google Play</string>
+    <string name="common_google_play_services_notification_channel_name">Dostupnost služeb Google Play</string>
+    <string name="common_google_play_services_notification_ticker">Chyba služeb Google Play</string>
+    <string name="common_google_play_services_unknown_issue">Aplikace %1$s má potíže se službami Google Play. Zkuste to prosím znovu.</string>
+    <string name="common_google_play_services_unsupported_text">Ke spuštění aplikace %1$s jsou potřeba služby Google Play, které v tomto zařízení nejsou podporovány.</string>
+    <string name="common_google_play_services_update_button">Aktualizovat</string>
+    <string name="common_google_play_services_update_text">Ke spuštění aplikace %1$s je třeba aktualizovat služby Google Play.</string>
+    <string name="common_google_play_services_update_title">Aktualizace služeb Google Play</string>
+    <string name="common_google_play_services_updating_text">Ke spuštění aplikace %1$s jsou potřeba služby Google Play, které jsou právě aktualizovány.</string>
+    <string name="common_google_play_services_wear_update_text">Je vyžadována nová verze služeb Google Play. Nová verze se brzy sama nainstaluje.</string>
+    <string name="common_open_on_phone">Otevřít v telefonu</string>
+    <string name="common_signin_button_text">Přihlásit se</string>
+    <string name="common_signin_button_text_long">Přihlásit se k účtu Google</string>
+    <string name="copy_toast_msg">Odkaz zkopírován do schránky</string>
+    <string name="fallback_menu_item_copy_link">Kopírovat odkaz</string>
+    <string name="fallback_menu_item_open_in_browser">Otevřít v prohlížeči</string>
+    <string name="fallback_menu_item_share_link">Sdílet odkaz</string>
+    <string name="offline_notification_text">Klepnutím reklamu otevřete</string>
+    <string name="offline_notification_title">Zobrazte reklamu, kterou jste si uložili, když jste byli offline</string>
+    <string name="offline_opt_in_confirm">OK</string>
+    <string name="offline_opt_in_confirmation">Až budete znovu online, dostanete oznámení s odkazem</string>
+    <string name="offline_opt_in_decline">Ne, díky</string>
+    <string name="offline_opt_in_message">Pošleme vám oznámení s odkazem na web inzerenta.</string>
+    <string name="offline_opt_in_title">Reklama se otevře, až budete znovu online.</string>
+    <string name="s1">Uložení obrázku</string>
+    <string name="s2">Povolit reklamě, aby uložila obrázek do galerie fotek?</string>
+    <string name="s3">Přijmout</string>
+    <string name="s4">Odmítnout</string>
+    <string name="s5">Vytvoření události kalendáře</string>
+    <string name="s6">Povolit reklamě, aby vytvořila událost kalendáře?</string>
+    <string name="s7">Zkušební reklama</string>
+    <string name="status_bar_notification_info_overflow">999+</string>
+</resources>

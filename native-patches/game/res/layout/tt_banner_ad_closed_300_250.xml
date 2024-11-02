@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:background="#ffffffff" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:background="#fff3f7f8" android:layout_width="fill_parent" android:layout_height="fill_parent" android:alpha="0.3" />
+    <RelativeLayout android:background="@drawable/tt_ad_closed_background_300_250" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <ImageView android:id="@id/tt_ad_closed_page_logo" android:layout_width="77.0dip" android:layout_height="14.0dip" android:layout_marginLeft="16.0dip" android:layout_marginTop="16.0dip" android:src="@drawable/tt_ad_closed_logo_red" android:layout_marginStart="16.0dip" />
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:textSize="18.0sp" android:id="@id/tt_ad_closed_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tt_ad_is_closed" android:lines="1" android:layout_centerInParent="true" android:alpha="0.5" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

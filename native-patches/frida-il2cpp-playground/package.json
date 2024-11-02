@@ -1,0 +1,19 @@
+{
+  "name": "playground",
+  "main": "index.ts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "frida-compile -o _.js -w index.ts",
+    "attach": "run() { frida -U \"$1\" -l _.js --runtime=v8; }; run",
+    "spawn": "run() { frida -U -f \"$1\" -l _.js --runtime=v8; }; run",
+    "app0-spawn": "npm run spawn com.Fleximind.GirlLivingAlone.Android",
+    "app0-attach": "npm run attach 'Girl Alone'"
+  },
+  "devDependencies": {
+    "@types/frida-gum": "^18.3.1",
+    "frida-compile": "^16.2.2",
+    "frida-il2cpp-bridge": "^0.9.1"
+  }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+        <ImageView android:layout_gravity="center_vertical" android:id="@id/tt_bu_icon" android:background="@color/tt_white" android:layout_width="45.0dip" android:layout_height="45.0dip" android:scaleType="fitXY" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="10.0dip">
+            <TextView android:textSize="12.0sp" android:textColor="#ff333333" android:ellipsize="end" android:id="@id/tt_bu_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:maxLines="1" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2.0dip">
+                <TextView android:textSize="12.0sp" android:textStyle="bold" android:textColor="#ff333333" android:ellipsize="end" android:id="@id/tt_bu_score" android:paddingRight="2.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" />
+                <com.bytedance.sdk.openadsdk.core.widget.TTRatingBar2 android:layout_gravity="center" android:id="@id/tt_bu_score_bar" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="fill_parent">
+        <include android:layout_gravity="bottom|center|right" android:id="@id/tt_backup_logoLayout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dip" android:layout_marginRight="3.0dip" layout="@layout/tt_backup_ad1" />
+        <TextView android:textSize="10.0sp" android:textColor="#ffffffff" android:ellipsize="end" android:gravity="center" android:layout_gravity="center|right" android:id="@id/tt_bu_download" android:background="@drawable/tt_backup_btn_1" android:paddingLeft="10.0dip" android:paddingTop="5.0dip" android:paddingRight="10.0dip" android:paddingBottom="5.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="25.0dip" android:text="@string/tt_video_download_apk" android:maxLines="1" android:layout_marginEnd="25.0dip" />
+        <ImageView android:layout_gravity="center|right|top" android:id="@id/tt_bu_close" android:layout_width="15.0dip" android:layout_height="15.0dip" android:layout_marginTop="3.0dip" android:layout_marginRight="3.0dip" android:src="@drawable/tt_dislike_icon" android:scaleType="fitXY" />
+    </FrameLayout>
+</LinearLayout>

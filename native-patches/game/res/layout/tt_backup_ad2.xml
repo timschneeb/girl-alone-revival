@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:background="@drawable/tt_ad_backup_bk2" android:paddingLeft="4.0dip" android:paddingTop="1.0dip" android:paddingRight="4.0dip" android:paddingBottom="1.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/tt_insert_ad_logo" android:background="@drawable/tt_ad_logo" android:layout_width="10.0dip" android:layout_height="6.0dip" />
+    <TextView android:textSize="8.0sp" android:textColor="@color/tt_white" android:gravity="center" android:id="@id/tt_insert_ad_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="3.0dip" android:text="@string/tt_ad_logo_txt" />
+</LinearLayout>

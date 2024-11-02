@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:id="@id/tt_interact_splash_wriggle_layout" android:visibility="visible" android:layout_width="110.0dip" android:layout_height="110.0dip" android:layout_marginBottom="4.0dip">
+        <com.bytedance.sdk.component.adexpress.widget.WriggleGuideView android:id="@id/tt_interact_splash_progress_img" android:layout_width="60.0dip" android:layout_height="20.0dip" />
+        <ImageView android:id="@id/tt_interact_splash_top_img" android:layout_width="60.0dip" android:layout_height="60.0dip" android:src="@drawable/tt_splash_twist" />
+    </LinearLayout>
+    <TextView android:textSize="18.0dip" android:textStyle="bold" android:textColor="@android:color/white" android:layout_gravity="center" android:id="@id/tt_interact_splash_top_text" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tt_splash_wriggle_top_text" android:singleLine="true" android:shadowColor="#4d000000" android:shadowDx="0.0" android:shadowDy="0.5" android:shadowRadius="2.0" />
+    <TextView android:textSize="14.0dip" android:textStyle="bold" android:textColor="@android:color/white" android:id="@id/tt_interact_splash_click_bar_text" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tt_splash_wriggle_text" android:singleLine="true" android:shadowColor="#4d000000" android:shadowDx="0.0" android:shadowDy="0.5" android:shadowRadius="2.0" />
+</LinearLayout>

@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "498672353572",
+    "firebase_url": "https://girllivingalone-cfcdb.firebaseio.com",
+    "project_id": "girllivingalone-cfcdb",
+    "storage_bucket": "girllivingalone-cfcdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498672353572:android:b57b80294ba3339628b3b1",
+        "android_client_info": {
+          "package_name": "com.Fleximind.GirlLivingAlone.Android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498672353572-74na305vln00d70ndm1advj2t7ap8g59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb3qDQ06SKEPYLFyu52_5Th4qNxdsXyb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498672353572-74na305vln00d70ndm1advj2t7ap8g59.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "498672353572-a6jsnp8ncft7ehtdl2jdikhaat8ie86q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Fleximind.GirlLivingAlone.IOS",
+                "app_store_id": "1519164201"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-7741983622165826~1907880134"
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:background="@android:color/white" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <com.kakao.adfit.common.inappbrowser.widget.IABNavigationBar android:id="@id/webview_navigation" android:layout_width="fill_parent" android:layout_height="@dimen/adfit_webview_navi_height" />
+            <View android:layout_gravity="bottom" android:background="@color/adfit_web_navi_underline" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+            <ProgressBar android:layout_gravity="bottom" android:id="@id/webview_progress" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="2.0dip" android:max="100" android:progress="0" android:progressDrawable="@drawable/adfit_webview_loading_drawable" style="?android:progressBarStyleHorizontal" />
+        </FrameLayout>
+        <com.kakao.adfit.common.inappbrowser.widget.IABWebView android:gravity="center" android:id="@id/webview" android:focusable="true" android:focusableInTouchMode="true" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/webview_error_page" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:textSize="14.0sp" android:textColor="#ff808080" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/adfit_iab_desc_for_webview_error_message" />
+            <TextView android:textSize="12.0sp" android:textColor="@android:color/black" android:gravity="center" android:id="@id/webview_refresh_button" android:background="@drawable/adfit_inapp_error_refresh_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:minWidth="69.0dip" android:minHeight="30.0dip" android:text="@string/adfit_iab_desc_for_refresh" />
+        </LinearLayout>
+    </LinearLayout>
+    <FrameLayout android:gravity="center" android:id="@id/fullscreen_view" android:background="@android:color/black" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</merge>

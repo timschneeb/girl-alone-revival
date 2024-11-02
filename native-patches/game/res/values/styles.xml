@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AdFitTheme.NoTitleBar" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="AdxGDPRDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="AppBaseTheme" parent="@android:style/Theme.Light" />
+    <style name="AppTheme" parent="@style/AppBaseTheme" />
+    <style name="BaseUnityTheme" parent="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+    <style name="EditTextStyle">
+        <item name="android:background">@color/tt_white</item>
+        <item name="android:layout_marginLeft">10.0dip</item>
+        <item name="android:layout_marginTop">5.0dip</item>
+        <item name="android:layout_marginRight">10.0dip</item>
+        <item name="android:layout_marginBottom">5.0dip</item>
+    </style>
+    <style name="InneractiveAppTheme.Home" parent="@android:style/Theme.NoTitleBar.Fullscreen" />
+    <style name="LargeIconView">
+        <item name="android:layout_width">90.0dip</item>
+        <item name="android:layout_height">90.0dip</item>
+    </style>
+    <style name="SmallIconView">
+        <item name="android:layout_width">50.0dip</item>
+        <item name="android:layout_height">50.0dip</item>
+    </style>
+    <style name="TextAppearance.Compat.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent" />
+    <style name="TextAppearance.Compat.Notification.Info" parent="@style/TextAppearance.Compat.Notification">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+    <style name="TextAppearance.Compat.Notification.Line2" parent="@style/TextAppearance.Compat.Notification.Info" />
+    <style name="TextAppearance.Compat.Notification.Time" parent="@style/TextAppearance.Compat.Notification">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+    <style name="TextAppearance.Compat.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
+    <style name="Theme.Dialog.TTDownload" parent="@android:style/Theme.DeviceDefault.Light.Dialog">
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+    <style name="Theme.Dialog.TTDownloadOld" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="Theme.IAPTheme" parent="@android:style/Theme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="Theme.NativeShareTransparent" parent="@android:style/Theme.Holo">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="UnityThemeSelector" parent="@style/BaseUnityTheme">
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+    <style name="UnityThemeSelector.Translucent" parent="@style/UnityThemeSelector">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <style name="Widget.Compat.NotificationActionContainer" parent="" />
+    <style name="Widget.Compat.NotificationActionText" parent="" />
+    <style name="Widget.Support.CoordinatorLayout" parent="@android:style/Widget">
+        <item name="statusBarBackground">#ff000000</item>
+    </style>
+    <style name="com.applovin.mediation.MaxDebuggerActivity.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/applovin_sdk_brand_color</item>
+        <item name="android:displayOptions">showTitle</item>
+        <item name="android:titleTextStyle">@style/com.applovin.mediation.MaxDebuggerActivity.ActionBar.TitleTextStyle</item>
+    </style>
+    <style name="com.applovin.mediation.MaxDebuggerActivity.ActionBar.Live" parent="@style/com.applovin.mediation.MaxDebuggerActivity.ActionBar">
+        <item name="android:background">@color/applovin_sdk_greenColor</item>
+    </style>
+    <style name="com.applovin.mediation.MaxDebuggerActivity.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/applovin_sdk_textColorPrimary</item>
+    </style>
+    <style name="com.applovin.mediation.MaxDebuggerActivity.Theme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/com.applovin.mediation.MaxDebuggerActivity.ActionBar</item>
+    </style>
+    <style name="com.applovin.mediation.MaxDebuggerActivity.Theme.Live" parent="@style/com.applovin.mediation.MaxDebuggerActivity.Theme">
+        <item name="android:actionBarStyle">@style/com.applovin.mediation.MaxDebuggerActivity.ActionBar.Live</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.AdBadgeTextView" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/applovin_sdk_adBadgeTextColor</item>
+        <item name="android:background">@drawable/rounded_text_view_border</item>
+        <item name="android:paddingLeft">2.0dip</item>
+        <item name="android:paddingRight">2.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">4.0dip</item>
+        <item name="android:text">Ad</item>
+        <item name="android:layout_marginEnd">4.0dip</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.AutoScrollingTextView" parent="@android:style/Widget.TextView">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.CTAButton" parent="@android:style/Widget.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.LargeAdBadgeTextView" parent="@style/com.applovin.mediation.nativeAds.MaxNativeAdView.AdBadgeTextView">
+        <item name="android:textSize">17.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.LargeScrollingBodyTextView" parent="@style/com.applovin.mediation.nativeAds.MaxNativeAdView.AutoScrollingTextView">
+        <item name="android:textSize">17.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.LargeScrollingTitleTextView" parent="@style/com.applovin.mediation.nativeAds.MaxNativeAdView.ScrollingTitleTextView">
+        <item name="android:textSize">20.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.LargeVerticalBodyTextSize" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">17.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.LargeVerticalTitleTextSize" parent="@style/com.applovin.mediation.nativeAds.MaxNativeAdView.TitleTextStyle">
+        <item name="android:textSize">20.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.ScrollingTitleTextView" parent="@style/com.applovin.mediation.nativeAds.MaxNativeAdView.AutoScrollingTextView">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.SmallAdBadgeTextView" parent="@style/com.applovin.mediation.nativeAds.MaxNativeAdView.AdBadgeTextView">
+        <item name="android:textSize">12.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.SmallScrollingBodyTextView" parent="@style/com.applovin.mediation.nativeAds.MaxNativeAdView.AutoScrollingTextView">
+        <item name="android:textSize">12.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.SmallScrollingTitleTextView" parent="@style/com.applovin.mediation.nativeAds.MaxNativeAdView.ScrollingTitleTextView">
+        <item name="android:textSize">15.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.SmallVerticalBodyTextSize" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">12.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.SmallVerticalTitleTextSize" parent="@style/com.applovin.mediation.nativeAds.MaxNativeAdView.TitleTextStyle">
+        <item name="android:textSize">14.0sp</item>
+    </style>
+    <style name="com.applovin.mediation.nativeAds.MaxNativeAdView.TitleTextStyle" parent="@android:style/Widget.TextView">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ia_bottom_left_overlay">
+        <item name="android:layout_marginLeft">@dimen/ia_video_control_margin</item>
+        <item name="android:layout_marginBottom">@dimen/ia_video_control_margin</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+    <style name="ia_bottom_right_overlay">
+        <item name="android:layout_marginRight">@dimen/ia_video_control_margin</item>
+        <item name="android:layout_marginBottom">@dimen/ia_video_control_margin</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+    <style name="ia_expand_collapse_button_style" parent="@style/ia_top_right_overlay">
+        <item name="android:background">@drawable/ia_round_overlay_bg</item>
+        <item name="android:padding">@dimen/ia_image_control_padding</item>
+        <item name="android:layout_width">@dimen/ia_image_control_size</item>
+        <item name="android:layout_height">@dimen/ia_image_control_size</item>
+        <item name="android:src">@drawable/ia_sel_expand_collapse</item>
+        <item name="android:scaleType">center</item>
+    </style>
+    <style name="ia_mute_button_style" parent="@style/ia_top_left_overlay">
+        <item name="android:background">@drawable/bg_circle_overlay</item>
+        <item name="android:padding">@dimen/ia_image_control_padding</item>
+        <item name="android:layout_width">@dimen/ia_image_control_size</item>
+        <item name="android:layout_height">@dimen/ia_image_control_size</item>
+        <item name="android:src">@drawable/ia_sel_mute</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+    <style name="ia_play_button_style">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">@dimen/ia_play_button_size</item>
+        <item name="android:layout_height">@dimen/ia_play_button_size</item>
+        <item name="android:src">@drawable/ia_play</item>
+    </style>
+    <style name="ia_top_left_overlay">
+        <item name="android:layout_marginLeft">@dimen/ia_video_control_margin</item>
+        <item name="android:layout_marginTop">@dimen/ia_video_control_margin</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+    <style name="ia_top_right_overlay">
+        <item name="android:layout_marginTop">@dimen/ia_video_control_margin</item>
+        <item name="android:layout_marginRight">@dimen/ia_video_control_margin</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+    <style name="ia_tv_call_to_action_style" parent="@style/ia_bottom_right_overlay">
+        <item name="android:textAppearance">@style/ia_video_overlay_text_view</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_text_overlay</item>
+        <item name="android:padding">@dimen/ia_video_text_padding</item>
+        <item name="android:layout_width">@dimen/ia_video_overlay_button_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="ia_tv_remaining_time_style" parent="@style/ia_bottom_left_overlay">
+        <item name="android:textAppearance">@style/ia_video_overlay_text_view</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_circle_overlay</item>
+        <item name="android:layout_width">@dimen/ia_image_control_size</item>
+        <item name="android:layout_height">@dimen/ia_image_control_size</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="ia_tv_skip_style" parent="@style/ia_top_right_overlay">
+        <item name="android:textAppearance">@style/ia_video_overlay_text_view</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_text_overlay</item>
+        <item name="android:padding">@dimen/ia_video_text_padding</item>
+        <item name="android:layout_width">@dimen/ia_video_overlay_button_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    <style name="ia_video_overlay_text_view">
+        <item name="android:textSize">@dimen/ia_video_overlay_text_small</item>
+        <item name="android:textColor">@color/ia_video_overlay_text</item>
+        <item name="android:shadowColor">@color/ia_video_overlay_text_shadow</item>
+        <item name="android:shadowDx">1.5</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">0.5</item>
+    </style>
+    <style name="ia_video_progressbar_style" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/ia_progress_bar_height</item>
+        <item name="android:progressDrawable">@drawable/ia_progress_bar_drawable</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+    <style name="quick_option_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">?android:windowNoTitle</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowSoftInputMode">stateHidden</item>
+    </style>
+    <style name="tt_Widget_ProgressBar_Horizontal">
+        <item name="android:maxHeight">20.0dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@drawable/tt_ad_download_progress_bar_horizontal</item>
+        <item name="android:minHeight">20.0dip</item>
+    </style>
+    <style name="tt_back_view">
+        <item name="android:background">#00000000</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">12.0dip</item>
+        <item name="android:minHeight">44.0dip</item>
+        <item name="android:text">关闭</item>
+    </style>
+    <style name="tt_custom_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="tt_dislikeDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@style/tt_dislikeDialogAnimation</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="tt_dislikeDialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/tt_dislike_animation_show</item>
+        <item name="android:windowExitAnimation">@anim/tt_dislike_animation_dismiss</item>
+    </style>
+    <style name="tt_dislikeDialog_new">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@style/tt_dislikeDialogAnimation</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="tt_full_screen" parent="@android:style/Theme">
+        <item name="android:windowBackground">@color/tt_black</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+    </style>
+    <style name="tt_full_screen_interaction" parent="@android:style/Theme.Translucent.NoTitleBar">
+        <item name="android:windowBackground">@color/tt_full_interaction_dialog_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+    </style>
+    <style name="tt_landing_page" parent="@android:style/Theme">
+        <item name="android:windowBackground">@color/tt_white</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+    </style>
+    <style name="tt_privacy_dialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowBackground">@drawable/tt_privacy_bg</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="tt_ss_popup_toast_anim" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+    <style name="tt_wg_insert_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="tt_widget_gifView" parent="@android:style/Widget" />
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.bytedance.sdk.component.widget.SSWebView android:id="@id/tt_browser_webview" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ProgressBar android:layout_gravity="center|top" android:id="@id/tt_browser_progress" android:layout_width="fill_parent" android:layout_height="3.0dip" android:progress="1" android:progressDrawable="@drawable/tt_browser_progress_style" style="@android:style/Widget.ProgressBar.Horizontal" />
+    <com.bytedance.sdk.component.widget.SSWebView android:id="@id/tt_browser_webview_loading" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.bytedance.sdk.openadsdk.core.widget.PlayableLoadingView android:id="@id/tt_playable_loading" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.bytedance.sdk.openadsdk.core.widget.ShadowImageView android:gravity="center" android:id="@id/tt_playable_ad_mute" android:layout_width="28.0dip" android:layout_height="28.0dip" android:layout_marginLeft="12.0dip" android:layout_marginTop="20.0dip" android:src="@drawable/tt_unmute" android:scaleType="center" android:layout_marginStart="12.0dip" />
+    <com.bytedance.sdk.openadsdk.core.widget.ShadowTextView android:textSize="14.0sp" android:textColor="@color/tt_white" android:gravity="center" android:layout_gravity="end|center|top" android:id="@id/tt_playable_ad_dislike" android:layout_width="wrap_content" android:layout_height="28.0dip" android:layout_marginLeft="16.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="80.0dip" android:text="@string/tt_reward_feedback" />
+    <RelativeLayout android:gravity="center" android:layout_gravity="end|center|top" android:id="@id/tt_playable_ad_close_layout" android:background="@drawable/tt_mute_btn_bg" android:visibility="gone" android:layout_width="28.0dip" android:layout_height="28.0dip" android:layout_marginTop="20.0dip" android:layout_marginRight="24.0dip" android:layout_marginEnd="24.0dip">
+        <ImageView android:id="@id/tt_playable_ad_close" android:visibility="visible" android:layout_width="12.0dip" android:layout_height="12.0dip" android:src="@drawable/tt_video_close_drawable" />
+    </RelativeLayout>
+</FrameLayout>

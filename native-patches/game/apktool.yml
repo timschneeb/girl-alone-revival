@@ -1,0 +1,156 @@
+version: 2.10.0
+apkFileName: game.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+  tag: null
+sdkInfo:
+  minSdkVersion: 19
+  targetSdkVersion: 30
+packageInfo:
+  forcedPackageId: 127
+  renameManifestPackage: null
+versionInfo:
+  versionCode: 128
+  versionName: 1.2.15
+resourcesAreCompressed: false
+sharedLibrary: false
+sparseResources: false
+unknownFiles:
+  androidsupportmultidexversion.txt: 0
+  billing.properties: 8
+  firebase-abt.properties: 8
+  firebase-analytics.properties: 8
+  firebase-annotations.properties: 8
+  firebase-auth-interop.properties: 8
+  firebase-auth.properties: 8
+  firebase-common.properties: 8
+  firebase-components.properties: 8
+  firebase-config.properties: 8
+  firebase-crashlytics-ndk.properties: 8
+  firebase-crashlytics.properties: 8
+  firebase-datatransport.properties: 8
+  firebase-dynamic-links.properties: 8
+  firebase-encoders-json.properties: 8
+  firebase-encoders-proto.properties: 8
+  firebase-encoders.properties: 8
+  firebase-iid-interop.properties: 8
+  firebase-iid.properties: 8
+  firebase-installations-interop.properties: 8
+  firebase-installations.properties: 8
+  firebase-measurement-connector.properties: 8
+  firebase-messaging.properties: 8
+  play-services-ads-base.properties: 8
+  play-services-ads-identifier.properties: 8
+  play-services-ads-lite.properties: 8
+  play-services-ads.properties: 8
+  play-services-appset.properties: 8
+  play-services-auth-api-phone.properties: 8
+  play-services-auth-base.properties: 8
+  play-services-auth.properties: 8
+  play-services-base.properties: 8
+  play-services-basement.properties: 8
+  play-services-cloud-messaging.properties: 8
+  play-services-drive.properties: 8
+  play-services-games.properties: 8
+  play-services-measurement-api.properties: 8
+  play-services-measurement-base.properties: 8
+  play-services-measurement-impl.properties: 8
+  play-services-measurement-sdk-api.properties: 8
+  play-services-measurement-sdk.properties: 8
+  play-services-measurement.properties: 8
+  play-services-nearby.properties: 8
+  play-services-safetynet.properties: 8
+  play-services-stats.properties: 8
+  play-services-tasks.properties: 8
+  transport-api.properties: 8
+  transport-backend-cct.properties: 8
+  transport-runtime.properties: 8
+  user-messaging-platform.properties: 8
+doNotCompress:
+- resources.arsc
+- META-INF/androidx.annotation_annotation-experimental.version
+- META-INF/androidx.arch.core_core-runtime.version
+- META-INF/androidx.asynclayoutinflater_asynclayoutinflater.version
+- META-INF/androidx.browser_browser.version
+- META-INF/androidx.coordinatorlayout_coordinatorlayout.version
+- META-INF/androidx.core_core.version
+- META-INF/androidx.cursoradapter_cursoradapter.version
+- META-INF/androidx.customview_customview.version
+- META-INF/androidx.documentfile_documentfile.version
+- META-INF/androidx.drawerlayout_drawerlayout.version
+- META-INF/androidx.fragment_fragment.version
+- META-INF/androidx.interpolator_interpolator.version
+- META-INF/androidx.legacy_legacy-support-core-ui.version
+- META-INF/androidx.legacy_legacy-support-core-utils.version
+- META-INF/androidx.lifecycle_lifecycle-livedata-core.version
+- META-INF/androidx.lifecycle_lifecycle-livedata.version
+- META-INF/androidx.lifecycle_lifecycle-runtime.version
+- META-INF/androidx.lifecycle_lifecycle-service.version
+- META-INF/androidx.lifecycle_lifecycle-viewmodel.version
+- META-INF/androidx.loader_loader.version
+- META-INF/androidx.localbroadcastmanager_localbroadcastmanager.version
+- META-INF/androidx.print_print.version
+- META-INF/androidx.room_room-runtime.version
+- META-INF/androidx.slidingpanelayout_slidingpanelayout.version
+- META-INF/androidx.sqlite_sqlite-framework.version
+- META-INF/androidx.sqlite_sqlite.version
+- META-INF/androidx.startup_startup-runtime.version
+- META-INF/androidx.swiperefreshlayout_swiperefreshlayout.version
+- META-INF/androidx.tracing_tracing.version
+- META-INF/androidx.versionedparcelable_versionedparcelable.version
+- META-INF/androidx.viewpager_viewpager.version
+- META-INF/androidx.work_work-runtime.version
+- assets/google-services-desktop.json
+- assets/google-services.json
+- assets/google-services.plist
+- assets/bin/Data/0065133ba46c3da4bab930c9ce2bd042.resource
+- assets/bin/Data/0243d354df2458642b405b0f331c1772.resource
+- assets/bin/Data/032f1afd1c5e1854ab2c76bb4139dfd5.resource
+- assets/bin/Data/15c1267d5f6a65d4e8bf10dea38d3fab.resource
+- assets/bin/Data/1c5dcd73ec8a4524eb42dc308c843eba.resource
+- assets/bin/Data/2095c7540dfa72e43bc22cc79bbc95ff.resource
+- assets/bin/Data/22e7185373074be4083913c56172a49c.resource
+- assets/bin/Data/26250a6096c41a144b79279e7cd20f75.resource
+- assets/bin/Data/2653e43be69ade441a8324728a783974.resource
+- assets/bin/Data/271d9b25f29927e45bbda53450ffbfa5.resource
+- assets/bin/Data/2b080a446cc2a814abafb73cd7184ddc.resource
+- assets/bin/Data/2d58f8b6b6ec3d846b0d6854c83d82ec.resource
+- assets/bin/Data/3156303b69bd69e4eb2dbea8f3fab1c8.resource
+- assets/bin/Data/38fd40574e0f43b4c95ba405cdf64077.resource
+- assets/bin/Data/3931ada0a4431e8458f78ec6c47aad00.resource
+- assets/bin/Data/3fe05f3eed7b27843baa914849d53260.resource
+- assets/bin/Data/49df85b63fd5e7e41b0af1bf6dfb0e18.resource
+- assets/bin/Data/4b3b0931e3d1ade44b883a1dc6863854.resource
+- assets/bin/Data/52c6a3309ed18bd4e82ae4204b07d6f1.resource
+- assets/bin/Data/5640422b7d3847648b16f259e9bf2a81.resource
+- assets/bin/Data/5654c21789b933b49838505e0c267c38.resource
+- assets/bin/Data/5b89d4a162529044f97761c2594e10ae.resource
+- assets/bin/Data/5d743e2a083bd0f46ae9df3588393da9.resource
+- assets/bin/Data/60e708e48dd2a304384c90fae5a31fb8.resource
+- assets/bin/Data/60e88cba054835b4ab70fb3abdf3609f.resource
+- assets/bin/Data/6542cfd1197334342a24eba630783716.resource
+- assets/bin/Data/6efeb3b53f5d81f419537a0df1adf513.resource
+- assets/bin/Data/70712da3d23603744a70294269c018e5.resource
+- assets/bin/Data/74645884058a1494cab19e2fb2fa6e85.resource
+- assets/bin/Data/7b617e4e52ccc714fa01bf8dbdc7f42e.resource
+- assets/bin/Data/84b70ccb0049e174da2409f34341ffd0.resource
+- assets/bin/Data/8fffc29b8a4663e4898337332b344b68.resource
+- assets/bin/Data/91770e609ab68674d85c514abc56e502.resource
+- assets/bin/Data/9aec672caf181c7498509d0d9ed6fa44.resource
+- assets/bin/Data/a1679644e27cd4a46adf0e590ccb2e45.resource
+- assets/bin/Data/b64170607ce187444b79b0a28c497ea0.resource
+- assets/bin/Data/ca7567bc5c4e35e40b24601c254e0dfa.resource
+- assets/bin/Data/cbf9307e364373a47a2328a30f80dfec.resource
+- assets/bin/Data/cbfe3a04862e77e4eba61f37f7dd4035.resource
+- assets/bin/Data/d001918f790f13b43bd911a31d42cbfe.resource
+- assets/bin/Data/d0be7fe76c4544d44bbe3217801b0b72.resource
+- assets/bin/Data/d474050c132e9344f8047a806db2d806.resource
+- assets/bin/Data/d6dae88199d26c1478215b9a68ec9ce2.resource
+- assets/bin/Data/e613184017ef7cd488f6158c4f2cb1b8.resource
+- assets/bin/Data/f03beb1fb66197c4bbbc04399d8b3038.resource
+- assets/bin/Data/f28d9729e94a2b54ca321b03f9ed3f55.resource
+- assets/bin/Data/f419665d2adebef4592bd800147f0c2e.resource
+- assets/bin/Data/fcacfbe3f6c1c404788fc1a54361c5fe.resource
+- png

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:padding="7.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="14.0sp" android:textColor="#ff3e3e3e" android:ellipsize="end" android:id="@id/tt_bu_desc" android:layout_width="0.0dip" android:layout_height="wrap_content" android:maxLines="1" android:layout_weight="1.0" />
+        <ImageView android:id="@id/tt_bu_close" android:layout_width="15.0dip" android:layout_height="15.0dip" android:src="@drawable/tt_titlebar_close_press_for_dark" android:scaleType="fitXY" />
+    </LinearLayout>
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="5.0dip" android:layout_weight="1.0">
+        <ImageView android:id="@id/tt_bu_img" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="fitXY" />
+        <include android:layout_gravity="bottom" android:id="@id/tt_backup_logoLayout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginBottom="5.0dip" layout="@layout/tt_backup_ad" />
+    </FrameLayout>
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="7.0dip">
+        <com.bytedance.sdk.openadsdk.core.widget.RoundImageView android:id="@id/tt_bu_icon" android:layout_width="25.0dip" android:layout_height="25.0dip" android:layout_marginRight="3.0dip" android:scaleType="fitXY" android:layout_centerVertical="true" />
+        <TextView android:textSize="12.0sp" android:textColor="#ffaeaeae" android:ellipsize="end" android:id="@id/tt_bu_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:layout_toLeftOf="@id/tt_bu_download" android:layout_toRightOf="@id/tt_bu_icon" android:layout_centerVertical="true" />
+        <TextView android:textSize="12.0sp" android:textColor="#bb0082ff" android:gravity="center" android:id="@id/tt_bu_download" android:background="@drawable/tt_backup_btn_2" android:layout_width="70.0dip" android:layout_height="25.0dip" android:text="@string/tt_video_download_apk" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/tt_white" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:visibility="visible" android:layout_width="fill_parent" android:layout_height="220.0dip" android:scaleType="centerCrop">
+        <FrameLayout android:id="@id/tt_native_video_container" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="centerCrop" />
+        <include android:id="@id/tt_browser_webview_top" android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/tt_top_reward_dislike_3" />
+    </FrameLayout>
+    <RelativeLayout android:id="@id/tt_rl_download" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
+        <com.bytedance.sdk.openadsdk.core.widget.RoundImageView android:id="@id/tt_video_ad_logo_image" android:visibility="gone" android:layout_width="44.0dip" android:layout_height="44.0dip" android:layout_marginLeft="5.0dip" android:scaleType="centerInside" android:layout_alignParentLeft="true" android:layout_centerInParent="true" android:layout_centerHorizontal="true" android:layout_marginStart="5.0dip" android:layout_alignParentStart="true" />
+        <TextView android:textSize="19.0sp" android:textStyle="bold" android:textColor="@color/tt_white" android:gravity="center" android:id="@id/tt_video_btn_ad_image_tv" android:background="@drawable/tt_circle_solid_mian" android:visibility="visible" android:layout_width="44.0dip" android:layout_height="44.0dip" android:layout_marginLeft="5.0dip" android:layout_alignParentLeft="true" android:layout_centerInParent="true" android:layout_marginStart="5.0dip" android:layout_alignParentStart="true" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/tt_ssxinmian11" android:ellipsize="end" android:id="@id/tt_video_ad_name" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginTop="6.0dip" android:layout_marginRight="80.0dip" android:maxLines="1" android:layout_toRightOf="@id/tt_video_btn_ad_image_tv" android:layout_centerInParent="true" android:layout_marginStart="5.0dip" android:layout_marginEnd="80.0dip" android:layout_toEndOf="@id/tt_video_btn_ad_image_tv" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/tt_white" android:ellipsize="end" android:gravity="center" android:id="@id/tt_video_ad_button" android:background="@drawable/tt_ad_cover_btn_begin_bg" android:padding="2.0dip" android:focusable="true" android:visibility="visible" android:clickable="true" android:layout_width="90.0dip" android:layout_height="36.0dip" android:layout_marginRight="5.0dip" android:text="@string/tt_video_mobile_go_detail" android:maxLines="1" android:layout_alignParentRight="true" android:layout_centerInParent="true" android:layout_marginEnd="5.0dip" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <com.bytedance.sdk.component.widget.SSWebView android:id="@id/tt_browser_webview" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="2.0dip" />
+        <include android:id="@id/tt_browser_webview_loading" android:layout_width="fill_parent" android:layout_height="fill_parent" layout="@layout/tt_full_reward_video_landing_page_loading" />
+        <ViewStub android:layout_gravity="bottom|center" android:id="@id/tt_browser_download_btn_stub" android:layout="@layout/tt_browser_download_layout" android:layout_width="fill_parent" android:layout_height="48.0dip" />
+    </FrameLayout>
+</LinearLayout>

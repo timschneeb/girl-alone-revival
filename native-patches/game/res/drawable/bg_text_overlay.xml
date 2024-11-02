@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/ia_bg_corner_radius" />
+            <solid android:color="@color/ia_video_overlay_text_background" />
+            <stroke android:width="@dimen/ia_overlay_stroke_width" android:color="@color/ia_video_overlay_stroke" />
+        </shape>
+    </item>
+</selector>

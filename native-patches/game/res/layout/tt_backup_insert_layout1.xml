@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="337.0">
+        <ImageView android:id="@id/tt_bu_img" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="fitXY" />
+        <ImageView android:layout_gravity="end|center|top" android:id="@id/tt_bu_close" android:layout_width="20.0dip" android:layout_height="20.0dip" android:layout_marginTop="10.0dip" android:layout_marginRight="10.0dip" android:src="@drawable/tt_dislike_icon" android:scaleType="fitXY" />
+        <include android:layout_gravity="bottom" android:id="@id/tt_backup_logoLayout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginTop="10.0dip" android:layout_marginBottom="10.0dip" layout="@layout/tt_backup_ad" />
+        <TextView android:layout_gravity="bottom|center|left" android:id="@id/tt_bu_dislike" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginBottom="30.0dip" android:text="@string/tt_reward_feedback" />
+    </FrameLayout>
+    <LinearLayout android:orientation="vertical" android:padding="16.0dip" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="263.0">
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <ImageView android:id="@id/tt_bu_icon" android:layout_width="45.0dip" android:layout_height="45.0dip" android:layout_marginRight="10.0dip" android:src="@drawable/tt_dislike_icon" android:scaleType="fitXY" />
+            <TextView android:textSize="16.0sp" android:textColor="#ff333333" android:ellipsize="end" android:id="@id/tt_bu_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:layout_toRightOf="@id/tt_bu_icon" />
+            <TextView android:textSize="12.0sp" android:textColor="#ff999999" android:ellipsize="end" android:id="@id/tt_bu_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:layout_toRightOf="@id/tt_bu_icon" android:layout_below="@id/tt_bu_title" />
+        </RelativeLayout>
+        <TextView android:textSize="14.0sp" android:textColor="#ffffffff" android:gravity="center" android:id="@id/tt_bu_download" android:background="@drawable/tt_backup_btn_1" android:layout_width="fill_parent" android:layout_height="32.0dip" android:layout_marginTop="16.0dip" android:text="@string/tt_video_download_apk" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@color/ia_fullscreen_background" android:layout_width="fill_parent" android:layout_height="fill_parent" android:contentDescription="IAInterstitialView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/ia_ad_content" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:layout_gravity="center|right|top" android:id="@id/close_button_container" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <FrameLayout android:layout_gravity="center|right|top" android:id="@id/ia_fl_close_button" android:background="@android:color/transparent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/ia_overlay_control_margin">
+            <TextView android:textColor="@android:color/white" android:gravity="center" android:id="@id/ia_tv_close_button" android:background="@drawable/ia_round_overlay_bg_with_close" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <ImageView android:layout_gravity="center" android:id="@id/ia_iv_close_button" android:background="@drawable/ia_round_overlay_bg" android:visibility="gone" android:layout_width="@dimen/ia_round_control_size" android:layout_height="@dimen/ia_round_control_size" android:src="@drawable/ia_close" android:scaleType="fitCenter" />
+        </FrameLayout>
+        <FrameLayout android:layout_gravity="center|right|top" android:id="@id/ia_clickable_close_button" android:visibility="gone" android:layout_width="@dimen/ia_round_control_size_clickable" android:layout_height="@dimen/ia_round_control_size_clickable" />
+    </FrameLayout>
+</FrameLayout>

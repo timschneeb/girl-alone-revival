@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@id/ia_close_button_background_item">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/ia_round_overlay_radius" />
+            <size android:height="@dimen/ia_round_control_size" android:width="@dimen/ia_round_control_size" />
+            <solid android:color="@android:drawable/screen_background_dark_transparent" />
+        </shape>
+    </item>
+</layer-list>

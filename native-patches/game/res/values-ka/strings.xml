@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_google_play_services_enable_button">ჩართვა</string>
+    <string name="common_google_play_services_enable_text">%1$s ვერ იმუშავებს Google Play Services-ის ჩართვამდე.</string>
+    <string name="common_google_play_services_enable_title">Google Play Services-ის ჩართვა</string>
+    <string name="common_google_play_services_install_button">ინსტალაცია</string>
+    <string name="common_google_play_services_install_text">%1$s ვერ გაეშვება Google Play Services-ის გარეშე, რომელიც აკლია თქვენს მოწყობილობას.</string>
+    <string name="common_google_play_services_install_title">Google Play Services-ის ჩამოტვირთვა</string>
+    <string name="common_google_play_services_notification_channel_name">Google Play services-ის ხელმისაწვდომობა</string>
+    <string name="common_google_play_services_notification_ticker">Google Play Services-ის შეცდომა</string>
+    <string name="common_google_play_services_unknown_issue">%1$s-ს Google Play Services-თან პრობლემა შეექმნა. გთხოვთ, ცადოთ ხელახლა.</string>
+    <string name="common_google_play_services_unsupported_text">%1$s ვერ გაეშვება Google Play Services-ის გარეშე, რომლებიც მხარდაუჭერელია თქვენი მოწყობილობის მიერ.</string>
+    <string name="common_google_play_services_update_button">განახლება</string>
+    <string name="common_google_play_services_update_text">%1$s ვერ გაეშვება, თუ Google Play სერვისებს არ განაახლებთ.</string>
+    <string name="common_google_play_services_update_title">განაახლეთ Google Play Services</string>
+    <string name="common_google_play_services_updating_text">%1$s ვერ გაეშვება Google Play Services-ის გარეშე, რომელთა განახლებაც ამჟამად მიმდინარეობს.</string>
+    <string name="common_google_play_services_wear_update_text">საჭიროა Google Play Services-ის ახალი ვერსია. ის მალე განახლდება.</string>
+    <string name="common_open_on_phone">ტელეფონში გახსნა</string>
+    <string name="common_signin_button_text">შესვლა</string>
+    <string name="common_signin_button_text_long">Google-ით შესვლა</string>
+    <string name="copy_toast_msg">გაცვლის ბუფერში კოპირებული ბმული</string>
+    <string name="fallback_menu_item_copy_link">ბმულის კოპირება</string>
+    <string name="fallback_menu_item_open_in_browser">ბრაუზერში გახსნა</string>
+    <string name="fallback_menu_item_share_link">ბმულის გაზიარება</string>
+    <string name="offline_notification_text">შეეხეთ რეკლამის გასახსნელად</string>
+    <string name="offline_notification_title">ნახეთ თქვენ მიერ ხაზგარეშე ყოფნისას შენახული რეკლამა</string>
+    <string name="offline_opt_in_confirm">კარგი</string>
+    <string name="offline_opt_in_confirmation">თქვენ მიიღებთ შეტყობინებას ბმულით, როდესაც ონლაინ დაბრუნდებით</string>
+    <string name="offline_opt_in_decline">არა, გმადლობთ</string>
+    <string name="offline_opt_in_message">ჩვენ გამოგიგზავნით შეტყობინებას რეკლამის განმთავსების საიტის ბმულით.</string>
+    <string name="offline_opt_in_title">გახსენით რეკლამა, როდესაც ონლაინ დაბრუნდებით.</string>
+    <string name="s1">სურათის შენახვა</string>
+    <string name="s2">აძლევთ ნებას რეკლამას, შეინახოს სურათი გალერეაში?</string>
+    <string name="s3">მიღება</string>
+    <string name="s4">უარყოფა</string>
+    <string name="s5">კალენდარში მოვლენის შექმნა</string>
+    <string name="s6">აძლევთ ნებას რეკლამას, შექმნას მოვლენა კალენდარში?</string>
+    <string name="s7">სატესტო რეკლამა</string>
+    <string name="status_bar_notification_info_overflow">999+</string>
+</resources>

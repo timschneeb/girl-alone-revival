@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background" android:drawable="@drawable/tt_pangle_star_empty_bg" />
+    <item android:id="@android:id/secondaryProgress" android:width="14.0dip" android:drawable="@drawable/tt_pangle_star_empty_bg" />
+    <item android:id="@android:id/progress" android:drawable="@drawable/tt_pangle_star_full_bg" />
+</layer-list>

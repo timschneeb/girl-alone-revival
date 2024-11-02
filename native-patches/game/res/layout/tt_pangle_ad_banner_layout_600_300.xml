@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@android:color/white" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="12.0sp" android:textColor="#ff3e3e3e" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/tt_pangle_ad_content" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:layout_marginTop="9.0dip" android:layout_marginRight="16.0dip" android:text="マルチロール戦略モバイルゲームマルチロー" android:maxLines="1" />
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:layout_marginTop="8.0dip" android:layout_marginStart="12.0dip">
+        <FrameLayout android:layout_gravity="center_vertical" android:id="@id/tt_pangle_ad_image_layout" android:layout_width="185.0dip" android:layout_height="150.0dip" android:layout_marginBottom="12.0dip">
+            <ImageView android:id="@id/tt_pangle_ad_main_img" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="fitXY" />
+            <TextView android:layout_gravity="start|bottom|center" android:background="@drawable/tt_ad_logo_new" android:layout_width="32.0dip" android:layout_height="14.0dip" android:layout_marginLeft="5.0dip" android:layout_marginBottom="5.0dip" android:layout_marginStart="5.0dip" />
+        </FrameLayout>
+        <RelativeLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:id="@id/tt_pangle_ad_content_layout" android:paddingTop="0.0dip" android:layout_width="135.0dip" android:layout_height="fill_parent" android:layout_marginTop="0.0dip">
+            <com.bytedance.sdk.openadsdk.adapter.NiceImageView android:id="@id/tt_pangle_ad_icon_adapter" android:layout_width="35.0dip" android:layout_height="35.0dip" android:layout_marginLeft="12.0dip" android:layout_marginRight="12.0dip" android:scaleType="fitXY" android:layout_alignParentTop="true" android:layout_centerHorizontal="true" />
+            <TextView android:textSize="12.0sp" android:textColor="#ff3e3e3e" android:id="@id/tt_pangle_ad_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="12.0dip" android:text="センザンコウ" android:maxLines="1" android:layout_below="@id/tt_pangle_ad_icon_adapter" android:layout_centerHorizontal="true" />
+            <Button android:textSize="10.0sp" android:textColor="#ffffffff" android:gravity="center" android:id="@id/tt_pangle_ad_btn" android:background="@drawable/tt_pangle_banner_btn_bg" android:layout_width="wrap_content" android:layout_height="25.0dip" android:layout_marginLeft="12.0dip" android:layout_marginRight="12.0dip" android:layout_marginBottom="12.0dip" android:maxWidth="25.0dip" android:maxHeight="30.0dip" android:text="download " android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginEnd="12.0dip" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

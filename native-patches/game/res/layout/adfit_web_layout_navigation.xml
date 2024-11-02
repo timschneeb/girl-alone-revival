@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:layout_gravity="top" android:orientation="horizontal" android:id="@id/webview_navigation" android:layout_width="fill_parent" android:layout_height="@dimen/adfit_webview_navi_height"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/webview_navi_close_button" android:background="@drawable/adfit_selector_inapp_btn_background" android:paddingLeft="12.0dip" android:paddingRight="12.0dip" android:focusable="true" android:layout_width="wrap_content" android:layout_height="fill_parent" android:contentDescription="@string/adfit_iab_close" android:layout_marginStart="4.0dip">
+        <ImageView android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/adfit_inapp_btn_close" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/webview_navi_back_button" android:background="@drawable/adfit_selector_inapp_btn_background" android:paddingLeft="12.0dip" android:paddingRight="12.0dip" android:focusable="true" android:layout_width="wrap_content" android:layout_height="fill_parent" android:contentDescription="@string/adfit_iab_go_back">
+        <ImageView android:layout_gravity="center" android:duplicateParentState="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/adfit_selector_inapp_btn_back" />
+    </FrameLayout>
+    <LinearLayout android:gravity="center_vertical" android:layout_gravity="center" android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" android:layout_marginStart="12.5dip" android:layout_marginEnd="1.5dip">
+        <TextView android:enabled="false" android:textSize="14.0dip" android:textStyle="bold" android:textColor="#ff121212" android:layout_gravity="center_horizontal" android:id="@id/webview_navi_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:includeFontPadding="false" />
+        <TextView android:enabled="false" android:textSize="11.0dip" android:textColor="#ff999999" android:layout_gravity="center_horizontal" android:id="@id/webview_navi_address" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:includeFontPadding="false" />
+    </LinearLayout>
+    <FrameLayout android:id="@id/webview_navi_forward_button" android:background="@drawable/adfit_selector_inapp_btn_background" android:paddingLeft="12.0dip" android:paddingRight="12.0dip" android:focusable="true" android:layout_width="wrap_content" android:layout_height="fill_parent" android:contentDescription="@string/adfit_iab_go_forward" android:layout_marginEnd="6.0dip">
+        <ImageView android:layout_gravity="center" android:duplicateParentState="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/adfit_selector_inapp_btn_forward" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/webview_navi_more_button" android:background="@drawable/adfit_selector_inapp_btn_background" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:focusable="true" android:layout_width="wrap_content" android:layout_height="fill_parent" android:contentDescription="@string/adfit_iab_menu" android:layout_marginEnd="6.0dip">
+        <ImageView android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/adfit_inapp_btn_more" />
+    </FrameLayout>
+</LinearLayout>

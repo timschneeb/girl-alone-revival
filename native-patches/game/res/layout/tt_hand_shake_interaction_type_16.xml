@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:id="@id/tt_hand_container" android:layout_width="80.0dip" android:layout_height="80.0dip">
+        <ImageView android:id="@id/tt_splash_rock_img" android:layout_width="60.0dip" android:layout_height="60.0dip" android:src="@drawable/tt_splash_rock" />
+    </LinearLayout>
+    <TextView android:textSize="18.0dip" android:textColor="@android:color/white" android:layout_gravity="center" android:id="@id/tt_splash_rock_top_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:text="@string/tt_splash_rock_top_text" android:singleLine="true" android:shadowColor="#99000000" android:shadowDx="3.0" android:shadowDy="3.0" android:shadowRadius="4.0" />
+    <TextView android:textSize="14.0dip" android:textColor="@android:color/white" android:layout_gravity="center" android:id="@id/tt_splash_rock_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/tt_splash_rock_text" android:shadowColor="#99000000" android:shadowDx="3.0" android:shadowDy="3.0" android:shadowRadius="4.0" />
+</LinearLayout>

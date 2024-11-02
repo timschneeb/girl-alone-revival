@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center" android:id="@id/tt_native_video_layout" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_gravity="center" android:id="@id/tt_native_video_frame" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/tt_native_video_img_cover_viewStub" android:layout="@layout/tt_native_video_img_cover_layout" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</FrameLayout>

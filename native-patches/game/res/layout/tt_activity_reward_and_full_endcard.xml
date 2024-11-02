@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:id="@id/tt_reward_full_endcard_backup" android:background="@color/tt_white" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.bytedance.sdk.openadsdk.core.widget.TTRoundRectImageView android:id="@id/tt_reward_ad_icon_backup" android:background="@android:color/transparent" android:layout_width="100.0dip" android:layout_height="100.0dip" android:layout_centerVertical="true" />
+        <TextView android:textSize="20.0sp" android:textColor="#ff333333" android:ellipsize="end" android:id="@id/tt_reward_ad_appname_backup" android:layout_width="wrap_content" android:layout_height="28.0dip" android:layout_marginTop="16.0dip" android:maxWidth="180.0dip" android:text="部落战争：皇室冲突" android:singleLine="true" />
+        <com.bytedance.sdk.openadsdk.core.widget.TTRatingBar2 android:layout_gravity="center" android:id="@id/tt_rb_score_backup" android:layout_width="wrap_content" android:layout_height="16.0dip" android:layout_marginTop="12.0dip" />
+        <TextView android:textSize="14.0sp" android:textColor="#ff93959a" android:ellipsize="end" android:id="@id/tt_comment_backup" android:layout_width="wrap_content" android:layout_height="20.0dip" android:layout_marginTop="8.0dip" android:text="@string/tt_comment_num_backup" android:singleLine="true" />
+        <TextView android:textSize="16.0sp" android:textColor="@color/tt_white" android:gravity="center" android:id="@id/tt_reward_ad_download_backup" android:background="@drawable/tt_reward_full_video_backup_btn_bg" android:layout_width="fill_parent" android:layout_height="46.0dip" android:layout_margin="20.0dip" android:text="@string/tt_video_download_apk" />
+        <TextView android:gravity="center" android:layout_gravity="start|bottom|center" android:id="@id/tt_ad_endcard_logo" android:background="@drawable/tt_ad_logo_new" android:layout_width="32.0dip" android:layout_height="14.0dip" android:layout_marginLeft="20.0dip" android:layout_marginBottom="16.0dip" />
+    </LinearLayout>
+</LinearLayout>

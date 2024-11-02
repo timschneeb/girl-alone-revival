@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@android:color/black" android:layout_width="fill_parent" android:layout_height="fill_parent" android:contentDescription="IAInterstitialView"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <VideoView android:id="@id/mraid_video_view" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_centerInParent="true" />
+    <ImageView android:id="@id/ia_iv_close_button" android:background="@drawable/ia_round_overlay_bg" android:padding="@dimen/ia_round_control_padding" android:visibility="visible" android:layout_width="@dimen/ia_round_control_size" android:layout_height="@dimen/ia_round_control_size" android:layout_marginTop="@dimen/ia_overlay_control_margin" android:layout_marginRight="@dimen/ia_overlay_control_margin" android:src="@drawable/ia_close" android:scaleType="fitCenter" android:layout_alignParentRight="true" android:layout_alignParentEnd="true" />
+</RelativeLayout>

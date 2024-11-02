@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/tt_main_image" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <LinearLayout android:orientation="horizontal" android:id="@id/tt_layout_image_group" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <ImageView android:id="@id/tt_group_image1" android:layout_width="0.0dip" android:layout_height="100.0dip" android:layout_marginRight="5.0dip" android:scaleType="centerCrop" android:layout_weight="1.0" android:layout_marginEnd="5.0dip" />
+        <ImageView android:id="@id/tt_group_image2" android:layout_width="0.0dip" android:layout_height="100.0dip" android:layout_marginRight="5.0dip" android:scaleType="centerCrop" android:layout_weight="1.0" android:layout_marginEnd="5.0dip" />
+        <ImageView android:id="@id/tt_group_image3" android:layout_width="0.0dip" android:layout_height="100.0dip" android:scaleType="centerCrop" android:layout_weight="1.0" />
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@android:drawable/screen_background_dark_transparent" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="ia_default_endcard_video_overlay"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_horizontal" android:layout_gravity="bottom|center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/ia_endcard_button_margin_bottom">
+        <Button android:textSize="@dimen/ia_video_overlay_text_large_plus" android:textStyle="normal" android:textColor="@android:color/white" android:gravity="center" android:id="@id/ia_b_end_card_call_to_action" android:background="@drawable/bg_green" android:paddingLeft="@dimen/ia_button_padding_lateral" android:paddingTop="@dimen/ia_endcard_button_padding_vertical" android:paddingRight="@dimen/ia_button_padding_lateral" android:paddingBottom="@dimen/ia_endcard_button_padding_vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="@dimen/ia_video_control_margin" android:minHeight="1.0dip" android:lineSpacingMultiplier="1.38" android:textAllCaps="false" android:letterSpacing="0.04" />
+    </LinearLayout>
+</FrameLayout>

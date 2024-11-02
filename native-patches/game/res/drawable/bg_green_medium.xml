@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="5.0dip" />
+    <size android:height="@dimen/ia_endcard_overlay_button_height_medium" android:width="@dimen/ia_endcard_overlay_button_width_medium" />
+    <solid android:color="#ff00d691" />
+</shape>

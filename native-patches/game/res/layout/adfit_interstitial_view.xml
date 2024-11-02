@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@android:color/black" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/btn_close_ad" android:layout_width="48.0dip" android:layout_height="48.0dip" android:src="@drawable/adx_interstitial_close" android:scaleType="center" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+    <RelativeLayout android:id="@id/adfit_content_layout" android:layout_width="300.0dip" android:layout_height="250.0dip" android:layout_centerInParent="true" />
+</RelativeLayout>

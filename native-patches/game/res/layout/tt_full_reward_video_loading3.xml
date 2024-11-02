@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:id="@id/tt_full_reward_video_loading" android:background="#ff161823" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/wave_container" android:layout_width="fill_parent" android:layout_height="60.0dip">
+            <View android:id="@id/wave1" android:background="@drawable/tt_ad_loading_three_left" android:layout_width="17.0dip" android:layout_height="35.0dip" android:layout_marginRight="-1.5dip" />
+            <View android:id="@id/wave2" android:background="@drawable/tt_ad_loading_three_mid" android:layout_width="17.0dip" android:layout_height="35.0dip" android:layout_marginRight="-1.5dip" />
+            <View android:id="@id/wave3" android:background="@drawable/tt_ad_loading_three_mid" android:layout_width="17.0dip" android:layout_height="35.0dip" />
+            <View android:id="@id/wave4" android:background="@drawable/tt_ad_loading_three_mid" android:layout_width="17.0dip" android:layout_height="35.0dip" android:layout_marginLeft="-1.5dip" />
+            <View android:id="@id/wave5" android:background="@drawable/tt_ad_loading_three_right" android:layout_width="17.0dip" android:layout_height="35.0dip" android:layout_marginLeft="-1.5dip" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip">
+            <TextView android:textSize="30.0dip" android:textColor="#ffffffff" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading " />
+            <TextView android:textSize="30.0dip" android:textColor="#ffffffff" android:id="@id/tt_loading_progress_number" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="30.0dip" android:textColor="#ffffffff" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="%" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:id="@id/tt_ad_loading_logo" android:background="@drawable/tt_ad_logo_new" android:layout_width="32.0dip" android:layout_height="14.0dip" android:layout_marginLeft="20.0dip" android:layout_marginBottom="20.0dip" android:layout_alignParentBottom="true" android:layout_marginStart="20.0dip" />
+</RelativeLayout>
