@@ -1323,6 +1323,10 @@
         "prefabs/map_04_prefabs": [
             1,
             45921
+        ],
+        "table/maptable": [
+            1,
+            4040
         ]
     }
 }
