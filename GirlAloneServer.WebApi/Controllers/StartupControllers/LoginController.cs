@@ -7,37 +7,8 @@ namespace GirlAloneServer.WebApi.Controllers.StartupControllers;
 public sealed class LoginController : Controller
 {
     [HttpPost]
-    [Route("Login.php")]
-    public string Login()
-    {
-        /*
-            Available post data:
-                platform=PlayStore
-                id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
-                DBAddress=http://ga-sb0.0001002.xyz/Build/
-                FireBaseid=FirebaseID
-                DBNumber=0
-                Country=US
-        */
-
-        // TODO Implement actual JSON response logic
-        return string.Join(';',
-            ResultCode.SUCCESS.ToString(), 
-            "UserData",
-            "Bug",
-            "Conversation",
-            "Ending",
-            "Inventory",
-            "Map",
-            "Mission",
-            "Quest",
-            "Premium",
-            "GirlData");
-    }
-    
-    [HttpPost]
     [Route("CheckTeser.php")]
-    public string CheckTester()
+    public string CheckTester([FromForm] IFormCollection body)
     {
         /*
             Available post data:
@@ -51,7 +22,7 @@ public sealed class LoginController : Controller
     
     [HttpPost]
     [Route("GetPromotion.php")]
-    public string GetPromotion()
+    public string GetPromotion([FromForm] IFormCollection body)
     {
         /*
             Available post data:
@@ -63,7 +34,7 @@ public sealed class LoginController : Controller
     
     [HttpPost]
     [Route("GetNoticeCheck.php")]
-    public string GetNoticeCheck()
+    public string GetNoticeCheck([FromForm] IFormCollection body)
     {
         /*
             Available post data:
@@ -71,12 +42,20 @@ public sealed class LoginController : Controller
         */
 
         // TODO
-        return ResultCode.SUCCESS.ToString();
+        return string.Join(';', 
+            ResultCode.SUCCESS.ToString(),
+            """
+            {
+                "NO_ID": "2",
+                "NO_Info_LANGUAGE": "ENG"
+            }
+            """
+        );
     }
     
     [HttpPost]
     [Route("GetNoticeCheck_Inner.php")]
-    public string GetNoticeCheckInner()
+    public string GetNoticeCheckInner([FromForm] IFormCollection body)
     {
         /*
             Available post data:
@@ -84,12 +63,20 @@ public sealed class LoginController : Controller
         */
 
         // TODO
-        return ResultCode.SUCCESS.ToString();
+        return string.Join(';', 
+            ResultCode.SUCCESS.ToString(),
+            """
+            {
+                "NO_ID": "1",
+                "NO_Info_LANGUAGE": "ENG"
+            }
+            """
+            );
     }
 
     [HttpPost]
     [Route("GetServerCheck.php")]
-    public string GetServerCheck()
+    public string GetServerCheck([FromForm] IFormCollection body)
     {
         /*
             Available post data:

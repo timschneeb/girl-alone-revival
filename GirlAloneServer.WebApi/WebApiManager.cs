@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
+using GirlAloneServer.WebApi.Converters;
 
 namespace GirlAloneServer.WebApi;
 
@@ -31,13 +32,15 @@ public class WebApiManager
         builder.Services.AddMvc().AddApplicationPart(assembly).AddControllersAsServices();
         builder.Services.AddControllers().AddJsonOptions(options =>
         {
-            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+            // TODO: remove this line; we don't want to serialize enums as strings except for ResultCodes; at the moment we are converting them to strings by hand
+            //options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
-        builder.Services.AddHttpLogging(o => { });
+        //builder.Services.AddHttpLogging(o => { });
         builder.Services.AddEndpointsApiExplorer();
 
         var app = builder.Build();
-        app.UseHttpLogging();
+        //app.UseHttpLogging();
         app.UseAuthorization();
         app.MapControllers();
         await app.RunAsync(_cancellationTokenSource.Token);

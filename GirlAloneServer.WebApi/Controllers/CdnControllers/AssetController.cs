@@ -17,6 +17,7 @@ public sealed class AssetController : Controller
     
     [HttpGet]
     [Route("AssetInfo.json")]
+    [ResponseCache(Duration = 604800)]
     public ActionResult GetAssetInfo()
     {
         var stream = new FileStream($"{BasePath}/assets/AssetInfo.json", FileMode.Open, FileAccess.Read, FileShare.None);
@@ -25,6 +26,7 @@ public sealed class AssetController : Controller
     
     [HttpGet]
     [Route("maptable")]
+    [ResponseCache(Duration = 604800)]
     public ActionResult GetMapTable()
     {
         var stream = new FileStream($"{BasePath}/assets/maptable", FileMode.Open, FileAccess.Read, FileShare.None);
@@ -33,6 +35,7 @@ public sealed class AssetController : Controller
 
     [HttpGet]
     [Route("{type}/{name}")]
+    [ResponseCache(Duration = 604800)]
     public ActionResult GetAsset(string type, string name)
     {
         var path = $"{BasePath}/assets/{type}/{name}";

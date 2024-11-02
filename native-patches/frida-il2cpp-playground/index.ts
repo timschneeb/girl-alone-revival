@@ -27,7 +27,7 @@ Il2Cpp.perform(() => {
 
 
     // detailed trace, it traces method calls and returns and it reports every parameter
-    Il2Cpp.trace(false)
+    Il2Cpp.trace(true)
     /*.assemblies(Il2Cpp.domain.assembly("Assembly-CSharp"))
     .filterClasses(klass => klass.namespace.includes("SimpleJSON") && !klass.name.includes("WriteToString"))// && (klass.name.includes("JSONNode")))
     //.filterMethods(method => !method.name.includes("WriteToString") && methods.includes(method.name))
@@ -61,7 +61,7 @@ Il2Cpp.perform(() => {
 
 
         const SystemType = Il2Cpp.domain.assembly("Assembly-CSharp").image
-        .class("GameFramework").nested("CGameServiceMgr");
+        .class("UnityEngine.GameFramework").nested("CGameServiceMgr");
 
         // +++ heap scanning using class descriptors +++
         Il2Cpp.gc.choose(SystemType).forEach((instance: Il2Cpp.Object) => {
