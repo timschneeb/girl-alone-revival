@@ -1,4 +1,5 @@
 using System.Dynamic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -15,21 +16,92 @@ public sealed class SaveDataController : Controller
 {
     public static string AlbumInfo { get; set; } = "";
     
-    public static UserData UserDataInfo { get; set; } = new();
-    public static BugData BugInfo { get; set; } = new();
-    public static MissionData MissionInfo { get; set; } = new();
-    public static ConversationData ConversationInfo { get; set; } = new();
-    public static InventoryData InventoryInfo { get; set; } = new();
-    public static MapData MapInfo { get; set; } = new();
-    public static QuestData QuestInfo { get; set; } = new();
-    public static PremiumData PremiumInfo { get; set; } = new();
-    public static GirlData GirlDataInfo { get; set; } = new();
-    public static EndingData EndingInfo { get; set; } = new();
+    private static readonly string BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
 
+    private static T Read<T>()
+    {
+        var name = typeof(T).Name;
+        if (!System.IO.File.Exists(BasePath + "/data/" + name + ".json")) 
+            return Activator.CreateInstance<T>();
+        
+        var body = System.IO.File.ReadAllText(BasePath + "/data/" + name + ".json");
+        return JsonSerializer.Deserialize<T>(body, SerializerOptions)!;
+    }
+    
+    private static void Write<T>(T data)
+    {
+        var name = typeof(T).Name;
+        var body = JsonSerializer.Serialize(data, SerializerOptions);
+       
+        if(!Path.Exists(BasePath + "/data"))
+            Directory.CreateDirectory(BasePath + "/data");
+        System.IO.File.WriteAllText(BasePath + "/data/" + name + ".json", body);
+    }
+    
+    public static UserData UserDataInfo
+    {
+        get => Read<UserData>();
+        set => Write(value);
+    }
+    
+    public static BugData BugInfo
+    {
+        get => Read<BugData>();
+        set => Write(value);
+    }
+    
+    public static MissionData MissionInfo
+    {
+        get => Read<MissionData>();
+        set => Write(value);
+    }
+    
+    public static ConversationData ConversationInfo
+    {
+        get => Read<ConversationData>();
+        set => Write(value);
+    }
+    
+    public static InventoryData InventoryInfo
+    {
+        get => Read<InventoryData>();
+        set => Write(value);
+    }
+    
+    public static MapData MapInfo
+    {
+        get => Read<MapData>();
+        set => Write(value);
+    }
+    
+    public static QuestData QuestInfo
+    {
+        get => Read<QuestData>();
+        set => Write(value);
+    }
+    
+    public static PremiumData PremiumInfo
+    {
+        get => Read<PremiumData>();
+        set => Write(value);
+    }
+    
+    public static GirlData GirlDataInfo
+    {
+        get => Read<GirlData>();
+        set => Write(value);
+    }
+    
+    public static EndingData EndingInfo
+    {
+        get => Read<EndingData>();
+        set => Write(value);
+    }
 
     private static readonly JsonSerializerOptions SerializerOptions = new()
     {
-        Converters = { new DateTimeConverter() }
+        Converters = { new DateTimeConverter() },
+        NumberHandling = JsonNumberHandling.AllowReadingFromString
     };
 
     public string TrackNotImplemented(IFormCollection body, [CallerMemberName] string callerName = "")
@@ -213,7 +285,7 @@ public sealed class SaveDataController : Controller
                 jsonData={}
         */
         // TODO
-        UserDataInfo.Intro = 1;
+       // UserDataInfo.Intro = 1;
         return TrackNotImplemented(body);
     }
     
@@ -234,7 +306,7 @@ public sealed class SaveDataController : Controller
         {
             var json = JsonSerializer.Deserialize<JsonNode>(jsonData.First() ?? "{'Episode': '1'}", SerializerOptions);
             int episode = int.Parse(json?["Episode"]?.GetValue<string>() ?? "1");
-            UserDataInfo.Episode = episode;
+            UserDataInfo.UD_Episode = episode;
         }
         return TrackNotImplemented(body);
     }
