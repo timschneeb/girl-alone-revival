@@ -17,11 +17,8 @@ namespace GirlAloneServer.WebApi.Model;
     {
         public string? CO_ConversationDailyCount { get; set; } // TODO Unknown type/content
         public DateTime CO_Conversation_Time { get; set; } = DateTime.UnixEpoch;
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int CO_AskCount { get; set; } = 0;
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int CO_ConversationCount { get; set; } = 5;
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int CO_ExtraConversationCount { get; set; } = 0;
     }
 
@@ -47,7 +44,7 @@ namespace GirlAloneServer.WebApi.Model;
         public string GD_Tire { get; set; } = string.Empty;
 
         [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
-        public /*GirlPosture*/ int GD_Posture { get; set; } = -1; // GirlPosture.NONE;
+        public /*GirlPosture*/ int GD_Posture { get; set; } = 1; // Sitting // GirlPosture.NONE;
         public int GD_FeelingUp_DemandCount { get; set; } = 0;
         public int GD_FeelingUp_GiveItemCount { get; set; } = 0;
     }
@@ -71,7 +68,6 @@ namespace GirlAloneServer.WebApi.Model;
         public string? MA_BuildingInfo { get; set; } = null; // Dictionary<string, int>
         public string? MA_FirstClear { get; set; } = null; // Dictionary<string, string>
         public DateTime MA_Date_StartTime { get; set; } = DateTime.UnixEpoch;
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int MA_Date_Place { get; set; } = -1; // Unknown enum type
         public string? MA_ItemTime { get; set; } = null; // Dictionary<string, DateTime> unknown type/content
     }
@@ -85,7 +81,6 @@ namespace GirlAloneServer.WebApi.Model;
 
     public class PremiumData
     {
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int PR_HighScore { get; set; } = 0;
         public string? PR_Hammer { get; set; } = null;  // TODO Dictionary<string, string>
     }
@@ -97,18 +92,12 @@ namespace GirlAloneServer.WebApi.Model;
         public string QU_Quest_Time { get; set; } = "-1";
         public string? QU_Quest_MinigameTryCount { get; set; }
         public string QU_Quest_ID { get; set; } = string.Empty;
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int QU_Quest_Score_0 { get; set; } = 0;
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int QU_Quest_Score_1 { get; set; } = 0;
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int QU_Quest_Score_2 { get; set; } = 0;
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int QU_Quest_Score_3 { get; set; } = 0;
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int QU_Quest_Score_4 { get; set; } = 0;
 
-        [JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public /*QuestType*/ int QU_Quest_Type { get; set; } = -1;// QuestType.NONE;
         public string QU_CutSceneName { get; set; } = string.Empty;
         public string QU_EpisodeName { get; set; } = string.Empty; // set EpiSodeCutScene_00 as default?
@@ -147,7 +136,6 @@ namespace GirlAloneServer.WebApi.Model;
         public /*ItemType*/ int UD_TutorialItemType { get; set; } = -1; // ItemType.NONE;
         public /*TutorialStatus*/ int UD_TutorialStatus { get; set; } = -1; // TutorialStatus.NONE;
         
-        //[JsonNumberHandling(JsonNumberHandling.WriteAsString | JsonNumberHandling.AllowReadingFromString)]
         public int UD_Intro { get; set; } = 1; // TODO set to 0 // boolean
         public DateTime UD_LastAdsTime { get; set; } = DateTime.UnixEpoch;
         public DateTime UD_LastAdsTime_Gem { get; set; } = DateTime.UnixEpoch;

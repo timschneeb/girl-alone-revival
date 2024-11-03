@@ -100,9 +100,45 @@ public sealed class SaveDataController : Controller
 
     private static readonly JsonSerializerOptions SerializerOptions = new()
     {
-        Converters = { new DateTimeConverter() },
+        Converters = { new DateTimeConverter(), },
         NumberHandling = JsonNumberHandling.AllowReadingFromString
     };
+
+    private static T PrefixKeysAndDeserializeAs<T>(string json)
+    {;
+        var prefix = typeof(T).Name switch
+        {
+            nameof(BugData) => "BU_",
+            nameof(ConversationData) => "CO_",
+            nameof(EndingData) => "EN_",
+            nameof(GirlData) => "GD_",
+            nameof(InventoryData) => "IN_",
+            nameof(MapData) => "MA_",
+            nameof(MissionData) => "MS_",
+            nameof(PremiumData) => "PR_",
+            nameof(QuestData) => "QU_",
+            nameof(UserData) => "UD_",
+            _ => throw new ArgumentOutOfRangeException(nameof(T), typeof(T).Name, "Unknown type")
+        };
+
+        var processedJson = PrefixKeys(json, prefix);
+        return JsonSerializer.Deserialize<T>(processedJson, SerializerOptions) 
+               ?? throw new InvalidOperationException("JSON deserialized to null");
+    }
+
+    private static string PrefixKeys(string json, string prefix)
+    {
+        using var doc = JsonDocument.Parse(json);
+        var modifiedJson = new Dictionary<string, JsonElement>();
+
+        foreach (var property in doc.RootElement.EnumerateObject())
+        {
+            var newKey = property.Name.StartsWith(prefix) ? property.Name : prefix + property.Name;
+            modifiedJson[newKey] = property.Value;
+        }
+            
+        return JsonSerializer.Serialize(modifiedJson, SerializerOptions);
+    }
 
     public string TrackNotImplemented(IFormCollection body, [CallerMemberName] string callerName = "")
     {
@@ -127,16 +163,16 @@ public sealed class SaveDataController : Controller
         // TODO Implement actual JSON response logic
         return string.Join(';',
             ResultCode.SUCCESS.ToString(), 
-            JsonSerializer.Serialize(UserDataInfo),
-            JsonSerializer.Serialize(BugInfo),
-            JsonSerializer.Serialize(ConversationInfo),
-            JsonSerializer.Serialize(EndingInfo),
-            JsonSerializer.Serialize(InventoryInfo),
-            JsonSerializer.Serialize(MapInfo),
-            JsonSerializer.Serialize(MissionInfo),
-            JsonSerializer.Serialize(QuestInfo),
-            JsonSerializer.Serialize(PremiumInfo),
-            JsonSerializer.Serialize(GirlDataInfo));
+            JsonSerializer.Serialize(UserDataInfo, SerializerOptions),
+            JsonSerializer.Serialize(BugInfo, SerializerOptions),
+            JsonSerializer.Serialize(ConversationInfo, SerializerOptions),
+            JsonSerializer.Serialize(EndingInfo, SerializerOptions),
+            JsonSerializer.Serialize(InventoryInfo, SerializerOptions),
+            JsonSerializer.Serialize(MapInfo, SerializerOptions),
+            JsonSerializer.Serialize(MissionInfo, SerializerOptions),
+            JsonSerializer.Serialize(QuestInfo, SerializerOptions),
+            JsonSerializer.Serialize(PremiumInfo, SerializerOptions),
+            JsonSerializer.Serialize(GirlDataInfo, SerializerOptions));
     }
     
     [HttpPost]
@@ -176,6 +212,9 @@ public sealed class SaveDataController : Controller
         return string.Join(';', ResultCode.SUCCESS.ToString());
     }
     
+    
+    
+    
     [HttpPost]
     [Route("BugUpdate.php")]
     public string BugUpdate([FromForm] IFormCollection body)
@@ -190,7 +229,9 @@ public sealed class SaveDataController : Controller
 
         if (body.TryGetValue("jsonData", out var jsonData)&& jsonData.Count > 0)
         {
-            BugInfo = JsonSerializer.Deserialize<BugData>(jsonData.First() ?? string.Empty, SerializerOptions)!;
+            var json = jsonData.First() ?? string.Empty;
+            
+            BugInfo = PrefixKeysAndDeserializeAs<BugData>(json);
         }
         
         // TODO
@@ -212,7 +253,7 @@ public sealed class SaveDataController : Controller
         
         if (body.TryGetValue("jsonData", out var jsonData) && jsonData.Count > 0)
         {
-            QuestInfo = JsonSerializer.Deserialize<QuestData>(jsonData.First() ?? string.Empty, SerializerOptions)!;
+            QuestInfo = PrefixKeysAndDeserializeAs<QuestData>(jsonData.First() ?? string.Empty);
         }
         return TrackNotImplemented(body);
     }
@@ -231,7 +272,7 @@ public sealed class SaveDataController : Controller
         // TODO
         if (body.TryGetValue("jsonData", out var jsonData)&& jsonData.Count > 0)
         {
-            QuestInfo = JsonSerializer.Deserialize<QuestData>(jsonData.First() ?? string.Empty, SerializerOptions)!;
+            QuestInfo = PrefixKeysAndDeserializeAs<QuestData>(jsonData.First() ?? string.Empty);
         }
         return TrackNotImplemented(body);
     }
@@ -266,7 +307,7 @@ public sealed class SaveDataController : Controller
         
         if (body.TryGetValue("jsonData", out var jsonData)&& jsonData.Count > 0)
         {
-            GirlDataInfo = JsonSerializer.Deserialize<GirlData>(jsonData.First() ?? string.Empty, SerializerOptions)!;
+            GirlDataInfo = PrefixKeysAndDeserializeAs<GirlData>(jsonData.First() ?? string.Empty);
         }
         return TrackNotImplemented(body);
     }
@@ -327,7 +368,7 @@ public sealed class SaveDataController : Controller
         if (body.TryGetValue("jsonData", out var jsonData)&& jsonData.Count > 0)
         {
             // TODO is this the correct field?
-            QuestInfo = JsonSerializer.Deserialize<QuestData>(jsonData.First() ?? string.Empty, SerializerOptions)!;
+            QuestInfo = PrefixKeysAndDeserializeAs<QuestData>(jsonData.First() ?? string.Empty);
         }
         return TrackNotImplemented(body);
     }
@@ -361,7 +402,7 @@ public sealed class SaveDataController : Controller
         // TODO
         if (body.TryGetValue("jsonData", out var jsonData)&& jsonData.Count > 0)
         {
-            MissionInfo = JsonSerializer.Deserialize<MissionData>(jsonData.First() ?? string.Empty, SerializerOptions)!;
+            MissionInfo = PrefixKeysAndDeserializeAs<MissionData>(jsonData.First() ?? string.Empty);
         }
         return TrackNotImplemented(body);
     }
@@ -380,7 +421,7 @@ public sealed class SaveDataController : Controller
         // TODO
         if (body.TryGetValue("jsonData", out var jsonData)&& jsonData.Count > 0)
         {
-            MissionInfo = JsonSerializer.Deserialize<MissionData>(jsonData.First() ?? string.Empty, SerializerOptions)!;
+            MissionInfo = PrefixKeysAndDeserializeAs<MissionData>(jsonData.First() ?? string.Empty);
         }
         return TrackNotImplemented(body);
     }
@@ -397,9 +438,9 @@ public sealed class SaveDataController : Controller
                 jsonData={"ConversationDailyCount":"1001=&1&,1002=&1&,1003=&1&,1004=&1&,1005=&1&,1006=&1&,1007=&1&,1008=&1&,1009=&1&,1010=&1&,1011=&1&","Conversation_Time":"2024-11-02 06:07:18","AskCount":"1","ConversationCount":"4","ExtraConversationCount":"0","EventID":"ClickDialog"}
         */
         // TODO
-        if (body.TryGetValue("jsonData", out var jsonData)&& jsonData.Count > 0)
+        if (body.TryGetValue("jsonData", out var jsonData) && jsonData.Count > 0)
         {
-            ConversationInfo = JsonSerializer.Deserialize<ConversationData>(jsonData.First() ?? string.Empty, SerializerOptions)!;
+            ConversationInfo = PrefixKeysAndDeserializeAs<ConversationData>(jsonData.First() ?? string.Empty);
         }
         return TrackNotImplemented(body);
     }
@@ -419,7 +460,7 @@ public sealed class SaveDataController : Controller
         // TODO
         if (body.TryGetValue("jsonData", out var jsonData)&& jsonData.Count > 0)
         {
-            InventoryInfo = JsonSerializer.Deserialize<InventoryData>(jsonData.First() ?? string.Empty, SerializerOptions)!;
+            InventoryInfo = PrefixKeysAndDeserializeAs<InventoryData>(jsonData.First() ?? string.Empty);
         }
         return TrackNotImplemented(body);
     }
@@ -487,21 +528,50 @@ public sealed class SaveDataController : Controller
         // TODO
         if (body.TryGetValue("jsonData", out var jsonData)&& jsonData.Count > 0)
         {
-            var stuff = JsonSerializer.Deserialize<SaveData>(jsonData.First() ?? string.Empty, SerializerOptions);
-            if (stuff != null)
+            /*
+             * Ugly workaround: The game expects the JSON keys to be prefixed with certain values in requests.
+             * It doesn't include the prefix in the response though, so we have to add it back in.
+             */
+            using var doc = JsonDocument.Parse(jsonData.First() ?? string.Empty);
+            foreach (var property in doc.RootElement.EnumerateObject())
             {
-                UserDataInfo = stuff.UserData;
-                BugInfo = stuff.BugData;
-                ConversationInfo = stuff.ConversationData;
-                InventoryInfo = stuff.InventoryData;
-                QuestInfo = stuff.QuestData;
-                MissionInfo = stuff.MissionData;
-                EndingInfo = stuff.EndingData;
-                MapInfo = stuff.MapData;
-                PremiumInfo = stuff.PremiumData;
-                GirlDataInfo = stuff.GirlData;
+                var subSectionJson = JsonSerializer.Serialize(property.Value);
+                switch (property.Name)
+                {
+                    case "userData":
+                        UserDataInfo = PrefixKeysAndDeserializeAs<UserData>(subSectionJson);
+                        break;
+                    case "bugData":
+                        BugInfo = PrefixKeysAndDeserializeAs<BugData>(subSectionJson);
+                        break;
+                    case "conversationData":
+                        ConversationInfo = PrefixKeysAndDeserializeAs<ConversationData>(subSectionJson);
+                        break;
+                    case "inventoryData":
+                        InventoryInfo = PrefixKeysAndDeserializeAs<InventoryData>(subSectionJson);
+                        break;
+                    case "questData":
+                        QuestInfo = PrefixKeysAndDeserializeAs<QuestData>(subSectionJson);
+                        break;
+                    case "missionData":
+                        MissionInfo = PrefixKeysAndDeserializeAs<MissionData>(subSectionJson);
+                        break;
+                    case "endingData":
+                        EndingInfo = PrefixKeysAndDeserializeAs<EndingData>(subSectionJson);
+                        break;
+                    case "mapData":
+                        MapInfo = PrefixKeysAndDeserializeAs<MapData>(subSectionJson);
+                        break;
+                    case "premiumData":
+                        PremiumInfo = PrefixKeysAndDeserializeAs<PremiumData>(subSectionJson);
+                        break;
+                    case "girlData":
+                        GirlDataInfo = PrefixKeysAndDeserializeAs<GirlData>(subSectionJson);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(property.Name), property.Name);
+                }
             }
-            
             //_userDataInfo = jsonData.First() ?? string.Empty;
         }
         return TrackNotImplemented(body);
