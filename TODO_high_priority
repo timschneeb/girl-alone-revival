@@ -14,22 +14,6 @@
     "value": "/DateStart.php",
     "address": "0x1869F70"
   },
-  {
-    "value": "/FromServerToClient_Conversation.php",
-    "address": "0x1869F84"
-  },
-  {
-    "value": "/FromServerToClient_GirlData.php",
-    "address": "0x1869F88"
-  },
-  {
-    "value": "/FromServerToClient_Inventory.php",
-    "address": "0x1869F8C"
-  },
-  {
-    "value": "/FromServerToClient_Premium.php",
-    "address": "0x1869F90"
-  },
     {
     "value": "/GetRouletteTable.php",
     "address": "0x1869FD4"
@@ -37,10 +21,6 @@
   {
     "value": "/GetRouletteTable_Upgrade.php",
     "address": "0x1869FD8"
-  },
-  {
-    "value": "/PetUpdate.php",
-    "address": "0x186A050"
   },
   {
     "value": "/StartRoulette.php",

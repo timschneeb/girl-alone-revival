@@ -1,17 +1,6 @@
 [
+
   {
-    "value": "/AssetInfoUpload.php",
-    "address": "0x1867630"
-  },
-  {
-    "value": "/AssetUpload.php",
-    "address": "0x1867634"
-  },
-    {
-    "value": "/LatestVersionUpload.php",
-    "address": "0x186781C"
-  },
-    {
     "value": "/AddCheatInfo_StandAlone.php",
     "address": "0x1869ED4"
   },
@@ -84,22 +73,6 @@
     "address": "0x1869F70"
   },
   {
-    "value": "/FromServerToClient_Conversation.php",
-    "address": "0x1869F84"
-  },
-  {
-    "value": "/FromServerToClient_GirlData.php",
-    "address": "0x1869F88"
-  },
-  {
-    "value": "/FromServerToClient_Inventory.php",
-    "address": "0x1869F8C"
-  },
-  {
-    "value": "/FromServerToClient_Premium.php",
-    "address": "0x1869F90"
-  },
-  {
     "value": "/GetEventScore.php",
     "address": "0x1869FAC"
   },
@@ -118,10 +91,6 @@
   {
     "value": "/GetTop100EventRanking.php",
     "address": "0x1869FE8"
-  },
-  {
-    "value": "/PetUpdate.php",
-    "address": "0x186A050"
   },
   {
     "value": "/Save_{integer}.php",
@@ -158,9 +127,5 @@
   {
     "value": "/MailUpdate_Single.php",
     "address": "0x186A0D8"
-  },
-  {
-    "value": "/AESFunction.php",
-    "address": "0x186A2B4"
   }
 ]
