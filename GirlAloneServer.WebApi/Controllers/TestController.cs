@@ -113,12 +113,17 @@ public sealed class TestController : Controller
     [Route("GetMail.php")]
     public string GetMail([FromForm] IFormCollection body)
     {
-        // TODO Research mail syntax
         /*
             Mail syntax:
                 ML_List: "MailId&SentDate&ExpireDate,MailId&SentDate&ExpireDate, ..."
                 MailIds are found in the m_systemmailtable_table asset file.
         */
+        
+        /*
+         * TODO implement full mail system
+         * After claiming a reward, the game sends a FromServerToClient_* request to retrieve the new save state from the server.
+         * MailUpdate_Single.php and MailUpdate_All.php are used to claim rewards and mark the mail as deleted for the current user.
+         */
         return string.Join(';', [
             ResultCode.SUCCESS.ToString(),
             """
