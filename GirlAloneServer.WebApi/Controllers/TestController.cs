@@ -29,8 +29,8 @@ public sealed class TestController : Controller
             ResultCode.SUCCESS, 
             """
                 {
-                "EA_FreePremiumCount": "9999",
-                "EA_FreeFillUpMoodDateTime": "2024-01-01 00:00:00"
+                    "EA_FreePremiumCount": "9999",
+                    "EA_FreeFillUpMoodDateTime": "2024-01-01 00:00:00"
                 }
             """);
 
@@ -39,11 +39,11 @@ public sealed class TestController : Controller
     [Route("SetExtraAds.php")]
     public string SetExtraAds([FromForm] IFormCollection body)
     {
-        /* Additional post data: jsonData={"ExtraAdsType":"0"} */
-        // TODO
-        TrackNotImplemented(body);
-        return string.Join(';',
-            ResultCode.SUCCESS, "{}");
+        /*
+            Additional post data: jsonData={"ExtraAdsType":"0"}
+            JSON field: see ExtraAdsType enum
+        */
+        return ResultCode.SUCCESS.ToString();
     }
 
     [HttpPost]
@@ -54,6 +54,7 @@ public sealed class TestController : Controller
             Additional post data:
                 jsonData={"LastAdsTime":"2024-11-03 02:36:23","AdsCount":"1","ConversationCount":"5","BuyNoAds":"1"}
         */
+        // TODO update ads & conversation count
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -62,8 +63,13 @@ public sealed class TestController : Controller
     [Route("GetTop100Ranking.php")]
     public string GetTop100Ranking([FromForm] IFormCollection body)
     {
-        // TODO
+        /*
+          Response schema: SUCCESS;{...}^{...}^{...}
+          Individual JSON ranking data is separated by ^.
+          {"RK_NickName":"Player","RK_Rank":"1","RK_HighScore":"1000","RK_Platform":"Android"}
+         */
         TrackNotImplemented(body);
+        // Is this even used anywhere?
         return string.Join(';', ResultCode.SUCCESS, "{}");
     }
     
@@ -72,6 +78,8 @@ public sealed class TestController : Controller
     public string GetMyRanking([FromForm] IFormCollection body)
     {
         /* Additional post data: HighScore=0 */
+        
+        // Is this even used anywhere?
         return string.Join(';', ResultCode.SUCCESS, """{"Rank": "1", "Percent": "100"}""");
     }
     
@@ -92,9 +100,13 @@ public sealed class TestController : Controller
         /*
             Additional post data:
                 jsonData={"ConversationDailyCount":null,"AdsCount":"0","missionData":{"Mission_OneDay":"700000=&0^1&,710000=&0^1&,720000=&0^1&,730000=&0^1&,740000=&0^1&,750000=&0^1&,760000=&0^1&,770000=&0^1&,780000=&0^1&,790000=&0^1&,799999=&0^1&","Mission_Level":"800000=&0^1&,810000=&0^1&,820000=&0^1&,830000=&0^1&,840000=&0^1&,850000=&0^1&,860000=&1^1&,870000=&1^1&,880000=&1^1&,800010=&0^0&,810010=&0^0&,820010=&0^0&,830010=&0^0&,840010=&0^0&,850010=&0^0&,860010=&0^0&,870010=&0^0&,880010=&0^0&,800020=&0^0&,810020=&0^0&,820020=&0^0&,830020=&0^0&,840020=&0^0&,850020=&0^0&,860020=&0^0&,870020=&0^0&,880020=&0^0&,800030=&0^0&,810030=&0^0&,820030=&0^0&,830030=&0^0&,840030=&0^0&,850030=&0^0&,860030=&0^0&,870030=&0^0&,880030=&0^0&,800040=&0^0&,810040=&0^0&,820040=&0^0&,830040=&0^0&,840040=&0^0&,850040=&0^0&","DailyCheck_Time":"2024-11-02 01:07:06"}}
+            JSON fields:
+                ConversationDailyCount: from ConversationData 
+                AdsCount: from UserData
+                missionData: see MissionData
         */
-        // TODO
-        return TrackNotImplemented(body);
+        // TODO update fields
+        return ResultCode.SUCCESS.ToString();
     }
 
     [HttpPost]
@@ -102,11 +114,16 @@ public sealed class TestController : Controller
     public string GetMail([FromForm] IFormCollection body)
     {
         // TODO Research mail syntax
+        /*
+            Mail syntax:
+                ML_List: "MailId&SentDate&ExpireDate,MailId&SentDate&ExpireDate, ..."
+                MailIds are found in the m_systemmailtable_table asset file.
+        */
         return string.Join(';', [
             ResultCode.SUCCESS.ToString(),
             """
             {
-                "ML_List": ""
+                "ML_List": "20000034&2024-01-01 00:10:11&2025-01-01 00:10:11"
             }
             """
         ]);

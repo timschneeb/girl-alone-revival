@@ -97,8 +97,6 @@ public sealed class LoginController : Controller
            0x0047bfe4 │ │ └─UnityEngine.AES::Encrypt_CBC = "KF4B8bE0N9vELECvbw3HfLqmou8AiIBLd78MmVOMuApwuTy3cRCm9bGdC9XnwHQU"
          
          */
-
-        // TODO
         return ResultCode.SUCCESS.ToString();
     }
 }
