@@ -24,10 +24,6 @@
     "address": "0x1869EDC"
   },
   {
-    "value": "/AdsUpdate.php",
-    "address": "0x1869EE4"
-  },
-  {
     "value": "/AdsUpdate_Daily.php",
     "address": "0x1869EE8"
   }
@@ -88,10 +84,6 @@
     "address": "0x1869F70"
   },
   {
-    "value": "/FromServerToClient_UserData.php",
-    "address": "0x1869F80"
-  },
-  {
     "value": "/FromServerToClient_Conversation.php",
     "address": "0x1869F84"
   },
@@ -126,18 +118,6 @@
   {
     "value": "/GetTop100EventRanking.php",
     "address": "0x1869FE8"
-  },
-  {
-    "value": "/Check.php",
-    "address": "0x1869FF4"
-  },
-  {
-    "value": "/Check_IOS.php",
-    "address": "0x186A004"
-  },
-  {
-    "value": "/Check_UDP.php",
-    "address": "0x186A008"
   },
   {
     "value": "/PetUpdate.php",

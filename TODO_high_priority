@@ -7,12 +7,12 @@
     "address": "0x1869F68"
   },
   {
+    "value": "/BuyItem.php",
+    "address": "0x1869F20"
+  },
+  {
     "value": "/DateStart.php",
     "address": "0x1869F70"
-  },
-    {
-    "value": "/FromServerToClient_UserData.php",
-    "address": "0x1869F80"
   },
   {
     "value": "/FromServerToClient_Conversation.php",

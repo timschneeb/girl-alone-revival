@@ -453,7 +453,22 @@ public sealed class SaveDataController : Controller
         }
         return ResultCode.SUCCESS.ToString();
     }
-    
+
+    [HttpPost]
+    [Route("PetUpdate.php")]
+    public string PetUpdate([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData={"LevelUpPet": "..."} // TODO insert actual data
+            JSON fields:
+               LevelUpPet: from UserData
+        */
+
+        // TODO implement
+        TrackNotImplemented(body);
+        return ResultCode.SUCCESS.ToString();
+    }
     
     [HttpPost]
     [Route("UpdateGirlLevel_Client.php")]
