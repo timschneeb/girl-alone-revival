@@ -23,11 +23,15 @@ public sealed class RootController : Controller
     [HttpPost("post", Order = int.MaxValue)]
     public async Task<string> Post(string catchAll)
     {
-        // Read body
-        using var reader = new StreamReader(Request.Body);
-        var value = await reader.ReadToEndAsync();
+        var form = Request.Form;
+        var values = string.Empty;
+        foreach (var variable in form)
+        {
+            // Print all form data
+            values += $"\t{variable.Key}: {variable.Value}\n";
+        }
         
-        Log.Error($"Unhandled POST request: {catchAll}\n{value}");
+        Log.Error($"Unhandled POST request: {catchAll}\n{values}");
         
         //return string.Join(';', ResultCode.FAIL, "Unhandled POST request");
         return string.Join(';', ResultCode.SUCCESS, "Unhandled POST request");

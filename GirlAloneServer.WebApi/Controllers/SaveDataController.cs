@@ -324,6 +324,14 @@ public sealed class SaveDataController : Controller
         */
         // TODO  update gold, intimacy, flower start time, flower cool time, flower ID
         TrackNotImplemented(body);
+        
+        if (!body.TryGetJsonData(out var jsonData))
+            return RejectRequest(body);
+        
+        var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
+        var price = AES.DecryptCBC(json?["Price"]?.GetValue<string>() ?? "");
+        Log.Information("Flower price: {0}", price);
+        
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -366,7 +374,16 @@ public sealed class SaveDataController : Controller
         // TODO update gold and jewelery
         if (!body.TryDeserializeJsonData<MissionData>(out var data))
             return RejectRequest(body);
-
+        
+        if (!body.TryGetJsonData(out var jsonData))
+            return RejectRequest(body);
+        
+        var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
+        var AddJewelery = AES.DecryptCBC(json?["AddJewelery"]?.GetValue<string>() ?? "");
+        Log.Information("AddJewelery: {0}", AddJewelery);   
+        var AddGold = AES.DecryptCBC(json?["AddGold"]?.GetValue<string>() ?? "");
+        Log.Information("AddGold: {0}", AddGold);
+        
         MissionInfo = data;
         return ResultCode.SUCCESS.ToString();
     }
@@ -417,12 +434,17 @@ public sealed class SaveDataController : Controller
     {
         /*
             Additional post data:
-                jsonData={"LevelUpPet": "..."} // TODO insert actual data
+                jsonData={"LevelUpPet": "..."}
             JSON fields:
                LevelUpPet: from UserData
         */
 
-        // TODO implement
+        if (!body.TryGetJsonData(out var jsonData))
+            return RejectRequest(body);
+        
+        var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
+        UserDataInfo.UD_LevelUpPet = json?["LevelUpPet"]?.GetValue<string>();
+
         TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
@@ -433,6 +455,7 @@ public sealed class SaveDataController : Controller
     {
         /* Additional post data: GirlLevel=3 */
         // TODO not sure where to store this
+        // TODO maybe this is just for reward mails on rank up?
         return ResultCode.SUCCESS.ToString();
     }
     

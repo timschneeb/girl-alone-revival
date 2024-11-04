@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Serilog;
 
 namespace GirlAloneServer.WebApi.Utils;
 
@@ -22,6 +23,11 @@ public static class Extensions
         if (body.TryGetString("id", out value))
         {
             var dec = AES.DecryptCBC(value);
+            var uid = dec
+                .Replace("*23#Fleximind", "")
+                .Replace("K$a!t@i#s$m%S^e&c*u(r)i_t+y|", "");
+            
+            Log.Debug(uid);
         }
         
         return body.TryGetString("jsonData", out value);

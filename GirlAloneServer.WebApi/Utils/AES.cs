@@ -35,7 +35,7 @@ public static class AES
         return _ivList[updatedTime.Hour % 7];
     }
 
-    private static string GetKey(int i)
+    private static string GetKey()
     {
         var serverTime = DateTimeOffset.UtcNow.AddSeconds(9875);
 
@@ -67,7 +67,7 @@ public static class AES
         rijndael.BlockSize = 128;
         rijndael.Mode = CipherMode.CBC; 
         rijndael.Padding = PaddingMode.PKCS7;
-        rijndael.Key = Encoding.UTF8.GetBytes(GetKey(0));
+        rijndael.Key = Encoding.UTF8.GetBytes(GetKey());
         rijndael.IV = Encoding.UTF8.GetBytes(GetIV());
 
         var cipherBytes = Convert.FromBase64String(cipherTextBase64);
