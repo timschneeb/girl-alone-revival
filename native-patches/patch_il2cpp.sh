@@ -22,6 +22,7 @@ flips --ignore-checksum -a "$SCRIPT_DIR/firebase_skip_auth_initializers.bps" "$1
 flips --ignore-checksum -a "$SCRIPT_DIR/gamesvcmgr_auth_force_success.bps" .temp1.so .temp2.so
 flips --ignore-checksum -a "$SCRIPT_DIR/gamesvcmgr_auth_ignore_empty_userid.bps" .temp2.so .temp1.so
 flips --ignore-checksum -a "$SCRIPT_DIR/playgames_jump_over_null_auth_code.bps" .temp1.so .temp2.so
-flips --ignore-checksum -a "$SCRIPT_DIR/playgames_skip_auth_code_length_check.bps" .temp2.so "$2"
+flips --ignore-checksum -a "$SCRIPT_DIR/playgames_skip_auth_code_length_check.bps" .temp2.so .temp1.so
+flips --ignore-checksum -a "$SCRIPT_DIR/playgames_load_userid_from_sharedprefs.bps" .temp1.so "$2"
 
 rm -f .temp1.so .temp2.so

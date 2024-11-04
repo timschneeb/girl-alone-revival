@@ -34,7 +34,7 @@ Il2Cpp.perform(() => {
     .and()*/
     .assemblies(Il2Cpp.domain.assembly("Assembly-CSharp"))
     .filterClasses(klass => klass.namespace.includes("UnityEngine") && !klass.name.includes("MainSceneMgr") && klass.name != "FontInfo" && klass.name != "SpriteInfo" && !klass.name.startsWith("UI"))// && (klass.name.includes("JSONNode")))  
-    .filterMethods(method => method.name != "SAFE_DELETE_ARRAY" )
+    //.filterMethods(method => method.name != "SAFE_DELETE_ARRAY" )
 
  
         /*.domain()
@@ -60,8 +60,8 @@ Il2Cpp.perform(() => {
 
 
 
-        const SystemType = Il2Cpp.domain.assembly("Assembly-CSharp").image
-        .class("UnityEngine.GameFramework").nested("CGameServiceMgr");
+        const SystemType = Il2Cpp.domain.assembly("UnityEngine.GameCenterModule").image
+        .class("UnityEngine.SocialPlatforms.Impl.LocalUser"); //.nested("CGameServiceMgr");
 
         // +++ heap scanning using class descriptors +++
         Il2Cpp.gc.choose(SystemType).forEach((instance: Il2Cpp.Object) => {
