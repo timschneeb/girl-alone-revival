@@ -1,4 +1,5 @@
 using GirlAloneServer.WebApi.Model;
+using GirlAloneServer.WebApi.Model.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.WebApi.Controllers.StartupControllers;

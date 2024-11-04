@@ -1,5 +1,5 @@
 // ReSharper disable InconsistentNaming
-namespace GirlAloneServer.WebApi.Model;
+namespace GirlAloneServer.WebApi.Model.Enums;
 
 public enum ExtraAdsType
 {
