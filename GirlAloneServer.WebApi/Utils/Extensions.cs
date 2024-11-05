@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using Serilog;
 
 namespace GirlAloneServer.WebApi.Utils;
 

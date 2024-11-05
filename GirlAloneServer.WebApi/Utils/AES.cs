@@ -2,7 +2,6 @@
 
 using System.Security.Cryptography;
 using System.Text;
-using Serilog;
 
 namespace GirlAloneServer.WebApi.Utils;
 

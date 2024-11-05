@@ -1,5 +1,4 @@
 // ReSharper disable InconsistentNaming
-using System.Text.Json.Serialization;
 
 namespace GirlAloneServer.WebApi.Model;
 

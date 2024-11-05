@@ -1,7 +1,5 @@
 using System.Runtime.CompilerServices;
-using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
-using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 

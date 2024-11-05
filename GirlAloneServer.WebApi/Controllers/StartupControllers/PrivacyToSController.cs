@@ -1,4 +1,3 @@
-using GirlAloneServer.WebApi.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.WebApi.Controllers.StartupControllers;
