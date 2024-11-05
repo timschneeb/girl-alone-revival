@@ -5,10 +5,6 @@
     "address": "0x1869ED4"
   },
   {
-    "value": "/AddMoney_StandAlone.php",
-    "address": "0x1869ED8"
-  },
-  {
     "value": "/AddTicket_StandAlone.php",
     "address": "0x1869EDC"
   },
@@ -31,26 +27,6 @@
   {
     "value": "/AdsUpdate_Premium.php",
     "address": "0x1869F08"
-  },
-  {
-    "value": "/BuyGold.php",
-    "address": "0x1869F18"
-  },
-  {
-    "value": "/BuyItem.php",
-    "address": "0x1869F20"
-  },
-  {
-    "value": "/BuyConversation.php",
-    "address": "0x1869F28"
-  },
-  {
-    "value": "/BuyFeverTime.php",
-    "address": "0x1869F2C"
-  },
-  {
-    "value": "/BuyPremium.php",
-    "address": "0x1869F30"
   },
   {
     "value": "/Cheat_Reset.php",

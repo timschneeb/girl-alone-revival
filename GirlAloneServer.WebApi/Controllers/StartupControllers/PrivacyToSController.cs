@@ -6,7 +6,6 @@ namespace GirlAloneServer.WebApi.Controllers.StartupControllers;
 [Route("/")]
 public sealed class PrivacyToSController : Controller
 {
-    [HttpGet]
     [Route("Privacy_{language}.html")]
     public IActionResult PrivacyPolicy(string language) => new ContentResult 
     {
@@ -29,7 +28,6 @@ public sealed class PrivacyToSController : Controller
             """
     };
     
-    [HttpGet]
     [Route("TermsOfUse_{language}.html")]
     public IActionResult TermsOfUse(string language) => new ContentResult 
     {

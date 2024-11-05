@@ -5,7 +5,7 @@ namespace GirlAloneServer.WebApi.Model;
 public class BugData
 {
     public string? BU_BugSpawn { get; set; } // Dictionary<string, string>
-    public int? BU_Event { get; set; } // boolean (also: Bug_Event) TODO fix mapping 
+    public int? BU_Event { get; set; } // boolean (also: Bug_Event)
     public string? BU_Bug_Count { get; set; } // List<int>
     public string? BU_Bug_CoolTime { get; set; } // List<DateTime>
 }
@@ -116,10 +116,10 @@ public class SaveData
 public class UserData
 {
     public int? UD_Gold { get; set; } = 9999;
-    public int? UD_Jewelery { get; set; }
-    public int? UD_Ruby { get; set; }
-    public int? UD_Ticket { get; set; }
-    public int? UD_Episode { get; set; }
+    public int? UD_Jewelery { get; set; } = 0;
+    public int? UD_Ruby { get; set; } = 0;
+    public int? UD_Ticket { get; set; } = 0;
+    public int? UD_Episode { get; set; } = 0;
 
     public int? UD_BuyNoAds { get; set; } = 1;
     public int? UD_BuyNoPopupAds { get; set; } = 1;

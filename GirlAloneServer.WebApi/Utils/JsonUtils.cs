@@ -13,7 +13,13 @@ public static class JsonUtils
         NumberHandling = JsonNumberHandling.AllowReadingFromString,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };
-    
+
+    // Special cases
+    private static Dictionary<string, string> PropertyNameMapping { get; } = new()
+    {
+        { "Bug_Event", "BU_Event" }
+    };
+        
     private static string PrefixKeys(string json, string prefix)
     {
         using var doc = JsonDocument.Parse(json);
@@ -22,6 +28,11 @@ public static class JsonUtils
         foreach (var property in doc.RootElement.EnumerateObject())
         {
             var newKey = property.Name.StartsWith(prefix) ? property.Name : prefix + property.Name;
+            if(PropertyNameMapping.TryGetValue(newKey, out var mappedKey))
+            {
+                newKey = mappedKey;
+            }
+            
             modifiedJson[newKey] = property.Value;
         }
             
@@ -42,7 +53,7 @@ public static class JsonUtils
             nameof(PremiumData) => "PR_",
             nameof(QuestData) => "QU_",
             nameof(UserData) => "UD_",
-            _ => throw new ArgumentOutOfRangeException(nameof(T), typeof(T).Name, "Unknown type")
+            _ => ""
         };
 
         var processedJson = PrefixKeys(json, prefix);

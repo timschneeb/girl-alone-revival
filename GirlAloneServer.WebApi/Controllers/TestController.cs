@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
+using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -46,19 +47,6 @@ public sealed class TestController : Controller
         */
         return ResultCode.SUCCESS.ToString();
     }
-
-    [HttpPost]
-    [Route("AdsUpdate.php")]
-    public string AdsUpdate([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                jsonData={"LastAdsTime":"2024-11-03 02:36:23","AdsCount":"1","ConversationCount":"5","BuyNoAds":"1"}
-        */
-        // TODO update ads & conversation count
-        return ResultCode.SUCCESS.ToString();
-    }
-
     
     [HttpPost]
     [Route("GetTop100Ranking.php")]
@@ -92,22 +80,6 @@ public sealed class TestController : Controller
            The game only allows to invite up to 20 friends, so we set the count to 20 
            to signal the user that the feature is not available. */
         return string.Join(';', ResultCode.SUCCESS, """{"IF_Count": 20, "IF_Friend": []}""");
-    }
-    
-    [HttpPost]
-    [Route("DailyCheck.php")]
-    public string DailyCheck([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                jsonData={"ConversationDailyCount":null,"AdsCount":"0","missionData":{"Mission_OneDay":"700000=&0^1&,710000=&0^1&,720000=&0^1&,730000=&0^1&,740000=&0^1&,750000=&0^1&,760000=&0^1&,770000=&0^1&,780000=&0^1&,790000=&0^1&,799999=&0^1&","Mission_Level":"800000=&0^1&,810000=&0^1&,820000=&0^1&,830000=&0^1&,840000=&0^1&,850000=&0^1&,860000=&1^1&,870000=&1^1&,880000=&1^1&,800010=&0^0&,810010=&0^0&,820010=&0^0&,830010=&0^0&,840010=&0^0&,850010=&0^0&,860010=&0^0&,870010=&0^0&,880010=&0^0&,800020=&0^0&,810020=&0^0&,820020=&0^0&,830020=&0^0&,840020=&0^0&,850020=&0^0&,860020=&0^0&,870020=&0^0&,880020=&0^0&,800030=&0^0&,810030=&0^0&,820030=&0^0&,830030=&0^0&,840030=&0^0&,850030=&0^0&,860030=&0^0&,870030=&0^0&,880030=&0^0&,800040=&0^0&,810040=&0^0&,820040=&0^0&,830040=&0^0&,840040=&0^0&,850040=&0^0&","DailyCheck_Time":"2024-11-02 01:07:06"}}
-            JSON fields:
-                ConversationDailyCount: from ConversationData 
-                AdsCount: from UserData
-                missionData: see MissionData
-        */
-        // TODO update fields
-        return ResultCode.SUCCESS.ToString();
     }
 
     [HttpPost]

@@ -47,66 +47,45 @@ public sealed class SaveDataController : Controller
             Directory.CreateDirectory(BasePath + "/data");
         System.IO.File.WriteAllText(BasePath + "/data/" + name + ".json", body);
     }
-    
-    public static UserData UserDataInfo
+
+    static SaveDataController()
     {
-        get => Read<UserData>();
-        set => Write(value);
+        UserDataInfo = Read<UserData>();
+        BugInfo = Read<BugData>();
+        MissionInfo = Read<MissionData>();
+        ConversationInfo = Read<ConversationData>();
+        InventoryInfo = Read<InventoryData>();
+        MapInfo = Read<MapData>();
+        QuestInfo = Read<QuestData>();
+        PremiumInfo = Read<PremiumData>();
+        GirlDataInfo = Read<GirlData>();
+        EndingInfo = Read<EndingData>();
+    }
+
+    private static void Save()
+    {
+        Write(UserDataInfo);
+        Write(BugInfo);
+        Write(MissionInfo);
+        Write(ConversationInfo);
+        Write(InventoryInfo);
+        Write(MapInfo);
+        Write(QuestInfo);
+        Write(PremiumInfo);
+        Write(GirlDataInfo);
+        Write(EndingInfo);
     }
     
-    public static BugData BugInfo
-    {
-        get => Read<BugData>();
-        set => Write(value);
-    }
-    
-    public static MissionData MissionInfo
-    {
-        get => Read<MissionData>();
-        set => Write(value);
-    }
-    
-    public static ConversationData ConversationInfo
-    {
-        get => Read<ConversationData>();
-        set => Write(value);
-    }
-    
-    public static InventoryData InventoryInfo
-    {
-        get => Read<InventoryData>();
-        set => Write(value);
-    }
-    
-    public static MapData MapInfo
-    {
-        get => Read<MapData>();
-        set => Write(value);
-    }
-    
-    public static QuestData QuestInfo
-    {
-        get => Read<QuestData>();
-        set => Write(value);
-    }
-    
-    public static PremiumData PremiumInfo
-    {
-        get => Read<PremiumData>();
-        set => Write(value);
-    }
-    
-    public static GirlData GirlDataInfo
-    {
-        get => Read<GirlData>();
-        set => Write(value);
-    }
-    
-    public static EndingData EndingInfo
-    {
-        get => Read<EndingData>();
-        set => Write(value);
-    }
+    public static UserData UserDataInfo { set; get; }
+    public static BugData BugInfo { set; get; }
+    public static MissionData MissionInfo { set; get; }
+    public static ConversationData ConversationInfo { set; get; }
+    public static InventoryData InventoryInfo { set; get; }
+    public static MapData MapInfo { set; get; }
+    public static QuestData QuestInfo { set; get; }
+    public static PremiumData PremiumInfo { set; get; }
+    public static GirlData GirlDataInfo { set; get; }
+    public static EndingData EndingInfo { set; get; }
 
     private static JsonSerializerOptions SerializerOptions => JsonUtils.SerializerOptions;
 
@@ -160,6 +139,7 @@ public sealed class SaveDataController : Controller
             return RejectRequest(body);
 
         AlbumInfo = data;
+        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -178,8 +158,8 @@ public sealed class SaveDataController : Controller
         if (!body.TryDeserializeJsonData<BugData>(out var data))
             return RejectRequest(body);
 
-        // TODO BugEvent needs to be mapped to BU_Event
         BugInfo = data;
+        Save();
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -198,6 +178,7 @@ public sealed class SaveDataController : Controller
             return RejectRequest(body);
 
         QuestInfo = data;
+        Save();
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -210,19 +191,28 @@ public sealed class SaveDataController : Controller
                 jsonData={"Quest_List":"200000=&True&","CutScene_List":"GirlFirstMeetCutScene_00=&GirlFirstMeetCutScene_00&","Quest_Time":"-1","Quest_MinigameTryCount":null,"Quest_ID":"","Quest_Score_0":"1","Quest_Score_1":"0","Quest_Score_2":"0","Quest_Score_3":"0","Quest_Score_4":"0","Quest_Type":"0","CutSceneName":"","EpisodeName":"","RewardType":"Intimacy","Reward":"m0bI5SPwkPC0J5mMkPsb3Q==","EventID":"Quest Success_200000","Success":"1","Feeling":"36","AskCount":"0","Intimacy":"45","Sociability":"0","FeelingUp_DemandCount":"0"}
             JSON fields:
                 QuestData-related fields
-                GirlData-related fields (partial)
                 AskCount: from ConversationData
                 EventID: null, "Quest Success_{questId}", "Quest Fail_{questId}", "Money Quest Result (Gold)"
                 RewardType: see RewardType enum  
                 Success: 0, 1
                 Reward: AES encrypted string encoding in Base64      
+                Feeling, Intimacy, Sociability, FeelingUp_DemandCount: from GirlData
         */
         if (!body.TryDeserializeJsonData<QuestData>(out var data))
             return RejectRequest(body);
 
         QuestInfo = data;
         
-        // TODO update GirlData fields
+        if (!body.TryDeserializeJsonData<QuestCompletionData>(out var completionData))
+            return RejectRequest(body);
+        
+        GirlDataInfo.GD_Feeling = completionData.Feeling;
+        GirlDataInfo.GD_Intimacy = completionData.Intimacy;
+        GirlDataInfo.GD_Sociability = completionData.Sociability;
+        GirlDataInfo.GD_FeelingUp_DemandCount = completionData.FeelingUp_DemandCount;
+        
+        ConversationInfo.CO_AskCount = completionData.AskCount;
+        Save();
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -240,7 +230,8 @@ public sealed class SaveDataController : Controller
         
         var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
         UserDataInfo.UD_LastQuitTime = DateTime.Parse(json?["LastQuitTime"]?.GetValue<string>() ?? "");
-        
+        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -259,6 +250,8 @@ public sealed class SaveDataController : Controller
             return RejectRequest(body);
 
         GirlDataInfo = data;
+        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -268,6 +261,8 @@ public sealed class SaveDataController : Controller
     public string IntroUpdate([FromForm] IFormCollection body)
     {
         UserDataInfo.UD_Intro = 1;
+        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -279,10 +274,14 @@ public sealed class SaveDataController : Controller
         /* Additional post data: jsonData={"Episode":"1"} */
         if (!body.TryGetJsonData(out var jsonData))
             return RejectRequest(body);
+
+        // TODO check why episode is reset to 0
+        TrackNotImplemented(body);
         
         var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
         UserDataInfo.UD_Episode = int.Parse(json?["Episode"]?.GetValue<string>() ?? "1");
-        
+        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -302,6 +301,41 @@ public sealed class SaveDataController : Controller
             return RejectRequest(body);
 
         QuestInfo = data;
+        Save();
+
+        return ResultCode.SUCCESS.ToString();
+    }
+    
+    
+    [HttpPost]
+    [Route("AddMoney_StandAlone.php")]
+    public string AddMoneyStandAlone([FromForm] IFormCollection body)
+    {
+        /*
+            Additional POST data:
+                EventID: "GoldCockroach   2000", ...
+                RewardType: "Gold"
+                RewardCount: Encrypted base64 string
+        */
+        if (!body.TryGetString("RewardType", out var rewardType))
+            return RejectRequest(body);
+        if (!body.TryGetString("RewardCount", out var rewardCountEnc))
+            return RejectRequest(body);
+
+        var rewardCount = int.Parse(AES.DecryptCBC(rewardCountEnc));
+        
+        if(rewardType == "Gold")
+            UserDataInfo.UD_Gold += rewardCount;
+        else if(rewardType == "Jewelery")
+            UserDataInfo.UD_Jewelery += rewardCount;
+        else if(rewardType == "Ruby")
+            UserDataInfo.UD_Ruby += rewardCount;
+        else if(rewardType == "Ticket")
+            UserDataInfo.UD_Ticket += rewardCount;
+        else // TODO find all possible reward types
+            throw new ArgumentOutOfRangeException(nameof(rewardType), rewardType, "Invalid reward type");
+        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -322,16 +356,261 @@ public sealed class SaveDataController : Controller
                 Price: AES encrypted string encoded in Base64
                 Reward: reward amount (intimacy)
         */
-        // TODO  update gold, intimacy, flower start time, flower cool time, flower ID
+        if (!body.TryDeserializeJsonData<FlowerUpdateData>(out var flowerData))
+            return RejectRequest(body);
+
+        UserDataInfo.UD_Gold = flowerData.Gold;
+        UserDataInfo.UD_Flower_StartTime = flowerData.Flower_StartTime;
+        UserDataInfo.UD_Flower_CoolTime = flowerData.Flower_CoolTime;
+        GirlDataInfo.GD_Intimacy = flowerData.Intimacy;
+        // TODO update flower id in InventoryData
+        Save();
+
         TrackNotImplemented(body);
+        return ResultCode.SUCCESS.ToString();
+    }
+
+    [HttpPost]
+    [Route("BuyItem.php")]
+    public string BuyItem([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData: {"EventID":"BuyItem_Gold_Restaurant","targetID":"4000001","Item_Type":"ITEM_FOOD","Price_Type":"Gold","price":"frYumI/fj3jsql5LID4/3Q==","Gold":"9571","Jewelery":"6","Ruby":"0"}
+           JSON fields:
+                EventID: "BuyItem_Gold_Restaurant", ...
+                targetID: ID of purchased item
+                Item_Type: see ItemType enum
+                Price_Type: "Gold", "Jewelery", "Ruby"
+                price: AES encrypted string encoded in Base64
+                Gold: gold amount before purchase
+                Jewelery: jewelery amount before purchase 
+                Ruby: ruby amount before purchase
+        */
+        if (!body.TryDeserializeJsonData<BuyItemData>(out var itemData))
+            return RejectRequest(body);
+
+        var price = int.Parse(AES.DecryptCBC(itemData.Price!));
         
-        if (!body.TryGetJsonData(out var jsonData))
+        switch (itemData.Price_Type)
+        {
+            case "Gold":
+                UserDataInfo.UD_Gold = itemData.Gold - price;
+                break;
+            case "Gem":
+                UserDataInfo.UD_Jewelery = itemData.Jewelery - price;
+                break;
+            case "Ruby":
+                UserDataInfo.UD_Ruby = itemData.Ruby - price;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(itemData.Price_Type), itemData.Price_Type, "Invalid price type");
+        }
+
+        // TODO update target id in InventoryData
+        Save();
+
+        TrackNotImplemented(body);
+        return ResultCode.SUCCESS.ToString();
+    }
+
+    [HttpPost]
+    [Route("BuyGold.php")]
+    public string BuyGold([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData: {"EventID":"Buy Gold_Gold_00","AddGold":"HpshB36dTPGP8gESDxK2BQ==","Price":"67lnMANyI3xVSsYq8oKXmw==","Gold":"55570","Jewelry":"6000"}
+           JSON fields:
+                EventID: "Buy Gold_Gold_00", ...
+                AddGold: AES encrypted string encoded in Base64
+                Price: AES encrypted string encoded in Base64
+                Gold: gold amount before purchase
+                Jewelry: jewelery amount before purchase
+        */
+        if (!body.TryDeserializeJsonData<BuyGoldData>(out var itemData))
+            return RejectRequest(body);
+
+        var price = int.Parse(AES.DecryptCBC(itemData.Price!));
+        var addGold = int.Parse(AES.DecryptCBC(itemData.AddGold!));
+        
+        UserDataInfo.UD_Gold = itemData.Gold + addGold;
+        UserDataInfo.UD_Jewelery = itemData.Jewelery - price;
+        Save();
+
+        TrackNotImplemented(body);
+        return ResultCode.SUCCESS.ToString();
+    }
+
+    [HttpPost]
+    [Route("BuyPremium.php")]
+    public string BuyPremium([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                TableID: item ID, like "9000" for Ticket x1
+           
+        */
+        if (!body.TryGetValue("TableID", out var tableId))
+            return RejectRequest(body);
+            
+        if (tableId == "9000")
+        {
+            UserDataInfo.UD_Ticket += 1;
+            UserDataInfo.UD_Gold -= 3000;
+        }
+        else if (tableId == "9001")
+        {
+            UserDataInfo.UD_Ticket += 3;
+            UserDataInfo.UD_Gold -= 8500;
+        }
+        else if (tableId == "9002")
+        {
+            UserDataInfo.UD_Ticket += 5;
+            UserDataInfo.UD_Gold -= 14000;
+        }
+        else if (tableId == "9003")
+        {
+            UserDataInfo.UD_Ticket += 10;
+            UserDataInfo.UD_Gold -= 27000;
+        }
+        else if (tableId == "9004")
+        {
+            // Hammer TODO implement
+            // PremiumInfo.PR_Hammer = ""
+            
+            // TODO +1 hammer
+            UserDataInfo.UD_Jewelery -= 1;
+        }
+        else if (tableId == "9005")
+        {
+            // TODO +3 hammer
+            UserDataInfo.UD_Jewelery -= 3;
+        }
+        else if (tableId == "9006")
+        {
+            // TODO +5 hammer
+            UserDataInfo.UD_Jewelery -= 5;
+        }
+        else if (tableId == "9007")
+        {
+            // TODO +10 hammer
+            UserDataInfo.UD_Jewelery -= 9;
+        }
+        else if (tableId == "9008")
+        {
+            // TODO +1 iron hammer
+            UserDataInfo.UD_Ruby -= 1;
+        }
+        else if (tableId == "9009")
+        {
+            // TODO +3 iron hammer
+            UserDataInfo.UD_Ruby -= 3;
+        }
+        else if (tableId == "9010")
+        {
+            // TODO +5 iron hammer
+            UserDataInfo.UD_Ruby -= 5;
+        }
+        else if (tableId == "9011")
+        {
+            // TODO +10 iron hammer
+            UserDataInfo.UD_Ruby -= 9;
+        }
+        else if (tableId == "9012")
+        {
+            // TODO +1 gold hammer
+            UserDataInfo.UD_Ruby -= 3;
+        }
+        else if (tableId == "9013")
+        {
+            // TODO +3 gold hammer
+            UserDataInfo.UD_Ruby -= 9;
+        }
+        else if (tableId == "9014")
+        {
+            // TODO +5 gold hammer
+            UserDataInfo.UD_Ruby -= 15;
+        }
+        else if (tableId == "9015")
+        {
+            // TODO +10 gold hammer
+            UserDataInfo.UD_Ruby -= 25;
+        }
+        else
+        {
+            return RejectRequest(body);
+        }
+        Save();
+
+        TrackNotImplemented(body);
+        return ResultCode.SUCCESS.ToString();
+    }
+    
+    [HttpPost]
+    [Route("BuyFeverTime.php")]
+    public string BuyFeverTime([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                TableID: 5005
+        */
+        if (!body.TryGetValue("TableID", out var tableId))
+            return RejectRequest(body);
+
+        if (tableId != "5005") 
             return RejectRequest(body);
         
-        var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
-        var price = AES.DecryptCBC(json?["Price"]?.GetValue<string>() ?? "");
-        Log.Information("Flower price: {0}", price);
+        UserDataInfo.UD_Ticket += 1;
+        UserDataInfo.UD_FeverTime = DateTime.UtcNow.AddHours(6);
+        Save();
         
+        return ResultCode.SUCCESS.ToString();
+
+    }
+    
+    [HttpPost]
+    [Route("BuyConversation.php")]
+    public string BuyConversation([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                TableID: 5000
+        */
+        if (!body.TryGetValue("TableID", out var tableId))
+            return RejectRequest(body);
+
+        if (tableId == "5000")
+        {
+            UserDataInfo.UD_Ruby -= 25;
+            ConversationInfo.CO_ExtraConversationCount += 5;
+        }
+        else if (tableId == "5001")
+        {
+            UserDataInfo.UD_Ruby -= 45;
+            ConversationInfo.CO_ExtraConversationCount += 10;
+        }
+        else if (tableId == "5002")
+        {
+            UserDataInfo.UD_Ruby -= 65;
+            ConversationInfo.CO_ExtraConversationCount += 15;
+        }     
+        else if (tableId == "5003")
+        {
+            UserDataInfo.UD_Ruby -= 85;
+            ConversationInfo.CO_ExtraConversationCount += 20;
+        }
+        else if (tableId == "5004")
+        {
+            UserDataInfo.UD_Jewelery -= 100;
+            ConversationInfo.CO_ExtraConversationCount += 25;
+        }
+        else
+        {
+            return RejectRequest(body);
+        }
+        Save();
+            
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -352,6 +631,8 @@ public sealed class SaveDataController : Controller
             return RejectRequest(body);
 
         MissionInfo = data;
+        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -371,20 +652,17 @@ public sealed class SaveDataController : Controller
                 Gold: gold amount
                 Jewelery: jewelery amount
         */
-        // TODO update gold and jewelery
         if (!body.TryDeserializeJsonData<MissionData>(out var data))
             return RejectRequest(body);
         
-        if (!body.TryGetJsonData(out var jsonData))
+        if (!body.TryDeserializeJsonData<MissionCompletionData>(out var completionData))
             return RejectRequest(body);
         
-        var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
-        var AddJewelery = AES.DecryptCBC(json?["AddJewelery"]?.GetValue<string>() ?? "");
-        Log.Information("AddJewelery: {0}", AddJewelery);   
-        var AddGold = AES.DecryptCBC(json?["AddGold"]?.GetValue<string>() ?? "");
-        Log.Information("AddGold: {0}", AddGold);
-        
         MissionInfo = data;
+        UserDataInfo.UD_Gold = completionData.Gold;
+        UserDataInfo.UD_Jewelery = completionData.Jewelery;
+        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -403,6 +681,8 @@ public sealed class SaveDataController : Controller
             return RejectRequest(body);
 
         ConversationInfo = data;
+        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -425,6 +705,8 @@ public sealed class SaveDataController : Controller
             return RejectRequest(body);
 
         InventoryInfo = data;
+        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -434,16 +716,22 @@ public sealed class SaveDataController : Controller
     {
         /*
             Additional post data:
-                jsonData={"LevelUpPet": "..."}
+                jsonData={"EventID":"PetUpdate_Dog","TargetID":"5100000","AddExp":10,"Exp":"Home=&0&,Mart=&0&,Restaurant=&0&,PetShop=&0&,Park=&0&,AmusementPark=&0&,5100000=&10&","LevelUpPet":null}
             JSON fields:
-               LevelUpPet: from UserData
+                EventID: "PetUpdate_Dog", ...
+                TargetID: pet item ID
+                AddExp: added experience points
+                Exp: total experience points
+                LevelUpPet: from UserData
         */
 
         if (!body.TryGetJsonData(out var jsonData))
             return RejectRequest(body);
         
         var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
+        UserDataInfo.UD_Exp = json?["Exp"]?.GetValue<string>(); 
         UserDataInfo.UD_LevelUpPet = json?["LevelUpPet"]?.GetValue<string>();
+        Save();
 
         TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
@@ -454,6 +742,9 @@ public sealed class SaveDataController : Controller
     public string UpdateGirlLevelClient([FromForm] IFormCollection body)
     {
         /* Additional post data: GirlLevel=3 */
+        if (!body.TryGetString("GirlLevel", out var girlLevel))
+            return RejectRequest(body);
+        
         // TODO not sure where to store this
         // TODO maybe this is just for reward mails on rank up?
         return ResultCode.SUCCESS.ToString();
@@ -510,12 +801,63 @@ public sealed class SaveDataController : Controller
                 inventoryData: InventoryData
                 mapData: MapData
         */
-        // TODO implement
+        if (!body.TryDeserializeJsonData<MinigameResultData>(out var data))
+            return RejectRequest(body);
+        
+        UserDataInfo.UD_Gold = data.Gold;
+        UserDataInfo.UD_TutorialStatus = data.Tutorial;
+        UserDataInfo.UD_Exp = data.Exp;
+        GirlDataInfo.GD_Sociability = data.Sociability;
+        GirlDataInfo.GD_Feeling = data.Feeling;
+
+        InventoryInfo = JsonUtils.PrefixKeysAndDeserializeAs<InventoryData>(data.InventoryData ?? string.Empty);
+        MapInfo = JsonUtils.PrefixKeysAndDeserializeAs<MapData>(data.MapData ?? string.Empty);
+        Save();
+
         TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
     
+    [HttpPost]
+    [Route("DailyCheck.php")]
+    public string DailyCheck([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData={"ConversationDailyCount":null,"AdsCount":"0","missionData":{"Mission_OneDay":"700000=&0^1&,710000=&0^1&,720000=&0^1&,730000=&0^1&,740000=&0^1&,750000=&0^1&,760000=&0^1&,770000=&0^1&,780000=&0^1&,790000=&0^1&,799999=&0^1&","Mission_Level":"800000=&0^1&,810000=&0^1&,820000=&0^1&,830000=&0^1&,840000=&0^1&,850000=&0^1&,860000=&1^1&,870000=&1^1&,880000=&1^1&,800010=&0^0&,810010=&0^0&,820010=&0^0&,830010=&0^0&,840010=&0^0&,850010=&0^0&,860010=&0^0&,870010=&0^0&,880010=&0^0&,800020=&0^0&,810020=&0^0&,820020=&0^0&,830020=&0^0&,840020=&0^0&,850020=&0^0&,860020=&0^0&,870020=&0^0&,880020=&0^0&,800030=&0^0&,810030=&0^0&,820030=&0^0&,830030=&0^0&,840030=&0^0&,850030=&0^0&,860030=&0^0&,870030=&0^0&,880030=&0^0&,800040=&0^0&,810040=&0^0&,820040=&0^0&,830040=&0^0&,840040=&0^0&,850040=&0^0&","DailyCheck_Time":"2024-11-02 01:07:06"}}
+            JSON fields:
+                ConversationDailyCount: from ConversationData
+                AdsCount: from UserData
+                missionData: see MissionData
+        */
+        if(!body.TryDeserializeJsonData<DailyCheckData>(out var data))
+            return RejectRequest(body);
+
+        ConversationInfo.CO_ConversationDailyCount = data.ConversationDailyCount;
+        UserDataInfo.UD_AdsCount = data.AdsCount;
+        MissionInfo = JsonUtils.PrefixKeysAndDeserializeAs<MissionData>(data.MissionData!);
+        Save();
+
+        return ResultCode.SUCCESS.ToString();
+    }
     
+    [HttpPost]
+    [Route("AdsUpdate.php")]
+    public string AdsUpdate([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData={"LastAdsTime":"2024-11-03 02:36:23","AdsCount":"1","ConversationCount":"5","BuyNoAds":"1"}
+        */
+        if(!body.TryDeserializeJsonData<AdsUpdateData>(out var data))
+            return RejectRequest(body);
+        
+        UserDataInfo.UD_AdsCount = data.AdsCount;
+        ConversationInfo.CO_ConversationCount = data.ConversationCount;
+        Save();
+
+        return ResultCode.SUCCESS.ToString();
+    }
         
     [HttpPost]
     [Route("Save_Default.php")]
@@ -533,10 +875,6 @@ public sealed class SaveDataController : Controller
          * Ugly workaround: The game expects the JSON keys to be prefixed with certain values in requests.
          * It doesn't include the prefix in the response though, so we have to add it back in.
          */
-        /*
-             * Ugly workaround: The game expects the JSON keys to be prefixed with certain values in requests.
-             * It doesn't include the prefix in the response though, so we have to add it back in.
-             */
         using var doc = JsonDocument.Parse(jsonData);
         foreach (var property in doc.RootElement.EnumerateObject())
         {
@@ -574,9 +912,11 @@ public sealed class SaveDataController : Controller
                     GirlDataInfo = JsonUtils.PrefixKeysAndDeserializeAs<GirlData>(subSectionJson);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(property.Name), property.Name);
+                    throw new InvalidDataException($"Unexpected key {property.Name}");
             }
         }
+        
+        Save();
         return ResultCode.SUCCESS.ToString();
     }
 

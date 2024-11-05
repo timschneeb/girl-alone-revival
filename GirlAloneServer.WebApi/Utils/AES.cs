@@ -81,9 +81,6 @@ public static class AES
                 
         var decryptedBytes = memoryStream.ToArray();
         var plainText = Encoding.UTF8.GetString(decryptedBytes);
-
-        // TODO remove log
-        Log.Debug($"CipherText: {cipherTextBase64} -> PlainText: {plainText}");
         return plainText;
     }
 }
