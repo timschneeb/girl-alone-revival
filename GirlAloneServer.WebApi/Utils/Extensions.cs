@@ -26,9 +26,6 @@ public static class Extensions
             var uid = dec
                 .Replace("*23#Fleximind", "")
                 .Replace("K$a!t@i#s$m%S^e&c*u(r)i_t+y|", "");
-            
-            // TODO
-            Log.Debug(uid);
         }
         
         return body.TryGetString("jsonData", out value);

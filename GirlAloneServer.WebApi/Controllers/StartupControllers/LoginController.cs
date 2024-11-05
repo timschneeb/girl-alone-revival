@@ -17,7 +17,7 @@ public sealed class LoginController : Controller
                 id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
         */
-        return "1";
+        return "0";
     }
     
     [HttpPost]
@@ -50,6 +50,7 @@ public sealed class LoginController : Controller
             Available post data:
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
         */
+        // TODO also called when selecting event in theme park
         return string.Join(';', ResultCode.SUCCESS.ToString(), "{}");
     }
 

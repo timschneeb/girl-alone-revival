@@ -24,6 +24,62 @@ namespace GirlAloneServer.WebApi.Controllers;
 [Route("/Build/{version}")]
 public sealed class SaveDataController : Controller
 {
+    /*
+        TODO Missing endpoints
+        - `/AddTicket_StandAlone.php` - Used to with parameter '-1' when starting a premium minigame
+        - `/ClientEventCoupon.php`
+        - `/CouponUpdate.php`
+        - `/GetRouletteTable.php`
+        - `/GetRouletteTable_Upgrade.php`
+        - `/Save_{integer}.php` - (edited)
+        - `/StartRoulette.php`
+        - `/StartRoulette_Upgrade.php`
+        - `/UpdateHammer.php`
+        - `/UpdateHighScore.php` - related to premium game
+        - `/MailUpdate_All.php`
+        - `/MailUpdate_Single.php`
+        
+        TODO Missing endpoints (not planned to implement)
+        - `/AddCheatInfo_StandAlone.php` - Not important; anti-cheat stuff
+        - `/AdsUpdate_Daily.php` - Ads are unavailable
+        - `/AdsUpdate_Date.php` - Ads are unavailable
+        - `/AdsUpdate_Gem.php` - Ads are unavailable
+        - `/AdsUpdate_Minigame.php` - Ads are unavailable
+        - `/AdsUpdate_Premium.php` - Ads are unavailable
+        - `/Cheat_Reset.php` - Not important; anti-cheat stuff
+        - `/SetInviteFriendInfo.php` - Not applicable; used by Google Play Referer service
+        
+        TODO Unhandled POST requests
+        [06:26:18 ERR] Unhandled POST request: Build/31/GetRouletteTable.php
+        Secret: FlexiCorona
+
+        [06:26:32 ERR] Unhandled POST request: Build/31/AddTicket_StandAlone.php
+        platform: PlayStore
+        id: QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC
+        DBAddress: https://ga.0001002.xyz/Build/
+        EventID: Start Premium Minigame
+        RewardType: Ticket
+        RewardCount: -1
+
+        [06:27:34 ERR] Unhandled POST request: Build/31/UpdateHighScore.php
+        platform: PlayStore
+        id: QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC
+        DBAddress: https://ga.0001002.xyz/Build/
+        HighScore: 19260
+        EventID: PremiumResult ->  /NowStage : 90000002 /NowScore : 19260 /TotalRuby : 2 /Continue : 0
+        NickName: 
+
+        [06:27:34 ERR] TODO: SetAlbumInfo
+        ["[platform, PlayStore]", "[id, QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC]", "[DBAddress, https://ga.0001002.xyz/Build/]", "[jsonData, {\"AL_AlbumSaveInfo\":\"50000000=&0^0&,50000001=&0^0&,50000002=&0^0&,50000003=&0^0&,60000000=&0^0&,60000001=&0^0&,60000002=&0^0&,60000003=&0^0&,60000004=&0^0&,60000005=&0^0&,60000006=&0^0&,60000007=&1^0&\"}]"]
+
+        [06:27:34 ERR] Unhandled POST request: Build/31/ClientEventCoupon.php
+        platform: PlayStore
+        id: QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC
+        DBAddress: https://ga.0001002.xyz/Build/
+        CouponID: CouponCatchMole
+     */
+    
+    
     public static string AlbumInfo { get; set; } = "";
     
     private static readonly string BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
@@ -163,6 +219,59 @@ public sealed class SaveDataController : Controller
         return ResultCode.SUCCESS.ToString();
     }
     
+        
+    [HttpPost]
+    [Route("DateStart.php")]
+    public string DateStart([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData={"BuildingInfo":"Home=&900000&,Mart=&900100&,Restaurant=&900200&,PetShop=&900300&,Park=&900400&,AmusementPark=&900500&","FirstClear":"7000000=&7000000&","Date_StartTime":"2024-11-05 04:47:41","Date_Place":"4","ItemTime":null,"EventID":"DateStart_Park","ConditionType":"Gold","Price":"Ff1icgrVVnKcxm7Cij4pRw==","Gold":"6009"}
+            JSON fields:
+                BuildingInfo: building info
+                FirstClear: first clear info
+                Date_StartTime: start time of the date
+                Date_Place: place ID
+                ItemTime: (not sure)
+                EventID: "DateStart_Park", ...
+                ConditionType: "Gold", "Jewelery", "Ruby"
+                Price: AES encrypted string encoded in Base64
+                Gold: gold amount before date
+        */
+        
+        // TODO
+        return TrackNotImplemented(body);
+    }
+    
+    
+    [HttpPost]
+    [Route("DateComplete.php")]
+    public string DateComplete([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData={"BuildingInfo":"Home=&900000&,Mart=&900100&,Restaurant=&900200&,PetShop=&900300&,Park=&900400&,AmusementPark=&900500&","FirstClear":"7000000=&7000000&","Date_StartTime":"2019-10-25 00:00:00","Date_Place":"-1","ItemTime":null,"EventID":"DateComplete_Park","RewardType":"Intimacy","Reward":"10","Intimacy":"100000","Sociability":"1000","Exp":"Home=&0&,Mart=&110&,Restaurant=&0&,PetShop=&19&,Park=&1&,AmusementPark=&0&,5120000=&510&"}
+            JSON fields:
+                BuildingInfo: building info
+                FirstClear: first clear info
+                Date_StartTime: start time of the date
+                Date_Place: place ID
+                ItemTime:  (not sure)
+                EventID: "DateComplete_Park", ...
+                RewardType: see RewardType enum
+                Reward: reward amount
+                Intimacy: intimacy amount before date
+                Sociability: sociability amount before date
+                Exp: experience amount
+                
+                
+        */
+        
+        // TODO
+        return TrackNotImplemented(body);
+    }
+
+    
     [HttpPost]
     [Route("QuestUpdate.php")]
     public string QuestUpdate([FromForm] IFormCollection body)
@@ -274,10 +383,7 @@ public sealed class SaveDataController : Controller
         /* Additional post data: jsonData={"Episode":"1"} */
         if (!body.TryGetJsonData(out var jsonData))
             return RejectRequest(body);
-
-        // TODO check why episode is reset to 0
-        TrackNotImplemented(body);
-        
+      
         var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
         UserDataInfo.UD_Episode = int.Parse(json?["Episode"]?.GetValue<string>() ?? "1");
         Save();
@@ -330,8 +436,6 @@ public sealed class SaveDataController : Controller
             UserDataInfo.UD_Jewelery += rewardCount;
         else if(rewardType == "Ruby")
             UserDataInfo.UD_Ruby += rewardCount;
-        else if(rewardType == "Ticket")
-            UserDataInfo.UD_Ticket += rewardCount;
         else // TODO find all possible reward types
             throw new ArgumentOutOfRangeException(nameof(rewardType), rewardType, "Invalid reward type");
         Save();
@@ -406,6 +510,7 @@ public sealed class SaveDataController : Controller
             default:
                 throw new ArgumentOutOfRangeException(nameof(itemData.Price_Type), itemData.Price_Type, "Invalid price type");
         }
+
 
         // TODO update target id in InventoryData
         Save();
