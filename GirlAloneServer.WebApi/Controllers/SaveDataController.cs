@@ -1,12 +1,9 @@
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
 using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
@@ -19,22 +16,14 @@ namespace GirlAloneServer.WebApi.Controllers;
     Some endpoints also receive additional POST data, which is documented separately.
 */
 [Route("/Build/{version}")]
-public sealed class SaveDataController : Controller
+public sealed class SaveDataController : BaseController
 {
     /*
         TODO Missing endpoints
-        - `/AddTicket_StandAlone.php` - Used to with parameter '-1' when starting a premium minigame
-        - `/ClientEventCoupon.php`
-        - `/CouponUpdate.php`
         - `/GetRouletteTable.php`
         - `/GetRouletteTable_Upgrade.php`
-        - `/Save_{integer}.php` - (edited)
         - `/StartRoulette.php`
         - `/StartRoulette_Upgrade.php`
-        - `/UpdateHammer.php`
-        - `/UpdateHighScore.php` - related to premium game
-        - `/MailUpdate_All.php`
-        - `/MailUpdate_Single.php`
         
         TODO Missing endpoints (not planned to implement)
         - `/AddCheatInfo_StandAlone.php` - Not important; anti-cheat stuff
@@ -44,27 +33,12 @@ public sealed class SaveDataController : Controller
         - `/AdsUpdate_Minigame.php` - Ads are unavailable
         - `/AdsUpdate_Premium.php` - Ads are unavailable
         - `/Cheat_Reset.php` - Not important; anti-cheat stuff
+        - `/CouponUpdate.php` - Similar to `ClientEventCoupon.php`, not important
         - `/SetInviteFriendInfo.php` - Not applicable; used by Google Play Referer service
         
         TODO Unhandled POST requests
         [06:26:18 ERR] Unhandled POST request: Build/31/GetRouletteTable.php
         Secret: FlexiCorona
-
-        [06:26:32 ERR] Unhandled POST request: Build/31/AddTicket_StandAlone.php
-        platform: PlayStore
-        id: QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC
-        DBAddress: https://ga.0001002.xyz/Build/
-        EventID: Start Premium Minigame
-        RewardType: Ticket
-        RewardCount: -1
-
-        [06:27:34 ERR] Unhandled POST request: Build/31/UpdateHighScore.php
-        platform: PlayStore
-        id: QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC
-        DBAddress: https://ga.0001002.xyz/Build/
-        HighScore: 19260
-        EventID: PremiumResult ->  /NowStage : 90000002 /NowScore : 19260 /TotalRuby : 2 /Continue : 0
-        NickName: 
 
         [06:27:34 ERR] TODO: SetAlbumInfo
         ["[platform, PlayStore]", "[id, QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC]", "[DBAddress, https://ga.0001002.xyz/Build/]", "[jsonData, {\"AL_AlbumSaveInfo\":\"50000000=&0^0&,50000001=&0^0&,50000002=&0^0&,50000003=&0^0&,60000000=&0^0&,60000001=&0^0&,60000002=&0^0&,60000003=&0^0&,60000004=&0^0&,60000005=&0^0&,60000006=&0^0&,60000007=&1^0&\"}]"]
@@ -76,77 +50,6 @@ public sealed class SaveDataController : Controller
         CouponID: CouponCatchMole
      */
     
-    
-    public static string AlbumInfo { get; set; } = "";
-    
-    private static readonly string BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
-
-    private static T Read<T>()
-    {
-        var name = typeof(T).Name;
-        if (!System.IO.File.Exists(BasePath + "/data/" + name + ".json")) 
-            return Activator.CreateInstance<T>();
-        
-        var body = System.IO.File.ReadAllText(BasePath + "/data/" + name + ".json");
-        return JsonSerializer.Deserialize<T>(body, SerializerOptions)!;
-    }
-    
-    private static void Write<T>(T data)
-    {
-        var name = typeof(T).Name;
-        var body = JsonSerializer.Serialize(data, SerializerOptions);
-       
-        if(!Path.Exists(BasePath + "/data"))
-            Directory.CreateDirectory(BasePath + "/data");
-        System.IO.File.WriteAllText(BasePath + "/data/" + name + ".json", body);
-    }
-
-    static SaveDataController()
-    {
-        UserDataInfo = Read<UserData>();
-        BugInfo = Read<BugData>();
-        MissionInfo = Read<MissionData>();
-        ConversationInfo = Read<ConversationData>();
-        InventoryInfo = Read<InventoryData>();
-        MapInfo = Read<MapData>();
-        QuestInfo = Read<QuestData>();
-        PremiumInfo = Read<PremiumData>();
-        GirlDataInfo = Read<GirlData>();
-        EndingInfo = Read<EndingData>();
-    }
-
-    private static void Save()
-    {
-        Write(UserDataInfo);
-        Write(BugInfo);
-        Write(MissionInfo);
-        Write(ConversationInfo);
-        Write(InventoryInfo);
-        Write(MapInfo);
-        Write(QuestInfo);
-        Write(PremiumInfo);
-        Write(GirlDataInfo);
-        Write(EndingInfo);
-    }
-    
-    public static UserData UserDataInfo { set; get; }
-    public static BugData BugInfo { set; get; }
-    public static MissionData MissionInfo { set; get; }
-    public static ConversationData ConversationInfo { set; get; }
-    public static InventoryData InventoryInfo { set; get; }
-    public static MapData MapInfo { set; get; }
-    public static QuestData QuestInfo { set; get; }
-    public static PremiumData PremiumInfo { set; get; }
-    public static GirlData GirlDataInfo { set; get; }
-    public static EndingData EndingInfo { set; get; }
-
-    private static JsonSerializerOptions SerializerOptions => JsonUtils.SerializerOptions;
-
-    public string TrackNotImplemented(IFormCollection body, [CallerMemberName] string callerName = "")
-    {
-        Log.Error("TODO: {0}\n{1}", callerName, body);
-        return ResultCode.SUCCESS.ToString();
-    }
     
     [HttpPost]
     [Route("Login.php")]
@@ -215,8 +118,66 @@ public sealed class SaveDataController : Controller
         Save();
         return ResultCode.SUCCESS.ToString();
     }
-    
+
+    [HttpPost]
+    [Route("UpdateHighScore.php")]
+    public string UpdateHighScore([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                HighScore: 19260
+                EventID: PremiumResult ->  /NowStage : 90000002 /NowScore : 19260 /TotalRuby : 2 /Continue : 0
+                NickName:
+        */
+        if (!body.TryGetString("HighScore", out var highScore))
+            return RejectRequest(body);
         
+        PremiumInfo.PR_HighScore = int.Parse(highScore);
+        Save();
+        
+        return ResultCode.SUCCESS.ToString();
+    }
+    
+    [HttpPost]
+    [Route("ClientEventCoupon.php")]
+    public string ClientEventCoupon([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                CouponID: CouponCatchMole
+            Notes:
+                Used to redeem event coupons. Coupons should only be redeemable once.
+        */
+        
+        // Not implemented
+        return ResultCode.SUCCESS.ToString();
+    }
+
+    [HttpPost]
+    [Route("AddTicket_StandAlone.php")]
+    public string AddTicketStandAlone([FromForm] IFormCollection body)
+    {
+        /*
+            Additional POST data:
+                EventID: "Start Premium Minigame", ...
+                RewardType: "Ticket"
+                RewardCount: -1, ...
+        */
+        if (!body.TryGetString("RewardType", out var rewardType))
+            return RejectRequest(body);
+        
+        if (rewardType != "Ticket")
+            return RejectRequest(body);
+
+        if (!body.TryGetString("RewardCount", out var rewardCount))
+            return RejectRequest(body);
+        
+        UserDataInfo.UD_Ticket += int.Parse(rewardCount);
+        Save();
+
+        return ResultCode.SUCCESS.ToString();
+    }
+
     [HttpPost]
     [Route("DateStart.php")]
     public string DateStart([FromForm] IFormCollection body)
@@ -260,8 +221,6 @@ public sealed class SaveDataController : Controller
                 Intimacy: intimacy amount before date
                 Sociability: sociability amount before date
                 Exp: experience amount
-                
-                
         */
         
         // TODO
@@ -465,6 +424,28 @@ public sealed class SaveDataController : Controller
         UserDataInfo.UD_Flower_CoolTime = flowerData.Flower_CoolTime;
         GirlDataInfo.GD_Intimacy = flowerData.Intimacy;
         // TODO update flower id in InventoryData
+        Save();
+
+        TrackNotImplemented(body);
+        return ResultCode.SUCCESS.ToString();
+    }
+    
+    [HttpPost]
+    [Route("UpdateHammer.php")]
+    public string UpdateHammer([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData={...} // not yet documented
+            JSON fields:
+                Hammer: string,int dictionary encoded as a string
+                EventID: event ID string
+                
+        */
+        if (!body.TryDeserializeJsonData<HammerData>(out var hammerData))
+            return RejectRequest(body); 
+
+        PremiumInfo.PR_Hammer = hammerData.Hammer;
         Save();
 
         TrackNotImplemented(body);
@@ -942,7 +923,27 @@ public sealed class SaveDataController : Controller
 
         return ResultCode.SUCCESS.ToString();
     }
+
+    [HttpPost]
+    [Route("MailUpdate_All.php")]
+    public string MailUpdateAll([FromForm] IFormCollection body)
+    {
+        // TODO
+        return TrackNotImplemented(body);
+    }
     
+    [HttpPost]
+    [Route("MailUpdate_Single.php")]
+    public string MailUpdate_Single([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData: {"ID":"20000034","GetDate":"2024-01-01 00:10:11","ExpirationDate":"2025-01-01 00:10:11"}
+        */
+        // TODO
+        return TrackNotImplemented(body);
+    }
+
     [HttpPost]
     [Route("AdsUpdate.php")]
     public string AdsUpdate([FromForm] IFormCollection body)
@@ -1020,11 +1021,5 @@ public sealed class SaveDataController : Controller
         
         Save();
         return ResultCode.SUCCESS.ToString();
-    }
-
-    private static string RejectRequest(IFormCollection body, [CallerMemberName] string? callerName = null)
-    {
-        Log.Error("Failed to process request {0}\n{1}", callerName, body);
-        return ResultCode.FAIL.ToString();
     }
 }

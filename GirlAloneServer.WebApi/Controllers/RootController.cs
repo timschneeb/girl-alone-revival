@@ -4,23 +4,27 @@ using Serilog;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
-public sealed class RootController : Controller
+public sealed class RootController : BaseController
 {
     [HttpGet]
     [Route("/")]
     public ContentResult Root()
     {
-        // TODO Redirect to GitHub
         return new ContentResult 
         {
             ContentType = "text/html",
-            Content = "<h1>GirlAloneServer</h1><p>Server is running</p>"
+            Content = HtmlTemplate(
+                """
+                <h1>Girl Alone Server</h1>
+                <p>Server is active</p>
+                <p>Check out the <a href="https://github.com/timschneeb/girl-alone-revival">GitHub repository</a></p>
+                """)
         };
     }
     
     [Route("{**catchAll}")]
     [HttpPost("post", Order = int.MaxValue)]
-    public async Task<string> Post(string catchAll)
+    public string Post(string catchAll)
     {
         var form = Request.Form;
         var values = string.Empty;

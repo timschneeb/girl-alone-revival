@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GirlAloneServer.WebApi.Controllers.StartupControllers;
 
 [Route("/Build")]
-public class BootstrapController : Controller
+public class BootstrapController : BaseController
 {
     [HttpGet]
     [Route("LatestVersion_{platform}.json")]

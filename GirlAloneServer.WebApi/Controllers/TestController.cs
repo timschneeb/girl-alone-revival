@@ -14,14 +14,8 @@ namespace GirlAloneServer.WebApi.Controllers;
     Some endpoints also receive additional POST data, which is documented separately.
 */
 [Route("/Build/{version}")]
-public sealed class TestController : Controller
+public sealed class TestController : BaseController
 {
-    public string TrackNotImplemented(IFormCollection body, [CallerMemberName] string callerName = "")
-    {
-        Log.Error("TODO: {0}\n{1}", callerName, body);
-        return ResultCode.SUCCESS.ToString();
-    }
-    
     [HttpPost]
     [Route("GetExtraAds.php")]
     public string GetExtraAds([FromForm] IFormCollection body) =>

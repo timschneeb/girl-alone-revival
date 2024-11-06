@@ -16,7 +16,7 @@ public sealed class LoginController : Controller
                 id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
         */
-        return "0";
+        return "0"; // or "1" for tester accounts
     }
     
     [HttpPost]
@@ -27,7 +27,28 @@ public sealed class LoginController : Controller
             Available post data:
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
         */
-        return "1";
+        // TODO: see EventType enum
+        return string.Join(';', ResultCode.SUCCESS, """
+               {
+                    "PN_ID": "110000000",
+                    "PN_StartDate": "2021-01-01 00:00:00",
+                    "PN_EndDate": "2025-12-31 23:59:59",
+                    "PN_StartTime": "00:00:00",
+                    "PN_EndTime": "23:59:59",
+                    "PN_Day": "0000010",
+                    "PN_AdditionalLabel": "TEST",
+                    "PN_EventType1": "Gem", 
+                    "PN_EventType2": "Package",
+                    "PN_EventType3": "300",
+                    "PN_EventType4": "400",
+                    "PN_EventType5": "500",
+                    "PN_EventValue1": "1",
+                    "PN_EventValue2": "2",
+                    "PN_EventValue3": "3",
+                    "PN_EventValue4": "4",
+                    "PN_EventValue5": "5",
+               }
+               """);
     }
     
     [HttpPost]
@@ -49,7 +70,6 @@ public sealed class LoginController : Controller
             Available post data:
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
         */
-        // TODO also called when selecting event in theme park
         return string.Join(';', ResultCode.SUCCESS.ToString(), "{}");
     }
 
