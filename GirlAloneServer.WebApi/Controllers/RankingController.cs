@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
-public class RankingController : BaseController
+[Route("/Build/{version}")]
+public sealed class RankingController : BaseController
 {
         
     [HttpPost]

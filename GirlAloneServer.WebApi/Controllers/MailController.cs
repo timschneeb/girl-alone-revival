@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
-public class MailController : BaseController
+[Route("/Build/{version}")]
+public sealed class MailController : BaseController
 {
     [HttpPost]
     [Route("MailUpdate_All.php")]
@@ -40,6 +41,8 @@ public class MailController : BaseController
          * After claiming a reward, the game sends a FromServerToClient_* request to retrieve the new save state from the server.
          * MailUpdate_Single.php and MailUpdate_All.php are used to claim rewards and mark the mail as deleted for the current user.
          */
+        
+        
         return string.Join(';',
             ResultCode.SUCCESS.ToString(),
             """

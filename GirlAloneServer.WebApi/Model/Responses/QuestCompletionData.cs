@@ -1,9 +1,12 @@
 // ReSharper disable InconsistentNaming
-namespace GirlAloneServer.WebApi.Model;
+
+using GirlAloneServer.WebApi.Model.Enums;
+
+namespace GirlAloneServer.WebApi.Model.Responses;
 
 public class QuestCompletionData
 {
-    public string? /* RewardType */ RewardType { get; set; }
+    public RewardType? RewardType { get; set; }
     public string? Reward { get; set; }
     public string? EventID { get; set; }
     public int Success { get; set; }

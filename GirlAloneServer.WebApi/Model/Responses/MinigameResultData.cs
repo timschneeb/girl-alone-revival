@@ -2,8 +2,9 @@
 
 using System.Text.Json.Serialization;
 using GirlAloneServer.WebApi.Converters;
+using GirlAloneServer.WebApi.Model.Enums;
 
-namespace GirlAloneServer.WebApi.Model;
+namespace GirlAloneServer.WebApi.Model.Responses;
 
 public class MinigameResultData
 {
@@ -18,9 +19,9 @@ public class MinigameResultData
     public int? Feeling { get; set; }
     public string? MinigameID { get; set; }
     public string? ItemID { get; set; }
-    public int? ItemType { get; set; }
-    public int? Tutorial { get; set; }
-    public string? Exp { get; set; }
+    public ItemType? ItemType { get; set; }
+    public TutorialStatus? Tutorial { get; set; }
+    public Dictionary<string, float>? Exp { get; set; }
     [JsonPropertyName("inventoryData"), JsonConverter(typeof(JsonObjectToStringConverter))]
     public string? InventoryData { get; set; }
     [JsonPropertyName("mapData"), JsonConverter(typeof(JsonObjectToStringConverter))]

@@ -1,11 +1,13 @@
 using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
+using GirlAloneServer.WebApi.Model.Responses;
 using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
-public class ShopController : BaseController
+[Route("/Build/{version}")]
+public sealed class ShopController : BaseController
 {
     [HttpPost]
     [Route("BuyItem.php")]
@@ -31,20 +33,20 @@ public class ShopController : BaseController
         
         switch (itemData.Price_Type)
         {
-            case "Gold":
+            case PriceType.Gold:
                 UserDataInfo.UD_Gold = itemData.Gold - price;
                 break;
-            case "Gem":
+            case PriceType.Gem:
                 UserDataInfo.UD_Jewelery = itemData.Jewelery - price;
                 break;
-            case "Ruby":
+            case PriceType.Ruby:
                 UserDataInfo.UD_Ruby = itemData.Ruby - price;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(itemData.Price_Type), itemData.Price_Type, "Invalid price type");
         }
 
-
+        
         // TODO update target id in InventoryData
         Save();
 
@@ -114,8 +116,11 @@ public class ShopController : BaseController
         }
         else if (tableId == "9004")
         {
-            // Hammer TODO implement
-            // PremiumInfo.PR_Hammer = ""
+            var dict = PremiumInfo.PR_Hammer ?? new Dictionary<string, int>();
+            if (!dict.ContainsKey(tableId!))
+                dict[tableId!] = 0;
+            dict[tableId!] += 1;
+            PremiumInfo.PR_Hammer = dict;
             
             // TODO +1 hammer
             UserDataInfo.UD_Jewelery -= 1;

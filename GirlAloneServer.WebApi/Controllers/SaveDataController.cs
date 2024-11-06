@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
+using GirlAloneServer.WebApi.Model.Responses;
 using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
 
@@ -205,10 +206,11 @@ public sealed class SaveDataController : BaseController
             return RejectRequest(body);
         
         var reward = int.Parse(data.Reward!);
-        
-        if(data.RewardType == "Intimacy")
+
+
+        if(data.RewardType == RewardType.Intimacy)
             GirlDataInfo.GD_Intimacy = data.Intimacy + reward;
-        else if(data.RewardType == "Sociability")
+        else if(data.RewardType == RewardType.Sociability)
             GirlDataInfo.GD_Sociability = data.Sociability + reward;
         else
             throw new ArgumentOutOfRangeException(nameof(data.RewardType), data.RewardType, "Invalid reward type");
@@ -565,8 +567,8 @@ public sealed class SaveDataController : BaseController
             return RejectRequest(body);
         
         var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
-        UserDataInfo.UD_Exp = json?["Exp"]?.GetValue<string>(); 
-        UserDataInfo.UD_LevelUpPet = json?["LevelUpPet"]?.GetValue<string>();
+        UserDataInfo.UD_Exp = DictionaryConverter.ToDictionary<float>(json?["Exp"]?.GetValue<string>()); 
+        UserDataInfo.UD_LevelUpPet =  DictionaryConverter.ToDictionary<string>(json?["LevelUpPet"]?.GetValue<string>());
         Save();
 
         TrackNotImplemented(body);

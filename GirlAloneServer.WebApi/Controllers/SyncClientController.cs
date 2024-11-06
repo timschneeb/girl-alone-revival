@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
-public class SyncClientController : BaseController
+[Route("/Build/{version}")]
+public sealed class SyncClientController : BaseController
 {
     [HttpPost]
     [Route("FromServerToClient_UserData.php")]

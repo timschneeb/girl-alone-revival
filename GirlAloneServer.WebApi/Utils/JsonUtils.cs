@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using GirlAloneServer.WebApi.Converters;
 using GirlAloneServer.WebApi.Model;
+using GirlAloneServer.WebApi.Model.Enums;
 
 namespace GirlAloneServer.WebApi.Utils;
 
@@ -9,7 +10,33 @@ public static class JsonUtils
 {
     public static JsonSerializerOptions SerializerOptions { get; } = new()
     {
-        Converters = { new DateTimeConverter() },
+        Converters =
+        {
+            new DateTimeConverter(),
+            new DictionaryConverter<int>(),
+            new DictionaryConverter<string>(),
+            new DictionaryConverter<float>(),
+            new StringifiedEnumIndexConverter<TutorialStatus>(),
+            new StringifiedEnumIndexConverter<ItemType>(),
+            new StringifiedEnumIndexConverter<QuestType>(),
+            new StringifiedEnumIndexConverter<GirlPosture>(),
+            new StringifiedEnumIndexConverter<Place>(),
+            new StringifiedEnumIndexConverter<RewardType>(),
+        },
+        NumberHandling = JsonNumberHandling.AllowReadingFromString,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };  
+    
+    public static JsonSerializerOptions SerializerOptionsVerbose { get; } = new()
+    {
+        Converters =
+        {
+            new DateTimeConverter(),
+            new DictionaryConverter<int>(),
+            new DictionaryConverter<string>(),
+            new DictionaryConverter<float>(),
+            new JsonStringEnumConverter()
+        },
         NumberHandling = JsonNumberHandling.AllowReadingFromString,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };

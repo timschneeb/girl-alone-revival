@@ -2,7 +2,7 @@
 
 using GirlAloneServer.WebApi.Model.Enums;
 
-namespace GirlAloneServer.WebApi.Model;
+namespace GirlAloneServer.WebApi.Model.Responses;
 
 public class MailPreset
 {

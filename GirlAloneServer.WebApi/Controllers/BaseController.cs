@@ -20,13 +20,13 @@ public abstract class BaseController : Controller
             return Activator.CreateInstance<T>();
         
         var body = System.IO.File.ReadAllText(BasePath + "/data/" + name + ".json");
-        return JsonSerializer.Deserialize<T>(body, SerializerOptions)!;
+        return JsonSerializer.Deserialize<T>(body, SerializerOptionsVerbose)!;
     }
     
     private static void Write<T>(T data)
     {
         var name = typeof(T).Name;
-        var body = JsonSerializer.Serialize(data, SerializerOptions);
+        var body = JsonSerializer.Serialize(data, SerializerOptionsVerbose);
        
         if(!Path.Exists(BasePath + "/data"))
             Directory.CreateDirectory(BasePath + "/data");
@@ -76,6 +76,7 @@ public abstract class BaseController : Controller
     public static EndingData EndingInfo { set; get; }
 
     protected static JsonSerializerOptions SerializerOptions => JsonUtils.SerializerOptions;
+    protected static JsonSerializerOptions SerializerOptionsVerbose => JsonUtils.SerializerOptionsVerbose;
     
     protected static string RejectRequest(IFormCollection body, [CallerMemberName] string? callerName = null)
     {
