@@ -2,6 +2,11 @@
 
 namespace GirlAloneServer.WebApi.Model;
 
+public class AlbumData
+{
+    public string? AL_AlbumSaveInfo { get; set; } // Dictionary<string, AlbumSaveInfo>
+}
+
 public class BugData
 {
     public string? BU_BugSpawn { get; set; } // Dictionary<string, string>

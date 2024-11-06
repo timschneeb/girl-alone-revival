@@ -42,12 +42,6 @@ public sealed class SaveDataController : BaseController
 
         [06:27:34 ERR] TODO: SetAlbumInfo
         ["[platform, PlayStore]", "[id, QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC]", "[DBAddress, https://ga.0001002.xyz/Build/]", "[jsonData, {\"AL_AlbumSaveInfo\":\"50000000=&0^0&,50000001=&0^0&,50000002=&0^0&,50000003=&0^0&,60000000=&0^0&,60000001=&0^0&,60000002=&0^0&,60000003=&0^0&,60000004=&0^0&,60000005=&0^0&,60000006=&0^0&,60000007=&1^0&\"}]"]
-
-        [06:27:34 ERR] Unhandled POST request: Build/31/ClientEventCoupon.php
-        platform: PlayStore
-        id: QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC
-        DBAddress: https://ga.0001002.xyz/Build/
-        CouponID: CouponCatchMole
      */
     
     
@@ -91,11 +85,12 @@ public sealed class SaveDataController : BaseController
             JSON fields:
                 AL_AlbumSaveInfo: Unlock status of each album item
         */
-        if (!body.TryGetJsonData(out var data))
+        if (!body.TryDeserializeJsonData<AlbumData>(out var data))
             return RejectRequest(body);
 
         AlbumInfo = data;
-        TrackNotImplemented(body);
+        Save();
+        
         return ResultCode.SUCCESS.ToString();
     }
     

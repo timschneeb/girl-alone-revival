@@ -11,8 +11,6 @@ namespace GirlAloneServer.WebApi.Controllers;
 
 public abstract class BaseController : Controller
 {
-        public static string AlbumInfo { get; set; } = "";
-    
     private static readonly string BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
 
     private static T Read<T>()
@@ -38,6 +36,7 @@ public abstract class BaseController : Controller
     static BaseController()
     {
         UserDataInfo = Read<UserData>();
+        AlbumInfo = Read<AlbumData>();
         BugInfo = Read<BugData>();
         MissionInfo = Read<MissionData>();
         ConversationInfo = Read<ConversationData>();
@@ -52,6 +51,7 @@ public abstract class BaseController : Controller
     protected static void Save()
     {
         Write(UserDataInfo);
+        Write(AlbumInfo);
         Write(BugInfo);
         Write(MissionInfo);
         Write(ConversationInfo);
@@ -64,6 +64,7 @@ public abstract class BaseController : Controller
     }
     
     public static UserData UserDataInfo { set; get; }
+    public static AlbumData AlbumInfo { set; get; }
     public static BugData BugInfo { set; get; }
     public static MissionData MissionInfo { set; get; }
     public static ConversationData ConversationInfo { set; get; }
