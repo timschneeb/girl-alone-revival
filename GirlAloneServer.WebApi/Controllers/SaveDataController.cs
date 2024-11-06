@@ -423,12 +423,14 @@ public sealed class SaveDataController : BaseController
         UserDataInfo.UD_Flower_CoolTime = flowerData.Flower_CoolTime;
         GirlDataInfo.GD_Intimacy = flowerData.Intimacy;
         
-        var dict = InventoryInfo.IN_Inven_Dic_Background ?? new Dictionary<string, string>();
-        dict["Flowerpot"] = flowerData.FlowerID ?? "0";
-        InventoryInfo.IN_Inven_Dic_Background = dict;
+        if (flowerData.FlowerID != null)
+        {
+            var dict = InventoryInfo.IN_Inven_Dic_Background ?? new Dictionary<string, string>();
+            dict["Flowerpot"] = flowerData.FlowerID;
+            InventoryInfo.IN_Inven_Dic_Background = dict;
+        }
         Save();
 
-        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -450,7 +452,6 @@ public sealed class SaveDataController : BaseController
         PremiumInfo.PR_Hammer = hammerData.Hammer;
         Save();
 
-        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -547,8 +548,6 @@ public sealed class SaveDataController : BaseController
 
         InventoryInfo = data;
         Save();
-
-        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -572,10 +571,9 @@ public sealed class SaveDataController : BaseController
         
         var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
         UserDataInfo.UD_Exp = DictionaryConverter.ToDictionary<float>(json?["Exp"]?.GetValue<string>()); 
-        UserDataInfo.UD_LevelUpPet =  DictionaryConverter.ToDictionary<string>(json?["LevelUpPet"]?.GetValue<string>());
+        UserDataInfo.UD_LevelUpPet = DictionaryConverter.ToDictionary<string>(json?["LevelUpPet"]?.GetValue<string>());
         Save();
 
-        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -600,7 +598,7 @@ public sealed class SaveDataController : BaseController
                 jsonData={"Success":0,"Count":"6","Addmoney":"kqxewybhwhFO6KL6TeNSfw==","AddSociability":"0","AddFeeling":"0","Gold":"60","Sociability":"0","Feeling":"48","MinigameID":"900100","ItemID":"","ItemType":"-1","Tutorial":"7","Exp":"Home=&0&,Mart=&0&,Restaurant=&0&,PetShop=&0&,Park=&0&,AmusementPark=&0&","inventoryData":{"Inven_Dic_0":"2000000=&-1&,2100000=&-1&,2200000=&-1&,2300000=&-1&,2400000=&-1&,2500000=&-1&","Inven_Dic_1":"4000001=&1&","Inven_Dic_2":"1000000=&1&","Inven_Dic_3":"3000000=&-1&,3000001=&-1&,3600000=&-1&","Inven_Dic_4":null,"Inven_Dic_5":null,"Inven_Dic_6":null,"Inven_Dic_7":null,"Inven_Dic_Background":"Bed=&2000000&,Cabinet=&2100000&,Wallpaper=&2200000&,Floor=&2300000&,Window=&2400000&,Flowerpot=&2500000&"},"mapData":{"BuildingInfo":"Home=&900000&,Mart=&900100&,Restaurant=&900200&,PetShop=&900300&,Park=&900400&,AmusementPark=&900500&","FirstClear":null,"Date_StartTime":"2019-10-25 00:00:00","Date_Place":"-1","ItemTime":null}}
             JSON fields:
                 Success: 0, 1
-                Count: count
+                Count: count of correct answers
                 Addmoney: AES encrypted string encoded in Base64
                 AddSociability: added sociability amount
                 AddFeeling: added feeling amount
@@ -628,7 +626,6 @@ public sealed class SaveDataController : BaseController
         MapInfo = JsonUtils.PrefixKeysAndDeserializeAs<MapData>(data.MapData ?? string.Empty);
         Save();
 
-        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
         

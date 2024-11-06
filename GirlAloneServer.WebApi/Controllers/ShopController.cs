@@ -119,7 +119,6 @@ public sealed class ShopController : BaseController
         UserDataInfo.UD_Jewelery = itemData.Jewelery - price;
         Save();
 
-        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -220,8 +219,6 @@ public sealed class ShopController : BaseController
             return RejectRequest(body);
         }
         Save();
-
-        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
 
         void UpdateHammerCount(string id, int increment)
