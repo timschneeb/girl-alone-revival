@@ -16,7 +16,7 @@ namespace GirlAloneServer.WebApi.Controllers;
     Some endpoints also receive additional POST data, which is documented separately.
 */
 [Route("/Build/{version}")]
-public sealed class TestController : BaseController
+public sealed class MiscController : BaseController
 {
     [HttpPost]
     [Route("GetExtraAds.php")]
