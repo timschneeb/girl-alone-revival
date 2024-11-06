@@ -136,8 +136,8 @@ public class UserData
 
     public /* ItemType */ int? UD_TutorialItemType { get; set; } 
     public /* TutorialStatus */ int? UD_TutorialStatus { get; set; }
-        
-    public int UD_Intro { get; set; } = 1; // TODO set to 0 // boolean
+
+    public int UD_Intro { get; set; } = 0; // boolean
     public DateTime? UD_LastAdsTime { get; set; }
     public DateTime? UD_LastAdsTime_Gem { get; set; }
     public int? UD_AdsCount { get; set; }
