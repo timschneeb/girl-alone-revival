@@ -22,6 +22,7 @@ public static class JsonUtils
             new StringifiedEnumIndexConverter<GirlPosture>(),
             new StringifiedEnumIndexConverter<Place>(),
             new StringifiedEnumIndexConverter<RewardType>(),
+            new StringifiedEnumIndexConverter<PriceType>(),
         },
         NumberHandling = JsonNumberHandling.AllowReadingFromString,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull

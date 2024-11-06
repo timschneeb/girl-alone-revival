@@ -422,7 +422,10 @@ public sealed class SaveDataController : BaseController
         UserDataInfo.UD_Flower_StartTime = flowerData.Flower_StartTime;
         UserDataInfo.UD_Flower_CoolTime = flowerData.Flower_CoolTime;
         GirlDataInfo.GD_Intimacy = flowerData.Intimacy;
-        // TODO update flower id in InventoryData
+        
+        var dict = InventoryInfo.IN_Inven_Dic_Background ?? new Dictionary<string, string>();
+        dict["Flowerpot"] = flowerData.FlowerID ?? "0";
+        InventoryInfo.IN_Inven_Dic_Background = dict;
         Save();
 
         TrackNotImplemented(body);
@@ -545,6 +548,7 @@ public sealed class SaveDataController : BaseController
         InventoryInfo = data;
         Save();
 
+        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
 

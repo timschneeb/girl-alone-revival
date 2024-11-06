@@ -54,6 +54,17 @@ public class GirlData
 
 public class InventoryData
 {
+    /*
+        IN_Inven_Dic_0 - Furniture 2x
+        IN_Inven_Dic_1 - Food 4x
+        IN_Inven_Dic_2 - Gift 1x
+        IN_Inven_Dic_3 - Costume 3x
+        IN_Inven_Dic_4 - Pet 5x
+        IN_Inven_Dic_5 - ????
+        IN_Inven_Dic_6 - Pet Food 6x
+        IN_Inven_Dic_7 - ????
+    */
+    
     public Dictionary<string, int>? IN_Inven_Dic_0 { get; set; }
     public Dictionary<string, int>? IN_Inven_Dic_1 { get; set; } = new() { [ "4000001" ] = 1 }; // Initialize with sandwich item for tutorial
     public Dictionary<string, int>? IN_Inven_Dic_2 { get; set; } 

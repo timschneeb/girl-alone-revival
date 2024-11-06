@@ -52,4 +52,15 @@ public sealed class MailController : BaseController
             """
         );
     }
+    
+    
+    [HttpPost]
+    [Route("FindCoupon.php")]
+    public string FindCoupon([FromForm] IFormCollection body)
+    {
+        /* Additional post data: CouponId=12345, FindKey=204 */
+        // TODO implement coupon system and deliver rewards via mail
+        TrackNotImplemented(body);
+        return string.Join(';', ResultCode.SUCCESS, "{}");
+    }
 }

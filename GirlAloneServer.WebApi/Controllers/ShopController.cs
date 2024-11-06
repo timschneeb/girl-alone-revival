@@ -3,6 +3,7 @@ using GirlAloneServer.WebApi.Model.Enums;
 using GirlAloneServer.WebApi.Model.Responses;
 using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
@@ -46,12 +47,52 @@ public sealed class ShopController : BaseController
                 throw new ArgumentOutOfRangeException(nameof(itemData.Price_Type), itemData.Price_Type, "Invalid price type");
         }
 
-        
-        // TODO update target id in InventoryData
-        Save();
+        if (itemData.TargetID == null)
+            return RejectRequest(body);
 
-        TrackNotImplemented(body);
+        switch (itemData.Item_Type)
+        {
+            case ItemType.ITEM_FURNITURE:
+                InventoryInfo.IN_Inven_Dic_0 = UpdateInventorySlot(InventoryInfo.IN_Inven_Dic_0);
+                break;
+            case ItemType.ITEM_FOOD:
+                InventoryInfo.IN_Inven_Dic_1 = UpdateInventorySlot(InventoryInfo.IN_Inven_Dic_1);
+                break;
+            case ItemType.ITEM_GIFT:
+                InventoryInfo.IN_Inven_Dic_2 = UpdateInventorySlot(InventoryInfo.IN_Inven_Dic_2);
+                break;
+            case ItemType.ITEM_COSTUME:
+                InventoryInfo.IN_Inven_Dic_3 = UpdateInventorySlot(InventoryInfo.IN_Inven_Dic_3);
+                break;
+            case ItemType.ITEM_PET:
+                InventoryInfo.IN_Inven_Dic_4 = UpdateInventorySlot(InventoryInfo.IN_Inven_Dic_4);
+                break;
+            case ItemType.ITEM_QUEST:
+                // Not sure if slot 5 is correct
+                InventoryInfo.IN_Inven_Dic_5 = UpdateInventorySlot(InventoryInfo.IN_Inven_Dic_5);
+                break;
+            case ItemType.ITEM_PETFOOD_DOG:
+            case ItemType.ITEM_PETFOOD_CAT:
+                InventoryInfo.IN_Inven_Dic_6 = UpdateInventorySlot(InventoryInfo.IN_Inven_Dic_6);
+                break;
+            default:
+                Log.Error("Invalid item type {0}", itemData.Item_Type);
+                throw new ArgumentOutOfRangeException(nameof(itemData.Item_Type), itemData.Item_Type, "Invalid item type");
+        }
+        Save();
         return ResultCode.SUCCESS.ToString();
+
+        Dictionary<string, int> UpdateInventorySlot(Dictionary<string, int>? slot)
+        {
+            slot ??= new Dictionary<string, int>();
+            
+            var id = itemData.TargetID!;
+            if (!slot.TryGetValue(id, out var value) || value < 0)
+                slot[id] = 1;
+            else
+                slot[id] += 1;
+            return slot;
+        }
     }
 
     [HttpPost]
@@ -93,7 +134,7 @@ public sealed class ShopController : BaseController
         */
         if (!body.TryGetValue("TableID", out var tableId))
             return RejectRequest(body);
-            
+
         if (tableId == "9000")
         {
             UserDataInfo.UD_Ticket += 1;
@@ -116,68 +157,62 @@ public sealed class ShopController : BaseController
         }
         else if (tableId == "9004")
         {
-            var dict = PremiumInfo.PR_Hammer ?? new Dictionary<string, int>();
-            if (!dict.ContainsKey(tableId!))
-                dict[tableId!] = 0;
-            dict[tableId!] += 1;
-            PremiumInfo.PR_Hammer = dict;
-            
-            // TODO +1 hammer
+            UpdateHammerCount("Hammer_00", 1);
             UserDataInfo.UD_Jewelery -= 1;
         }
         else if (tableId == "9005")
         {
-            // TODO +3 hammer
+            UpdateHammerCount("Hammer_00", 3);
             UserDataInfo.UD_Jewelery -= 3;
         }
         else if (tableId == "9006")
         {
-            // TODO +5 hammer
+            UpdateHammerCount("Hammer_00", 5);
             UserDataInfo.UD_Jewelery -= 5;
         }
         else if (tableId == "9007")
         {
-            // TODO +10 hammer
+            UpdateHammerCount("Hammer_00", 10);
             UserDataInfo.UD_Jewelery -= 9;
         }
         else if (tableId == "9008")
         {
-            // TODO +1 iron hammer
+            UpdateHammerCount("Hammer_01", 1);
             UserDataInfo.UD_Ruby -= 1;
         }
         else if (tableId == "9009")
         {
-            // TODO +3 iron hammer
+            UpdateHammerCount("Hammer_01", 3);
             UserDataInfo.UD_Ruby -= 3;
         }
         else if (tableId == "9010")
         {
-            // TODO +5 iron hammer
+            UpdateHammerCount("Hammer_01", 5);
             UserDataInfo.UD_Ruby -= 5;
         }
         else if (tableId == "9011")
         {
-            // TODO +10 iron hammer
+            UpdateHammerCount("Hammer_01", 10);
             UserDataInfo.UD_Ruby -= 9;
         }
         else if (tableId == "9012")
         {
-            // TODO +1 gold hammer
+            UpdateHammerCount("Hammer_02", 1);
             UserDataInfo.UD_Ruby -= 3;
         }
         else if (tableId == "9013")
         {
-            // TODO +3 gold hammer
+            UpdateHammerCount("Hammer_02", 3);
             UserDataInfo.UD_Ruby -= 9;
         }
         else if (tableId == "9014")
         {
-            // TODO +5 gold hammer
+            UpdateHammerCount("Hammer_02", 5);
             UserDataInfo.UD_Ruby -= 15;
         }
         else if (tableId == "9015")
         {
-            // TODO +10 gold hammer
+            UpdateHammerCount("Hammer_02", 10);
             UserDataInfo.UD_Ruby -= 25;
         }
         else
@@ -188,6 +223,14 @@ public sealed class ShopController : BaseController
 
         TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
+
+        void UpdateHammerCount(string id, int increment)
+        {
+            var hammers = PremiumInfo.PR_Hammer ?? new Dictionary<string, int>();
+            hammers.TryAdd(id, 0);
+            hammers[id] += increment;
+            PremiumInfo.PR_Hammer = hammers;
+        }
     }
     
     [HttpPost]

@@ -32,8 +32,6 @@ public class WebApiManager
         builder.Services.AddControllers().AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
-            // TODO: remove this line; we don't want to serialize enums as strings except for ResultCodes; at the moment we are converting them to strings by hand
-            //options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
         //builder.Services.AddHttpLogging(o => { });
         builder.Services.AddEndpointsApiExplorer();

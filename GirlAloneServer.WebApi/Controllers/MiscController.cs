@@ -75,16 +75,6 @@ public sealed class MiscController : BaseController
            to signal the user that the feature is not available. */
         return string.Join(';', ResultCode.SUCCESS, """{"IF_Count": 20, "IF_Friend": []}""");
     }
-
-    [HttpPost]
-    [Route("FindCoupon.php")]
-    public string FindCoupon([FromForm] IFormCollection body)
-    {
-        /* Additional post data: CouponId=12345, FindKey=204 */
-        // TODO
-        TrackNotImplemented(body);
-        return string.Join(';', ResultCode.SUCCESS, "{}");
-    }
     
     [HttpPost]
     [Route("GetResetCount.php")]
