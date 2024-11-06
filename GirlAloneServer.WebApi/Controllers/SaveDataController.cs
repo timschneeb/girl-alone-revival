@@ -39,36 +39,7 @@ public sealed class SaveDataController : BaseController
         TODO Unhandled POST requests
         [06:26:18 ERR] Unhandled POST request: Build/31/GetRouletteTable.php
         Secret: FlexiCorona
-
-        [06:27:34 ERR] TODO: SetAlbumInfo
-        ["[platform, PlayStore]", "[id, QIw81xSgQ6SDUpvHpVprpKi0PzALNPi5KTA0L8+74BJfR4eCw/ALaFHREAP8WfxC]", "[DBAddress, https://ga.0001002.xyz/Build/]", "[jsonData, {\"AL_AlbumSaveInfo\":\"50000000=&0^0&,50000001=&0^0&,50000002=&0^0&,50000003=&0^0&,60000000=&0^0&,60000001=&0^0&,60000002=&0^0&,60000003=&0^0&,60000004=&0^0&,60000005=&0^0&,60000006=&0^0&,60000007=&1^0&\"}]"]
      */
-    
-    
-    [HttpPost]
-    [Route("Login.php")]
-    public string Login([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                FireBaseid=FirebaseID
-                DBNumber=0
-                Country=US
-        */
-
-        return string.Join(';',
-            ResultCode.SUCCESS.ToString(), 
-            JsonSerializer.Serialize(UserDataInfo, SerializerOptions),
-            JsonSerializer.Serialize(BugInfo, SerializerOptions),
-            JsonSerializer.Serialize(ConversationInfo, SerializerOptions),
-            JsonSerializer.Serialize(EndingInfo, SerializerOptions),
-            JsonSerializer.Serialize(InventoryInfo, SerializerOptions),
-            JsonSerializer.Serialize(MapInfo, SerializerOptions),
-            JsonSerializer.Serialize(MissionInfo, SerializerOptions),
-            JsonSerializer.Serialize(QuestInfo, SerializerOptions),
-            JsonSerializer.Serialize(PremiumInfo, SerializerOptions),
-            JsonSerializer.Serialize(GirlDataInfo, SerializerOptions));
-    }
     
     [HttpPost]
     [Route("GetAlbumInfo.php")]
@@ -387,7 +358,7 @@ public sealed class SaveDataController : BaseController
             UserDataInfo.UD_Jewelery += rewardCount;
         else if(rewardType == "Ruby")
             UserDataInfo.UD_Ruby += rewardCount;
-        else // TODO find all possible reward types
+        else
             throw new ArgumentOutOfRangeException(nameof(rewardType), rewardType, "Invalid reward type");
         Save();
 
@@ -447,251 +418,7 @@ public sealed class SaveDataController : BaseController
         return ResultCode.SUCCESS.ToString();
     }
 
-    [HttpPost]
-    [Route("BuyItem.php")]
-    public string BuyItem([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                jsonData: {"EventID":"BuyItem_Gold_Restaurant","targetID":"4000001","Item_Type":"ITEM_FOOD","Price_Type":"Gold","price":"frYumI/fj3jsql5LID4/3Q==","Gold":"9571","Jewelery":"6","Ruby":"0"}
-           JSON fields:
-                EventID: "BuyItem_Gold_Restaurant", ...
-                targetID: ID of purchased item
-                Item_Type: see ItemType enum
-                Price_Type: "Gold", "Jewelery", "Ruby"
-                price: AES encrypted string encoded in Base64
-                Gold: gold amount before purchase
-                Jewelery: jewelery amount before purchase 
-                Ruby: ruby amount before purchase
-        */
-        if (!body.TryDeserializeJsonData<BuyItemData>(out var itemData))
-            return RejectRequest(body);
-
-        var price = int.Parse(AES.DecryptCBC(itemData.Price!));
-        
-        switch (itemData.Price_Type)
-        {
-            case "Gold":
-                UserDataInfo.UD_Gold = itemData.Gold - price;
-                break;
-            case "Gem":
-                UserDataInfo.UD_Jewelery = itemData.Jewelery - price;
-                break;
-            case "Ruby":
-                UserDataInfo.UD_Ruby = itemData.Ruby - price;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(itemData.Price_Type), itemData.Price_Type, "Invalid price type");
-        }
-
-
-        // TODO update target id in InventoryData
-        Save();
-
-        TrackNotImplemented(body);
-        return ResultCode.SUCCESS.ToString();
-    }
-
-    [HttpPost]
-    [Route("BuyGold.php")]
-    public string BuyGold([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                jsonData: {"EventID":"Buy Gold_Gold_00","AddGold":"HpshB36dTPGP8gESDxK2BQ==","Price":"67lnMANyI3xVSsYq8oKXmw==","Gold":"55570","Jewelry":"6000"}
-           JSON fields:
-                EventID: "Buy Gold_Gold_00", ...
-                AddGold: AES encrypted string encoded in Base64
-                Price: AES encrypted string encoded in Base64
-                Gold: gold amount before purchase
-                Jewelry: jewelery amount before purchase
-        */
-        if (!body.TryDeserializeJsonData<BuyGoldData>(out var itemData))
-            return RejectRequest(body);
-
-        var price = int.Parse(AES.DecryptCBC(itemData.Price!));
-        var addGold = int.Parse(AES.DecryptCBC(itemData.AddGold!));
-        
-        UserDataInfo.UD_Gold = itemData.Gold + addGold;
-        UserDataInfo.UD_Jewelery = itemData.Jewelery - price;
-        Save();
-
-        TrackNotImplemented(body);
-        return ResultCode.SUCCESS.ToString();
-    }
-
-    [HttpPost]
-    [Route("BuyPremium.php")]
-    public string BuyPremium([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                TableID: item ID, like "9000" for Ticket x1
-           
-        */
-        if (!body.TryGetValue("TableID", out var tableId))
-            return RejectRequest(body);
-            
-        if (tableId == "9000")
-        {
-            UserDataInfo.UD_Ticket += 1;
-            UserDataInfo.UD_Gold -= 3000;
-        }
-        else if (tableId == "9001")
-        {
-            UserDataInfo.UD_Ticket += 3;
-            UserDataInfo.UD_Gold -= 8500;
-        }
-        else if (tableId == "9002")
-        {
-            UserDataInfo.UD_Ticket += 5;
-            UserDataInfo.UD_Gold -= 14000;
-        }
-        else if (tableId == "9003")
-        {
-            UserDataInfo.UD_Ticket += 10;
-            UserDataInfo.UD_Gold -= 27000;
-        }
-        else if (tableId == "9004")
-        {
-            // Hammer TODO implement
-            // PremiumInfo.PR_Hammer = ""
-            
-            // TODO +1 hammer
-            UserDataInfo.UD_Jewelery -= 1;
-        }
-        else if (tableId == "9005")
-        {
-            // TODO +3 hammer
-            UserDataInfo.UD_Jewelery -= 3;
-        }
-        else if (tableId == "9006")
-        {
-            // TODO +5 hammer
-            UserDataInfo.UD_Jewelery -= 5;
-        }
-        else if (tableId == "9007")
-        {
-            // TODO +10 hammer
-            UserDataInfo.UD_Jewelery -= 9;
-        }
-        else if (tableId == "9008")
-        {
-            // TODO +1 iron hammer
-            UserDataInfo.UD_Ruby -= 1;
-        }
-        else if (tableId == "9009")
-        {
-            // TODO +3 iron hammer
-            UserDataInfo.UD_Ruby -= 3;
-        }
-        else if (tableId == "9010")
-        {
-            // TODO +5 iron hammer
-            UserDataInfo.UD_Ruby -= 5;
-        }
-        else if (tableId == "9011")
-        {
-            // TODO +10 iron hammer
-            UserDataInfo.UD_Ruby -= 9;
-        }
-        else if (tableId == "9012")
-        {
-            // TODO +1 gold hammer
-            UserDataInfo.UD_Ruby -= 3;
-        }
-        else if (tableId == "9013")
-        {
-            // TODO +3 gold hammer
-            UserDataInfo.UD_Ruby -= 9;
-        }
-        else if (tableId == "9014")
-        {
-            // TODO +5 gold hammer
-            UserDataInfo.UD_Ruby -= 15;
-        }
-        else if (tableId == "9015")
-        {
-            // TODO +10 gold hammer
-            UserDataInfo.UD_Ruby -= 25;
-        }
-        else
-        {
-            return RejectRequest(body);
-        }
-        Save();
-
-        TrackNotImplemented(body);
-        return ResultCode.SUCCESS.ToString();
-    }
-    
-    [HttpPost]
-    [Route("BuyFeverTime.php")]
-    public string BuyFeverTime([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                TableID: 5005
-        */
-        if (!body.TryGetValue("TableID", out var tableId))
-            return RejectRequest(body);
-
-        if (tableId != "5005") 
-            return RejectRequest(body);
-        
-        UserDataInfo.UD_Ticket += 1;
-        UserDataInfo.UD_FeverTime = DateTime.UtcNow.AddHours(6);
-        Save();
-        
-        return ResultCode.SUCCESS.ToString();
-
-    }
-    
-    [HttpPost]
-    [Route("BuyConversation.php")]
-    public string BuyConversation([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                TableID: 5000
-        */
-        if (!body.TryGetValue("TableID", out var tableId))
-            return RejectRequest(body);
-
-        if (tableId == "5000")
-        {
-            UserDataInfo.UD_Ruby -= 25;
-            ConversationInfo.CO_ExtraConversationCount += 5;
-        }
-        else if (tableId == "5001")
-        {
-            UserDataInfo.UD_Ruby -= 45;
-            ConversationInfo.CO_ExtraConversationCount += 10;
-        }
-        else if (tableId == "5002")
-        {
-            UserDataInfo.UD_Ruby -= 65;
-            ConversationInfo.CO_ExtraConversationCount += 15;
-        }     
-        else if (tableId == "5003")
-        {
-            UserDataInfo.UD_Ruby -= 85;
-            ConversationInfo.CO_ExtraConversationCount += 20;
-        }
-        else if (tableId == "5004")
-        {
-            UserDataInfo.UD_Jewelery -= 100;
-            ConversationInfo.CO_ExtraConversationCount += 25;
-        }
-        else
-        {
-            return RejectRequest(body);
-        }
-        Save();
-            
-        return ResultCode.SUCCESS.ToString();
-    }
-    
+ 
     [HttpPost]
     [Route("MissionUpdate.php")]
     public string MissionUpdate([FromForm] IFormCollection body)
@@ -823,37 +550,9 @@ public sealed class SaveDataController : BaseController
         if (!body.TryGetString("GirlLevel", out var girlLevel))
             return RejectRequest(body);
         
-        // TODO not sure where to store this
-        // TODO maybe this is just for reward mails on rank up?
+        // TODO maybe this is for reward mails on rank up?
         return ResultCode.SUCCESS.ToString();
     }
-    
-    
-    [HttpPost]
-    [Route("FromServerToClient_UserData.php")]
-    public string FromServerToClientUserData([FromForm] IFormCollection body) => 
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(UserDataInfo, SerializerOptions));
-
-    [HttpPost]
-    [Route("FromServerToClient_Conversation.php")]
-    public string FromServerToClientConversation([FromForm] IFormCollection body) => 
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(ConversationInfo, SerializerOptions));
-
-    [HttpPost]
-    [Route("FromServerToClient_GirlData.php")]
-    public string FromServerToClientGirlData([FromForm] IFormCollection body) => 
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(GirlDataInfo, SerializerOptions));
-    
-    [HttpPost]
-    [Route("FromServerToClient_Inventory.php")]
-    public string FromServerToClientInventory([FromForm] IFormCollection body) => 
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(InventoryInfo, SerializerOptions));
-   
-    [HttpPost]
-    [Route("FromServerToClient_Premium.php")] 
-    public string FromServerToClientPremium([FromForm] IFormCollection body) =>
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(PremiumInfo, SerializerOptions));
-
     
     [HttpPost]
     [Route("Save_MinigameResult.php")]
@@ -893,67 +592,6 @@ public sealed class SaveDataController : BaseController
         Save();
 
         TrackNotImplemented(body);
-        return ResultCode.SUCCESS.ToString();
-    }
-    
-    [HttpPost]
-    [Route("DailyCheck.php")]
-    public string DailyCheck([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                jsonData={"ConversationDailyCount":null,"AdsCount":"0","missionData":{"Mission_OneDay":"700000=&0^1&,710000=&0^1&,720000=&0^1&,730000=&0^1&,740000=&0^1&,750000=&0^1&,760000=&0^1&,770000=&0^1&,780000=&0^1&,790000=&0^1&,799999=&0^1&","Mission_Level":"800000=&0^1&,810000=&0^1&,820000=&0^1&,830000=&0^1&,840000=&0^1&,850000=&0^1&,860000=&1^1&,870000=&1^1&,880000=&1^1&,800010=&0^0&,810010=&0^0&,820010=&0^0&,830010=&0^0&,840010=&0^0&,850010=&0^0&,860010=&0^0&,870010=&0^0&,880010=&0^0&,800020=&0^0&,810020=&0^0&,820020=&0^0&,830020=&0^0&,840020=&0^0&,850020=&0^0&,860020=&0^0&,870020=&0^0&,880020=&0^0&,800030=&0^0&,810030=&0^0&,820030=&0^0&,830030=&0^0&,840030=&0^0&,850030=&0^0&,860030=&0^0&,870030=&0^0&,880030=&0^0&,800040=&0^0&,810040=&0^0&,820040=&0^0&,830040=&0^0&,840040=&0^0&,850040=&0^0&","DailyCheck_Time":"2024-11-02 01:07:06"}}
-            JSON fields:
-                ConversationDailyCount: from ConversationData
-                AdsCount: from UserData
-                missionData: see MissionData
-        */
-        if(!body.TryDeserializeJsonData<DailyCheckData>(out var data))
-            return RejectRequest(body);
-
-        ConversationInfo.CO_ConversationDailyCount = data.ConversationDailyCount;
-        UserDataInfo.UD_AdsCount = data.AdsCount;
-        MissionInfo = JsonUtils.PrefixKeysAndDeserializeAs<MissionData>(data.MissionData!);
-        Save();
-
-        return ResultCode.SUCCESS.ToString();
-    }
-
-    [HttpPost]
-    [Route("MailUpdate_All.php")]
-    public string MailUpdateAll([FromForm] IFormCollection body)
-    {
-        // TODO
-        return TrackNotImplemented(body);
-    }
-    
-    [HttpPost]
-    [Route("MailUpdate_Single.php")]
-    public string MailUpdate_Single([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                jsonData: {"ID":"20000034","GetDate":"2024-01-01 00:10:11","ExpirationDate":"2025-01-01 00:10:11"}
-        */
-        // TODO
-        return TrackNotImplemented(body);
-    }
-
-    [HttpPost]
-    [Route("AdsUpdate.php")]
-    public string AdsUpdate([FromForm] IFormCollection body)
-    {
-        /*
-            Additional post data:
-                jsonData={"LastAdsTime":"2024-11-03 02:36:23","AdsCount":"1","ConversationCount":"5","BuyNoAds":"1"}
-        */
-        if(!body.TryDeserializeJsonData<AdsUpdateData>(out var data))
-            return RejectRequest(body);
-        
-        UserDataInfo.UD_AdsCount = data.AdsCount;
-        ConversationInfo.CO_ConversationCount = data.ConversationCount;
-        Save();
-
         return ResultCode.SUCCESS.ToString();
     }
         
