@@ -163,8 +163,20 @@ public sealed class SaveDataController : BaseController
                 Gold: gold amount before date
         */
         
-        // TODO
-        return TrackNotImplemented(body);
+        if (!body.TryDeserializeJsonData<DateStartData>(out var data))
+            return RejectRequest(body);
+        
+        var price = int.Parse(AES.DecryptCBC(data.Price!));
+        
+        UserDataInfo.UD_Gold = data.Gold - price;
+        MapInfo.MA_BuildingInfo = data.BuildingInfo;
+        MapInfo.MA_FirstClear = data.FirstClear;
+        MapInfo.MA_Date_Place = data.Date_Place;
+        MapInfo.MA_ItemTime = data.ItemTime;
+        MapInfo.MA_Date_StartTime = data.Date_StartTime;
+        Save();
+
+        return ResultCode.SUCCESS.ToString();
     }
     
     
@@ -189,8 +201,27 @@ public sealed class SaveDataController : BaseController
                 Exp: experience amount
         */
         
-        // TODO
-        return TrackNotImplemented(body);
+        if (!body.TryDeserializeJsonData<DateCompleteData>(out var data))
+            return RejectRequest(body);
+        
+        var reward = int.Parse(data.Reward!);
+        
+        if(data.RewardType == "Intimacy")
+            GirlDataInfo.GD_Intimacy = data.Intimacy + reward;
+        else if(data.RewardType == "Sociability")
+            GirlDataInfo.GD_Sociability = data.Sociability + reward;
+        else
+            throw new ArgumentOutOfRangeException(nameof(data.RewardType), data.RewardType, "Invalid reward type");
+        
+        UserDataInfo.UD_Exp = data.Exp;
+        MapInfo.MA_BuildingInfo = data.BuildingInfo;
+        MapInfo.MA_FirstClear = data.FirstClear;
+        MapInfo.MA_Date_Place = data.Date_Place;
+        MapInfo.MA_ItemTime = data.ItemTime;
+        MapInfo.MA_Date_StartTime = data.Date_StartTime;
+        Save();
+
+        return ResultCode.SUCCESS.ToString();
     }
 
     
