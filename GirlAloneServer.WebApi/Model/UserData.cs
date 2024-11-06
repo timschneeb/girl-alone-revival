@@ -83,7 +83,7 @@ public class MissionData
 public class PremiumData
 {
     public int? PR_HighScore { get; set; }
-    public string? PR_Hammer { get; set; }  // Dictionary<string, string>
+    public string? PR_Hammer { get; set; }  // Dictionary<string, int>
 }
 
 public class QuestData

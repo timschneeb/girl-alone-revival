@@ -78,28 +78,33 @@ public sealed class LoginController : BaseController
             Available post data:
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
         */
-        // TODO: see EventType enum
-        return string.Join(';', ResultCode.SUCCESS, """
-               {
-                    "PN_ID": "110000000",
-                    "PN_StartDate": "2021-01-01 00:00:00",
-                    "PN_EndDate": "2025-12-31 23:59:59",
-                    "PN_StartTime": "00:00:00",
-                    "PN_EndTime": "23:59:59",
-                    "PN_Day": "0000010",
-                    "PN_AdditionalLabel": "TEST",
-                    "PN_EventType1": "Gem", 
-                    "PN_EventType2": "Package",
-                    "PN_EventType3": "300",
-                    "PN_EventType4": "400",
-                    "PN_EventType5": "500",
-                    "PN_EventValue1": "1",
-                    "PN_EventValue2": "2",
-                    "PN_EventValue3": "3",
-                    "PN_EventValue4": "4",
-                    "PN_EventValue5": "5",
-               }
-               """);
+
+        /*
+            Returns JSON objects about ongoing events.
+            
+            Example response; not sure about some of the values
+            {
+                "PN_ID": "110000000",
+                "PN_StartDate": "2021-01-01 00:00:00",
+                "PN_EndDate": "2025-12-31 23:59:59",
+                "PN_StartTime": "00:00:00",
+                "PN_EndTime": "23:59:59",
+                "PN_Day": "0000010",
+                "PN_AdditionalLabel": "TEST",
+                "PN_EventType1": "Gem",  // see EventType enum
+                "PN_EventType2": "Package",
+                "PN_EventType3": "300",
+                "PN_EventType4": "400",
+                "PN_EventType5": "500",
+                "PN_EventValue1": "1",
+                "PN_EventValue2": "2",
+                "PN_EventValue3": "3",
+                "PN_EventValue4": "4",
+                "PN_EventValue5": "5",
+            }
+         */
+        
+        return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
