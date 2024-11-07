@@ -5,6 +5,7 @@ using GirlAloneServer.WebApi.Model.Enums;
 using GirlAloneServer.WebApi.Model.Responses;
 using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
@@ -20,13 +21,7 @@ namespace GirlAloneServer.WebApi.Controllers;
 public sealed class SaveDataController : BaseController
 {
     /*
-        TODO Missing endpoints
-        - `/GetRouletteTable.php`
-        - `/GetRouletteTable_Upgrade.php`
-        - `/StartRoulette.php`
-        - `/StartRoulette_Upgrade.php`
-        
-        TODO Missing endpoints (not planned to implement)
+        Missing endpoints (not planned to implement)
         - `/AddCheatInfo_StandAlone.php` - Not important; anti-cheat stuff
         - `/AdsUpdate_Daily.php` - Ads are unavailable
         - `/AdsUpdate_Date.php` - Ads are unavailable
@@ -34,12 +29,8 @@ public sealed class SaveDataController : BaseController
         - `/AdsUpdate_Minigame.php` - Ads are unavailable
         - `/AdsUpdate_Premium.php` - Ads are unavailable
         - `/Cheat_Reset.php` - Not important; anti-cheat stuff
-        - `/CouponUpdate.php` - Similar to `ClientEventCoupon.php`, not important
+        - `/CouponUpdate.php` - Similar to `ClientEventCoupon.php`, probably not important
         - `/SetInviteFriendInfo.php` - Not applicable; used by Google Play Referer service
-        
-        TODO Unhandled POST requests
-        [06:26:18 ERR] Unhandled POST request: Build/31/GetRouletteTable.php
-        Secret: FlexiCorona
      */
     
     [HttpPost]
@@ -394,7 +385,7 @@ public sealed class SaveDataController : BaseController
         else
             throw new ArgumentOutOfRangeException(nameof(rewardType), rewardType, "Invalid reward type");
         Save();
-
+        
         return ResultCode.SUCCESS.ToString();
     }
     

@@ -2,9 +2,9 @@
 
 using GirlAloneServer.WebApi.Model.Enums;
 
-namespace GirlAloneServer.WebApi.Model.Responses;
+namespace GirlAloneServer.WebApi.Model;
 
-public class MailPreset
+public class MailPreset : IWithId
 {
     public required string ID { get; set; }
     public required string MailName_KOR { get; set; }

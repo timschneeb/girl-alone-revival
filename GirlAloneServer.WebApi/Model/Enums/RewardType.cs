@@ -36,5 +36,6 @@ public enum RewardType
     TogetherBonusItemScore,
     AlbaBuildingExp,
     Hammer,
+    Costume,
     END
 }
