@@ -1,4 +1,3 @@
-using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
 using GirlAloneServer.WebApi.Model.Responses;
 using GirlAloneServer.WebApi.Utils;
