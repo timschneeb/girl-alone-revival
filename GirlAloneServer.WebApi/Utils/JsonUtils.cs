@@ -33,9 +33,6 @@ public static class JsonUtils
         Converters =
         {
             new DateTimeConverter(),
-            new DictionaryConverter<int>(),
-            new DictionaryConverter<string>(),
-            new DictionaryConverter<float>(),
             new JsonStringEnumConverter()
         },
         NumberHandling = JsonNumberHandling.AllowReadingFromString,

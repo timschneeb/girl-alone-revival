@@ -100,8 +100,8 @@ public class PremiumData
 
 public class QuestData
 {
-    public string? QU_Quest_List { get; set; }
-    public string? QU_CutScene_List { get; set; }
+    public Dictionary<string, string>? QU_Quest_List { get; set; }
+    public Dictionary<string, string>? QU_CutScene_List { get; set; }
     public string? QU_Quest_Time { get; set; }
     public Dictionary<string, int>? QU_Quest_MinigameTryCount { get; set; }
     public string? QU_Quest_ID { get; set; }

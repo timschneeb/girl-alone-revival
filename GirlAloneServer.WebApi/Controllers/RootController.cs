@@ -23,6 +23,7 @@ public sealed class RootController : BaseController
     }
     
     [Route("{**catchAll}")]
+    [HttpGet("get", Order = int.MaxValue)]
     [HttpPost("post", Order = int.MaxValue)]
     public string Post(string catchAll)
     {
