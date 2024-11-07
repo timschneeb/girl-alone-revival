@@ -13,9 +13,9 @@ public class RouletteTableEntry : IWithId
     public required int Price { get; set; }
 
     public PriceType UpgradePrice_Type { get; set; } = PriceType.Gold;
-    public int UpgradePrice { get; set; } = 2000;
+    public int UpgradePrice { get; set; } = 5000;
     public PriceType ChangePrice_Type { get; set; } = PriceType.Gold;
-    public int ChangePrice { get; set; } = 200;
+    public int ChangePrice { get; set; } = 0;
     public string Fixation_Type { get; set; } = "OFF";
 
     public required int PercentageBonus1 { get; set; }

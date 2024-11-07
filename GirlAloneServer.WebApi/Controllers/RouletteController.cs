@@ -163,7 +163,7 @@ public class RouletteController : BaseController
         else if (rouletteEntry.Price_Type == PriceType.Gem)
             UserDataInfo.UD_Jewelery -= rouletteEntry.Price;
         else if (rouletteEntry.Price_Type == PriceType.Ruby) 
-            UserDataInfo.UD_Ruby = rouletteEntry.Price;
+            UserDataInfo.UD_Ruby -= rouletteEntry.Price;
         
         SendReward(rewardType.Value, rewardId, reward.Value, subRewardType, subRewardId, subReward);
 
