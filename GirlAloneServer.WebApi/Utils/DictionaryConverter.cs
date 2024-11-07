@@ -4,7 +4,6 @@ public static class DictionaryConverter
 {
     public static Dictionary<string, T> ToDictionary<T>(string? str) 
     {
-        // TODO compare with original code
         var dictionary = new Dictionary<string, T>();
         foreach (var item in str?.Split(',') ?? [])
         {

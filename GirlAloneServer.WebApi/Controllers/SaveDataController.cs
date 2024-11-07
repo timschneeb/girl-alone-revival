@@ -575,7 +575,7 @@ public sealed class SaveDataController : BaseController
         if (!body.TryGetString("GirlLevel", out var girlLevel))
             return RejectRequest(body);
         
-        // TODO maybe this is for reward mails on rank up?
+        // Not sure, what this was used for. Experience points are already stored in UserDataInfo.UD_Exp
         return ResultCode.SUCCESS.ToString();
     }
     

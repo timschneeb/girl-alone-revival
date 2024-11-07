@@ -36,7 +36,8 @@ public static class JsonUtils
             new JsonStringEnumConverter()
         },
         NumberHandling = JsonNumberHandling.AllowReadingFromString,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        WriteIndented = true
     };
 
     // Special cases
