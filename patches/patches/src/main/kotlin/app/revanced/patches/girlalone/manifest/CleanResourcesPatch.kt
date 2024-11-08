@@ -29,12 +29,17 @@ private val excludedNamePatterns = setOf(
 
     // Unnecessary permissions
     "android.permission.FOREGROUND_SERVICE",
+    "android.permission.RECEIVE_BOOT_COMPLETED",
     "com.android.vending.BILLING",
+    "com.google.android.c2dm.permission.RECEIVE",
     "com.google.android.gms.permission.AD_ID",
     "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE",
 
     // Conflicting Firebase permissions
-    "com.Fleximind.GirlLivingAlone.Android.permission.C2D_MESSAGE"
+    "com.Fleximind.GirlLivingAlone.Android.permission.C2D_MESSAGE",
+
+    // AndroidX WorkManager, only used by Google Ads
+    "androidx.work.impl"
 )
 
 fun removeManifestTagsByNameAttribute(
@@ -106,7 +111,7 @@ val cleanResourcesPatch = resourcePatch {
     execute {
         removeManifestTagsByNameAttribute(
             this,
-            listOf("activity", "service", "receiver", "provider", "permission", "uses-permission", "package"),
+            listOf("activity", "service", "receiver", "provider", "permission", "uses-permission", "package", "meta-data"),
             "android:name",
             excludedNamePatterns
         )
