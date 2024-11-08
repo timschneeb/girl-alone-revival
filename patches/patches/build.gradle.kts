@@ -17,6 +17,9 @@ dependencies {
     implementation(libs.gson)
     // Required due to smali, or build fails. Can be removed once smali is bumped.
     implementation(libs.guava)
+
+    implementation("commons-io:commons-io:2.17.0")
+
     // Android API stubs defined here.
     compileOnly(project(":patches:stub"))
 }
