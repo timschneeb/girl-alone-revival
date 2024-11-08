@@ -6,6 +6,10 @@
 *.log
 
 # BlueJ files
+/girl-alone-revived-temporary-files/
+/girl-alone-revived.apk
+/game.apk
+
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
