@@ -4,7 +4,9 @@ import app.revanced.patcher.patch.PatchException
 import app.revanced.patcher.patch.resourcePatch
 import app.revanced.patches.all.misc.network.overrideCertificatePinningPatch
 import app.revanced.patches.all.misc.packagename.changePackageNamePatch
+import app.revanced.patches.girlalone.ad.skipAdxSdkPatch
 import app.revanced.patches.girlalone.il2cpp.il2CppBinaryPatch
+import app.revanced.patches.girlalone.manifest.cleanResourcesPatch
 import app.revanced.patches.girlalone.userid.userIdPatch
 import app.revanced.patches.shared.misc.hex.Replacement
 import app.revanced.patches.shared.misc.hex.hexPatch
@@ -18,7 +20,7 @@ val customGameServerPatch = resourcePatch(
     compatibleWith("com.Fleximind.GirlLivingAlone.Android"("1.2.15"))
 
     // Note: URLs must have the same length.
-    val replacements = mapOf(
+    val metadataReplacements = mapOf(
         // Terms of Service / Privacy Policy
         "http://ec2-3-34-113-166.ap-northeast-2.compute.amazonaws.com/" to "https://girlalone-revived-ec-0000000000000000000.0001002.xyz/",
         // Game server
@@ -29,26 +31,49 @@ val customGameServerPatch = resourcePatch(
         "http://d1oradbkm1evl3.cloudfront.net/Build/" to "https://ga-cdn-revived-0.0001002.xyz/Build/"
     )
 
+    val blockedUrlsGameManagers = setOf(
+        "https://api.uca.cloud.unity3d.com/v1/events",
+        "https://cdp.cloud.unity3d.com/v1/events",
+        "https://config.uca.cloud.unity3d.com",
+        "https://perf-events.cloud.unity3d.com"
+    )
+
+    val gameManagersReplacements = mutableMapOf<String, String>()
+    blockedUrlsGameManagers.forEach {
+        // Zero URLs out
+        gameManagersReplacements[it] = "\u0000".repeat(it.length)
+    }
+
+    fun replace(entry: Map.Entry<String, String>, filePath: String): Replacement {
+        val stringPattern = entry.key.toByteArray()
+        val stringReplacement = entry.value.toByteArray()
+        if(stringPattern.size != stringReplacement.size)
+            throw PatchException("The length of the pattern and the replacement must be the same.")
+
+        val format = HexFormat {
+            bytes {
+                byteSeparator = " "
+            }
+        }
+
+        return Replacement(stringPattern.toHexString(format), stringReplacement.toHexString(format), filePath)
+    }
+
     dependsOn(
         il2CppBinaryPatch,
         userIdPatch,
+        skipAdxSdkPatch,
         changePackageNamePatch.apply { this.options["packageName"] = "com.fleximind.girllivingalone.android.revival" },
         overrideCertificatePinningPatch,
+        cleanResourcesPatch,
         hexPatch {
-            replacements.map { entry ->
-                val stringPattern = entry.key.toByteArray()
-                val stringReplacement = entry.value.toByteArray()
-                if(stringPattern.size != stringReplacement.size)
-                    throw PatchException("The length of the pattern and the replacement must be the same.")
-
-                val format = HexFormat {
-                    bytes {
-                        byteSeparator = " "
-                    }
-                }
-
-                Replacement(stringPattern.toHexString(format), stringReplacement.toHexString(format),
-                    "assets/bin/Data/Managed/Metadata/global-metadata.dat")
+            metadataReplacements.map {
+                replace(it, "assets/bin/Data/Managed/Metadata/global-metadata.dat")
+            }.toSet()
+        },
+        hexPatch {
+            gameManagersReplacements.map {
+                replace(it, "assets/bin/Data/globalgamemanagers")
             }.toSet()
         },
     )
