@@ -65,6 +65,13 @@ class Replacement(
         }
 
         replacementPattern.copyInto(targetFileBytes, startIndex)
+
+        try {
+            replacePattern(targetFileBytes)
+        }
+        catch (_: PatchException) {
+            // No more occurrences of the pattern
+        }
     }
 
     // TODO: Allow searching in a file channel instead of a byte array to reduce memory usage.
