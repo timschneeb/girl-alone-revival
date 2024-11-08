@@ -14,7 +14,7 @@ Please note that the filenames might be slightly different on your machine.
 
 ## Custom server URL
 
-To change the URL of the custom server, you need to edit [CustomGameServerPatch.kt](patches/src/main/kotlin/app/revanced/girlalone/url/CustomGameServerPatch.kt) before patching the APK file.
+To change the URL of the custom server, you need to edit [CustomGameServerPatch.kt](patches/src/main/kotlin/app/revanced/patches/girlalone/url/CustomGameServerPatch.kt) before patching the APK file.
 
 ## Licence
 
