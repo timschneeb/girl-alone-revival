@@ -116,20 +116,6 @@ public class QuestData
     public string? QU_EpisodeName { get; set; } 
 }
 
-public class SaveData
-{
-    public UserData UserData { get; set; } = new();
-    public BugData BugData { get; set; } = new();
-    public ConversationData ConversationData { get; set; } = new();
-    public InventoryData InventoryData { get; set; } = new();
-    public QuestData QuestData { get; set; } = new();
-    public MissionData MissionData { get; set; } = new();
-    public EndingData EndingData { get; set; } = new();
-    public MapData MapData { get; set; } = new();
-    public PremiumData PremiumData { get; set; } = new();
-    public GirlData GirlData { get; set; } = new();
-}
-
 public class UserData
 {
     public int? UD_Gold { get; set; } = 9999;
