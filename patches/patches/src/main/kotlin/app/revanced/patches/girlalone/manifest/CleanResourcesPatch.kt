@@ -18,9 +18,21 @@ private val excludedNamePatterns = setOf(
     "com.gomfactory.adpie",
     "com.fyber.inneractive",
     "com.facebook.ads",
+    "com.facebook.katana",
     "com.kakao.adfit",
     "com.bytedance.sdk",
     "com.unity3d.services.ads",
+    "com.adxcorp",
+    "applovin.sdk.key",
+    "com.google.android.gms.ads.APPLICATION_ID",
+    "com.google.android.gms.games.APP_ID",
+
+    // Unnecessary permissions
+    "android.permission.FOREGROUND_SERVICE",
+    "com.android.vending.BILLING",
+    "com.google.android.gms.permission.AD_ID",
+    "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE",
+
     // Conflicting Firebase permissions
     "com.Fleximind.GirlLivingAlone.Android.permission.C2D_MESSAGE"
 )
@@ -94,7 +106,7 @@ val cleanResourcesPatch = resourcePatch {
     execute {
         removeManifestTagsByNameAttribute(
             this,
-            listOf("activity", "service", "receiver", "provider", "permission", "uses-permission"),
+            listOf("activity", "service", "receiver", "provider", "permission", "uses-permission", "package"),
             "android:name",
             excludedNamePatterns
         )
