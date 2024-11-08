@@ -16,7 +16,6 @@ public sealed class RankingController : BaseController
           Individual JSON ranking data is separated by ^.
           {"RK_NickName":"Player","RK_Rank":"1","RK_HighScore":"1000","RK_Platform":"Android"}
          */
-        TrackNotImplemented(body);
         // Is this even used anywhere?
         return string.Join(';', ResultCode.SUCCESS, "{}");
     }  
@@ -30,7 +29,6 @@ public sealed class RankingController : BaseController
           Individual JSON ranking data is separated by ^.
           {"ER_NickName":"Player","ER_Rank":"1","ER_EventScore":"1000","ER_Platform":"Android"}
          */
-        TrackNotImplemented(body);
         // Is this even used anywhere?
         return string.Join(';', ResultCode.SUCCESS, "{}");
     }
@@ -50,7 +48,6 @@ public sealed class RankingController : BaseController
     public string GetMyEventRanking([FromForm] IFormCollection body)
     {
         // Is this even used anywhere?
-        TrackNotImplemented(body);
         return string.Join(';', ResultCode.SUCCESS, """{"EventRank": "1", "EventPercent": "100"}""");
     } 
     
@@ -59,7 +56,6 @@ public sealed class RankingController : BaseController
     public string GetEventScore([FromForm] IFormCollection body)
     {
         // Is this even used anywhere?
-        TrackNotImplemented(body);
         return string.Join(';', ResultCode.SUCCESS, """{"EventScore": "0"}""");
     } 
     
@@ -74,7 +70,6 @@ public sealed class RankingController : BaseController
         */
         
         // Is this even used anywhere?
-        TrackNotImplemented(body);
         return ResultCode.SUCCESS.ToString();
     }
 }
