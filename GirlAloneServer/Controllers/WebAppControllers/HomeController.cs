@@ -2,7 +2,7 @@ using System.Diagnostics;
 using GirlAloneServer.Model;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GirlAloneServer.Controllers.WebAppController;
+namespace GirlAloneServer.Controllers.WebAppControllers;
 
 public class HomeController : Controller
 {
