@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using GirlAloneServer.WebApi.Database;
 using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
 using GirlAloneServer.WebApi.Model.Responses;
@@ -31,6 +32,8 @@ public sealed class SaveDataController : BaseController
         - `/CouponUpdate.php` - Similar to `ClientEventCoupon.php`, probably not important
         - `/SetInviteFriendInfo.php` - Not applicable; used by Google Play Referer service
      */
+
+    private readonly DatabaseContext _db = new();
     
     [HttpPost]
     [Route("GetAlbumInfo.php")]
@@ -47,7 +50,7 @@ public sealed class SaveDataController : BaseController
             JSON fields:
                 AL_AlbumSaveInfo: Unlock status of each album item
         */
-        if (!body.TryDeserializeJsonData<AlbumData>(out var data))
+        if (!body.TryDeserializeJson<AlbumData>(out var data))
             return RejectRequest(body);
 
         AlbumInfo = data;
@@ -154,7 +157,7 @@ public sealed class SaveDataController : BaseController
                 jsonData={"LastQuitTime":"2024-11-02 00:34:12","EventID":"Quit"}
                 Note: EventID can be: Quit, "Long Time No See Penalty", "Medium_Save"
         */
-        if (!body.TryGetJsonData(out var jsonData))
+        if (!body.TryGetString("jsonData", out var jsonData))
             return RejectRequest(body);
         
         var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
@@ -175,7 +178,7 @@ public sealed class SaveDataController : BaseController
                 EventID can be: Bug_Bad_Feeling, Flower_Intimacy, Cheat_Sociability, ChangeCostume_Default, 
                                 FillUpMood, ChangePosture_GirlStandUpCutScene_Default, and a lot more
         */
-        if (!body.TryDeserializeJsonData<GirlData>(out var data))
+        if (!body.TryDeserializeJson<GirlData>(out var data))
             return RejectRequest(body);
 
         GirlDataInfo = data;
@@ -220,7 +223,7 @@ public sealed class SaveDataController : BaseController
                 inventoryData: InventoryData
                 mapData: MapData
         */
-        if (!body.TryDeserializeJsonData<MinigameResultData>(out var data))
+        if (!body.TryDeserializeJson<MinigameResultData>(out var data))
             return RejectRequest(body);
         
         UserDataInfo.UD_Gold = data.Gold;
@@ -245,7 +248,7 @@ public sealed class SaveDataController : BaseController
                 jsonData={"userData":{"Gold":"0","Jewelery":"0","Ruby":"0","Ticket":"0","Episode":"1","Flower_StartTime":"2019-10-25 00:00:00","Flower_CoolTime":"2019-10-25 00:00:00","LastQuitTime":"2019-10-25 00:00:00","TutorialItemType":"-1","TutorialStatus":"7","Intro":"1","LastAdsTime":"2019-10-25 00:00:00","AdsCount":"0","Exp":"Home=&0&,Mart=&0&,Restaurant=&0&,PetShop=&0&,Park=&0&,AmusementPark=&0&","LevelUpPet":null},"bugData":{"BugSpawn":"Soot_01=&Soot_01&,Dust_01=&Dust_01&,Dust_02=&Dust_02&","BugEvent":0,"Bug_Count":"0,0,0,0,0,0,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0","Bug_CoolTime":"2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19"},"conversationData":{"ConversationDailyCount":null,"Conversation_Time":"2019-10-25 00:00:00","AskCount":"0","ConversationCount":"5","ExtraConversationCount":"0"},"inventoryData":{"Inven_Dic_0":"2000000=&-1&,2100000=&-1&,2200000=&-1&,2300000=&-1&,2400000=&-1&,2500000=&-1&","Inven_Dic_1":"4000001=&1&","Inven_Dic_2":"1000000=&1&","Inven_Dic_3":"3000000=&-1&,3000001=&-1&,3600000=&-1&","Inven_Dic_4":null,"Inven_Dic_5":null,"Inven_Dic_6":null,"Inven_Dic_7":null,"Inven_Dic_Background":"Bed=&2000000&,Cabinet=&2100000&,Wallpaper=&2200000&,Floor=&2300000&,Window=&2400000&,Flowerpot=&2500000&"},"questData":{"Quest_List":null,"CutScene_List":null,"Quest_Time":"-1","Quest_MinigameTryCount":null,"Quest_ID":"","Quest_Score_0":"0","Quest_Score_1":"0","Quest_Score_2":"0","Quest_Score_3":"0","Quest_Score_4":"0","Quest_Type":"-1","CutSceneName":"","EpisodeName":"EpiSodeCutScene_00"},"missionData":{"Mission_OneDay":"700000=&0^1&,710000=&0^1&,720000=&0^1&,730000=&0^1&,740000=&0^1&,750000=&0^1&,760000=&0^1&,770000=&0^1&,780000=&0^1&,790000=&0^1&,799999=&0^1&","Mission_Level":"800000=&0^1&,810000=&0^1&,820000=&0^1&,830000=&0^1&,840000=&0^1&,850000=&0^1&,860000=&0^1&,870000=&0^1&,880000=&0^1&,800010=&0^0&,810010=&0^0&,820010=&0^0&,830010=&0^0&,840010=&0^0&,850010=&0^0&,860010=&0^0&,870010=&0^0&,880010=&0^0&,800020=&0^0&,810020=&0^0&,820020=&0^0&,830020=&0^0&,840020=&0^0&,850020=&0^0&,860020=&0^0&,870020=&0^0&,880020=&0^0&,800030=&0^0&,810030=&0^0&,820030=&0^0&,830030=&0^0&,840030=&0^0&,850030=&0^0&,860030=&0^0&,870030=&0^0&,880030=&0^0&,800040=&0^0&,810040=&0^0&,820040=&0^0&,830040=&0^0&,840040=&0^0&,850040=&0^0&","DailyCheck_Time":"2019-10-25 00:00:00"},"endingData":{"Ending_0":0,"Ending_1":0,"Ending_2":0,"Ending_3":0,"TargetEnding":"","SelectedPaper":"","EndingClearCount":0},"mapData":{"BuildingInfo":"Home=&900000&,Mart=&900100&,Restaurant=&900200&,PetShop=&900300&,Park=&900400&,AmusementPark=&900500&","FirstClear":null,"Date_StartTime":"2019-10-25 00:00:00","Date_Place":"-1","ItemTime":null},"premiumData":{"HighScore":"0","Hammer":null},"girlData":{"Intimacy":0,"Sociability":0,"Feeling":50,"Shirt":"3000000","Pants":"3000001","Hair":"3600000","Tire":"","Posture":"1","FeelingUp_DemandCount":0,"FeelingUp_GiveItemCount":0}}
         */
 
-        if (!body.TryGetJsonData(out var jsonData))
+        if (!body.TryGetString("jsonData", out var jsonData))
             return RejectRequest(body);
                 
         /*

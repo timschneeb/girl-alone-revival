@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace GirlAloneServer.WebApi.Converters;
+namespace GirlAloneServer.WebApi.Converters.Json;
 
 
 public class DateTimeConverter : JsonConverter<DateTime>

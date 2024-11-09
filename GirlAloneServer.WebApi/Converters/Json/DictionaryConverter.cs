@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using GirlAloneServer.WebApi.Utils;
 
-namespace GirlAloneServer.WebApi.Converters;
+namespace GirlAloneServer.WebApi.Converters.Json;
 
 
 public class DictionaryConverter<T> : JsonConverter<Dictionary<string, T>>

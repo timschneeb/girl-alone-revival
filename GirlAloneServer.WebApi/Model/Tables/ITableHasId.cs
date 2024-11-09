@@ -1,7 +1,7 @@
 // ReSharper disable InconsistentNaming
-namespace GirlAloneServer.WebApi.Model;
+namespace GirlAloneServer.WebApi.Model.Tables;
 
-public interface IWithId
+public interface ITableHasId
 {
     public string ID { get; set; }
 }

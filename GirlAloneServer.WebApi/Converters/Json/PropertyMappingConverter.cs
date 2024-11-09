@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace GirlAloneServer.WebApi.Converters;
+namespace GirlAloneServer.WebApi.Converters.Json;
 
 
 public class PropertyMappingConverter<T>(string prefix, Dictionary<string, string> keyMap) : JsonConverter<T>

@@ -2,10 +2,10 @@
 
 using GirlAloneServer.WebApi.Model.Enums;
 
-namespace GirlAloneServer.WebApi.Model;
+namespace GirlAloneServer.WebApi.Model.Tables;
 
 // Structure based on decompiled TextAsset from the game
-public class RouletteTableEntry : IWithId
+public class RouletteTableEntry : ITableHasId
 {
     public required string ID { get; set; }
     public required RouletteType RouletteType { get; set; }

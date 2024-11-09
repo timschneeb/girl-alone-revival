@@ -1,4 +1,4 @@
-using GirlAloneServer.WebApi.Model;
+using GirlAloneServer.WebApi.Model.Tables;
 
 namespace GirlAloneServer.WebApi.Utils;
 

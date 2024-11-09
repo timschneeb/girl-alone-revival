@@ -53,7 +53,7 @@ public sealed class MiscController : BaseController
             Additional post data:
                 jsonData={"LastAdsTime":"2024-11-03 02:36:23","AdsCount":"1","ConversationCount":"5","BuyNoAds":"1"}
         */
-        if(!body.TryDeserializeJsonData<AdsUpdateData>(out var data))
+        if(!body.TryDeserializeJson<AdsUpdateData>(out var data))
             return RejectRequest(body);
         
         UserDataInfo.UD_AdsCount = data.AdsCount;

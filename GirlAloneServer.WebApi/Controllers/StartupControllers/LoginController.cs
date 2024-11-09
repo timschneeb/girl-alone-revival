@@ -16,6 +16,9 @@ public sealed class LoginController : BaseController
     {
         /*
             Additional post data:
+                platform=PlayStore
+                id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
+                DBAddress=http://ga-sb0.0001002.xyz/Build/
                 FireBaseid=FirebaseID
                 DBNumber=0
                 Country=US
@@ -41,13 +44,16 @@ public sealed class LoginController : BaseController
     {
         /*
             Additional post data:
+                platform=PlayStore
+                id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
+                DBAddress=http://ga-sb0.0001002.xyz/Build/
                 jsonData={"ConversationDailyCount":null,"AdsCount":"0","missionData":{"Mission_OneDay":"700000=&0^1&,710000=&0^1&,720000=&0^1&,730000=&0^1&,740000=&0^1&,750000=&0^1&,760000=&0^1&,770000=&0^1&,780000=&0^1&,790000=&0^1&,799999=&0^1&","Mission_Level":"800000=&0^1&,810000=&0^1&,820000=&0^1&,830000=&0^1&,840000=&0^1&,850000=&0^1&,860000=&1^1&,870000=&1^1&,880000=&1^1&,800010=&0^0&,810010=&0^0&,820010=&0^0&,830010=&0^0&,840010=&0^0&,850010=&0^0&,860010=&0^0&,870010=&0^0&,880010=&0^0&,800020=&0^0&,810020=&0^0&,820020=&0^0&,830020=&0^0&,840020=&0^0&,850020=&0^0&,860020=&0^0&,870020=&0^0&,880020=&0^0&,800030=&0^0&,810030=&0^0&,820030=&0^0&,830030=&0^0&,840030=&0^0&,850030=&0^0&,860030=&0^0&,870030=&0^0&,880030=&0^0&,800040=&0^0&,810040=&0^0&,820040=&0^0&,830040=&0^0&,840040=&0^0&,850040=&0^0&","DailyCheck_Time":"2024-11-02 01:07:06"}}
             JSON fields:
                 ConversationDailyCount: from ConversationData
                 AdsCount: from UserData
                 missionData: see MissionData
         */
-        if(!body.TryDeserializeJsonData<DailyCheckData>(out var data))
+        if(!body.TryDeserializeJson<DailyCheckData>(out var data))
             return RejectRequest(body);
 
         ConversationInfo.CO_ConversationDailyCount = data.ConversationDailyCount;

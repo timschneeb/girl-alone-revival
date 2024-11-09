@@ -4,6 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
+/*
+    Available post data in all methods below:
+        platform=PlayStore
+        id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
+        DBAddress=http://ga-sb0.0001002.xyz/Build/
+*/
 [Route("/Build/{version}")]
 public sealed class SyncClientController : BaseController
 {

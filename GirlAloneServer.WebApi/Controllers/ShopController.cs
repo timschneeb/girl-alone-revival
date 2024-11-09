@@ -6,6 +6,12 @@ using Serilog;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
+/*
+    Available post data in all methods below:
+        platform=PlayStore
+        id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
+        DBAddress=http://ga-sb0.0001002.xyz/Build/
+*/
 [Route("/Build/{version}")]
 public sealed class ShopController : BaseController
 {
@@ -26,7 +32,7 @@ public sealed class ShopController : BaseController
                 Jewelery: jewelery amount before purchase 
                 Ruby: ruby amount before purchase
         */
-        if (!body.TryDeserializeJsonData<BuyItemData>(out var itemData))
+        if (!body.TryDeserializeJson<BuyItemData>(out var itemData))
             return RejectRequest(body);
 
         var price = int.Parse(AES.DecryptCBC(itemData.Price!));
@@ -108,7 +114,7 @@ public sealed class ShopController : BaseController
                 Gold: gold amount before purchase
                 Jewelry: jewelery amount before purchase
         */
-        if (!body.TryDeserializeJsonData<BuyGoldData>(out var itemData))
+        if (!body.TryDeserializeJson<BuyGoldData>(out var itemData))
             return RejectRequest(body);
 
         var price = int.Parse(AES.DecryptCBC(itemData.Price!));

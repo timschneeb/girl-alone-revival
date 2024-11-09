@@ -2,12 +2,19 @@ using System.Text.Json;
 using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
 using GirlAloneServer.WebApi.Model.Responses;
+using GirlAloneServer.WebApi.Model.Tables;
 using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
+/*
+    Available post data in all methods below:
+        platform=PlayStore
+        id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
+        DBAddress=http://ga-sb0.0001002.xyz/Build/
+*/
 [Route("/Build/{version}")]
 public class RouletteController : BaseController
 {
@@ -79,7 +86,7 @@ public class RouletteController : BaseController
 
     private int ExecuteRoulette(IFormCollection body)
     {
-        if (!body.TryDeserializeJsonData<RouletteStartData>(out var rouletteStartData))
+        if (!body.TryDeserializeJson<RouletteStartData>(out var rouletteStartData))
             throw new InvalidDataException("Invalid json data");
         
         var rouletteEntry = RouletteTable.Instance.Data

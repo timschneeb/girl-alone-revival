@@ -2,6 +2,7 @@
 
 using System.Text.Json.Serialization;
 using GirlAloneServer.WebApi.Converters;
+using GirlAloneServer.WebApi.Converters.Json;
 using GirlAloneServer.WebApi.Model.Enums;
 
 namespace GirlAloneServer.WebApi.Model.Responses;

@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Serilog;
 
-namespace GirlAloneServer.WebApi.Converters;
+namespace GirlAloneServer.WebApi.Converters.Json;
 
 
 public class StringifiedEnumIndexConverter<T> : JsonConverter<T?> where T : struct, Enum

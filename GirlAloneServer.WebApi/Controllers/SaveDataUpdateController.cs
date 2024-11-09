@@ -1,19 +1,31 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
+using GirlAloneServer.WebApi.Database;
 using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
 using GirlAloneServer.WebApi.Model.Responses;
 using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace GirlAloneServer.WebApi.Controllers;
 
+/*
+    Available post data in all methods below:
+        platform=PlayStore
+        id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
+        DBAddress=http://ga-sb0.0001002.xyz/Build/
+*/
 [Route("/Build/{version}")]
 public class SaveDataUpdateController : BaseController
 {
+    private readonly DatabaseContext _db = new();
+    
     [HttpPost]
     [Route("BugUpdate.php")]
-    public string BugUpdate([FromForm] IFormCollection body)
+    public async Task<string> BugUpdate([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -23,11 +35,11 @@ public class SaveDataUpdateController : BaseController
                 EventID: "Dust_01 생성 시작", ...
         */
         
-        if (!body.TryDeserializeJsonData<BugData>(out var data))
+        if (!body.TryDeserializeJsonWithId<BugData>(out var data, out var id))
             return RejectRequest(body);
 
         BugInfo = data;
-        Save();
+
         return ResultCode.SUCCESS.ToString();
     }
 
@@ -43,7 +55,7 @@ public class SaveDataUpdateController : BaseController
                 QuestData-related fields
                 EventID: "Quest Time Check", "Quest Resume", ...
         */
-        if (!body.TryDeserializeJsonData<QuestData>(out var data))
+        if (!body.TryDeserializeJson<QuestData>(out var data))
             return RejectRequest(body);
 
         QuestInfo = data;
@@ -67,12 +79,12 @@ public class SaveDataUpdateController : BaseController
                 Reward: AES encrypted string encoding in Base64      
                 Feeling, Intimacy, Sociability, FeelingUp_DemandCount: from GirlData
         */
-        if (!body.TryDeserializeJsonData<QuestData>(out var data))
+        if (!body.TryDeserializeJson<QuestData>(out var data))
             return RejectRequest(body);
 
         QuestInfo = data;
         
-        if (!body.TryDeserializeJsonData<QuestCompletionData>(out var completionData))
+        if (!body.TryDeserializeJson<QuestCompletionData>(out var completionData))
             return RejectRequest(body);
         
         GirlDataInfo.GD_Feeling = completionData.Feeling;
@@ -100,7 +112,7 @@ public class SaveDataUpdateController : BaseController
     public string EpisodeUpdate([FromForm] IFormCollection body)
     {
         /* Additional post data: jsonData={"Episode":"1"} */
-        if (!body.TryGetJsonData(out var jsonData))
+        if (!body.TryGetString("jsonData", out var jsonData))
             return RejectRequest(body);
       
         var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
@@ -121,7 +133,7 @@ public class SaveDataUpdateController : BaseController
                 QuestData-related fields
                 EventID: "EpiSodeCutScene_00", ...
         */
-        if (!body.TryDeserializeJsonData<QuestData>(out var data))
+        if (!body.TryDeserializeJson<QuestData>(out var data))
             return RejectRequest(body);
 
         QuestInfo = data;
@@ -147,7 +159,7 @@ public class SaveDataUpdateController : BaseController
                 Price: AES encrypted string encoded in Base64
                 Reward: reward amount (intimacy)
         */
-        if (!body.TryDeserializeJsonData<FlowerUpdateData>(out var flowerData))
+        if (!body.TryDeserializeJson<FlowerUpdateData>(out var flowerData))
             return RejectRequest(body);
 
         UserDataInfo.UD_Gold = flowerData.Gold;
@@ -179,7 +191,7 @@ public class SaveDataUpdateController : BaseController
                 TargetMission: mission ID
                 count: mission progress increase
         */
-        if (!body.TryDeserializeJsonData<MissionData>(out var data))
+        if (!body.TryDeserializeJson<MissionData>(out var data))
             return RejectRequest(body);
 
         MissionInfo = data;
@@ -204,10 +216,10 @@ public class SaveDataUpdateController : BaseController
                 Gold: gold amount
                 Jewelery: jewelery amount
         */
-        if (!body.TryDeserializeJsonData<MissionData>(out var data))
+        if (!body.TryDeserializeJson<MissionData>(out var data))
             return RejectRequest(body);
         
-        if (!body.TryDeserializeJsonData<MissionCompletionData>(out var completionData))
+        if (!body.TryDeserializeJson<MissionCompletionData>(out var completionData))
             return RejectRequest(body);
         
         MissionInfo = data;
@@ -229,7 +241,7 @@ public class SaveDataUpdateController : BaseController
                 ConversationData-related fields
                 EventID: "ClickDialog", ...
         */
-        if (!body.TryDeserializeJsonData<ConversationData>(out var data))
+        if (!body.TryDeserializeJson<ConversationData>(out var data))
             return RejectRequest(body);
 
         ConversationInfo = data;
@@ -252,7 +264,7 @@ public class SaveDataUpdateController : BaseController
                 IT: see ItemType enum
         */
         
-        if (!body.TryDeserializeJsonData<InventoryData>(out var data))
+        if (!body.TryDeserializeJson<InventoryData>(out var data))
             return RejectRequest(body);
 
         InventoryInfo = data;
@@ -272,7 +284,7 @@ public class SaveDataUpdateController : BaseController
                 EventID: event ID string
 
         */
-        if (!body.TryDeserializeJsonData<HammerData>(out var hammerData))
+        if (!body.TryDeserializeJson<HammerData>(out var hammerData))
             return RejectRequest(body); 
 
         PremiumInfo.PR_Hammer = hammerData.Hammer;
@@ -296,7 +308,7 @@ public class SaveDataUpdateController : BaseController
                 LevelUpPet: from UserData
         */
 
-        if (!body.TryGetJsonData(out var jsonData))
+        if (!body.TryGetString("jsonData", out var jsonData))
             return RejectRequest(body);
         
         var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
@@ -326,7 +338,7 @@ public class SaveDataUpdateController : BaseController
                 Gold: gold amount before date
         */
         
-        if (!body.TryDeserializeJsonData<DateStartData>(out var data))
+        if (!body.TryDeserializeJson<DateStartData>(out var data))
             return RejectRequest(body);
         
         var price = int.Parse(AES.DecryptCBC(data.Price!));
@@ -363,7 +375,7 @@ public class SaveDataUpdateController : BaseController
                 Exp: experience amount
         */
         
-        if (!body.TryDeserializeJsonData<DateCompleteData>(out var data))
+        if (!body.TryDeserializeJson<DateCompleteData>(out var data))
             return RejectRequest(body);
         
         var reward = int.Parse(data.Reward!);
