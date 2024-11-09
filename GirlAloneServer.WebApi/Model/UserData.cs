@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using GirlAloneServer.WebApi.Model.Enums;
+// ReSharper disable EntityFramework.ModelValidation.UnlimitedStringLength
+// ReSharper disable CollectionNeverUpdated.Global
 
 namespace GirlAloneServer.WebApi.Model;
 
@@ -164,7 +166,7 @@ public class UserData : IHasUserId
     [Key, StringLength(32)]
     public string? UserId { get; set; }
     
-    public int? UD_Gold { get; set; } = 9999;
+    public int? UD_Gold { get; set; } = 0;
     public int? UD_Jewelery { get; set; } = 0;
     public int? UD_Ruby { get; set; } = 0;
     public int? UD_Ticket { get; set; } = 0;
