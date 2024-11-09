@@ -1,3 +1,4 @@
+using System.Text.Json;
 using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
 using GirlAloneServer.WebApi.Model.Responses;
@@ -133,7 +134,7 @@ public sealed class ShopController : BaseController
         _db.AddOrUpdate(userData, id);
 
         await _db.SaveChangesAsync();
-        return ResultCode.SUCCESS.ToString();
+        return string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(userData, SerializerOptions));
     }
 
     [HttpPost]
