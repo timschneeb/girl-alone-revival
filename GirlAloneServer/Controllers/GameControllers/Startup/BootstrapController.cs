@@ -1,7 +1,7 @@
 using GirlAloneServer.Core.Model.Enums;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GirlAloneServer.Controllers.StartupControllers;
+namespace GirlAloneServer.Controllers.GameControllers.Startup;
 
 [Route("/Build")]
 public class BootstrapController : BaseController

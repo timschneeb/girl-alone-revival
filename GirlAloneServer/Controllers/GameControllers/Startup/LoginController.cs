@@ -2,11 +2,10 @@ using System.Text.Json;
 using GirlAloneServer.Core.Model;
 using GirlAloneServer.Core.Model.Enums;
 using GirlAloneServer.Core.Utils;
-using GirlAloneServer.Model;
 using GirlAloneServer.Model.Responses;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GirlAloneServer.Controllers.StartupControllers;
+namespace GirlAloneServer.Controllers.GameControllers.Startup;
 
 [Route("/Build/{version}")]
 public sealed class LoginController : BaseController

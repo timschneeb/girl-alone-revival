@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace GirlAloneServer.Controllers.StartupControllers;
+namespace GirlAloneServer.Controllers.GameControllers.Startup;
 
 [Route("/")]
 public sealed class PrivacyToSController : BaseController
