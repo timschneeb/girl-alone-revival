@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GirlAloneServer.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3843900b06d9f11612410ce4dcdfa5a332a0e584")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+038ddf85bceec5bb5fe35a49e8fdcd0c19de4cf3")]
 [assembly: System.Reflection.AssemblyProductAttribute("GirlAloneServer.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GirlAloneServer.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

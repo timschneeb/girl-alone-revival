@@ -18,11 +18,22 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Privacy()
+    public IActionResult Account()
     {
         return View();
     }
 
+    
+    public IActionResult Coupons()
+    {
+        return View();
+    }
+    
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

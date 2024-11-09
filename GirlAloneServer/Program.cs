@@ -58,7 +58,8 @@ public static class Program
         app.MapControllers();
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+            pattern: "{action=Index}/{id?}", 
+            new { controller = "Home" });
         
         await app.RunAsync();
         await Log.CloseAndFlushAsync();

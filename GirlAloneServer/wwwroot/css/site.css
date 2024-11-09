@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
