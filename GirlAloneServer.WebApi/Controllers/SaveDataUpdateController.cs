@@ -21,8 +21,6 @@ namespace GirlAloneServer.WebApi.Controllers;
 [Route("/Build/{version}")]
 public class SaveDataUpdateController : BaseController
 {
-    private readonly DatabaseContext _db = new();
-    
     [HttpPost]
     [Route("BugUpdate.php")]
     public async Task<string> BugUpdate([FromForm] IFormCollection body)
@@ -36,17 +34,18 @@ public class SaveDataUpdateController : BaseController
         */
         
         if (!body.TryDeserializeJsonWithId<BugData>(out var data, out var id))
-            return RejectRequest(body);
-
-        BugInfo = data;
-
+            return Reject(body);
+        
+        _db.AddOrUpdate(data, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
 
       
     [HttpPost]
     [Route("QuestUpdate.php")]
-    public string QuestUpdate([FromForm] IFormCollection body)
+    public async Task<string> QuestUpdate([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -55,17 +54,18 @@ public class SaveDataUpdateController : BaseController
                 QuestData-related fields
                 EventID: "Quest Time Check", "Quest Resume", ...
         */
-        if (!body.TryDeserializeJson<QuestData>(out var data))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<QuestData>(out var data, out var id))
+            return Reject(body);
 
-        QuestInfo = data;
-        Save();
+        _db.AddOrUpdate(data, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
 
     [HttpPost]
     [Route("QuestComplete.php")]
-    public string QuestComplete([FromForm] IFormCollection body)
+    public async Task<string> QuestComplete([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -79,52 +79,63 @@ public class SaveDataUpdateController : BaseController
                 Reward: AES encrypted string encoding in Base64      
                 Feeling, Intimacy, Sociability, FeelingUp_DemandCount: from GirlData
         */
-        if (!body.TryDeserializeJson<QuestData>(out var data))
-            return RejectRequest(body);
-
-        QuestInfo = data;
+        if (!body.TryDeserializeJsonWithId<QuestData>(out var questData, out var id))
+            return Reject(body);
         
         if (!body.TryDeserializeJson<QuestCompletionData>(out var completionData))
-            return RejectRequest(body);
+            return Reject(body);
         
-        GirlDataInfo.GD_Feeling = completionData.Feeling;
-        GirlDataInfo.GD_Intimacy = completionData.Intimacy;
-        GirlDataInfo.GD_Sociability = completionData.Sociability;
-        GirlDataInfo.GD_FeelingUp_DemandCount = completionData.FeelingUp_DemandCount;
+        _db.AddOrUpdate(questData, id);
         
-        ConversationInfo.CO_AskCount = completionData.AskCount;
-        Save();
+        var girlData = _db.GetEntityForUser<GirlData>(id);
+        girlData.GD_Feeling = completionData.Feeling;
+        girlData.GD_Intimacy = completionData.Intimacy;
+        girlData.GD_Sociability = completionData.Sociability;
+        girlData.GD_FeelingUp_DemandCount = completionData.FeelingUp_DemandCount;
+        _db.AddOrUpdate(girlData, id);
+        
+        var conversationData = _db.GetEntityForUser<ConversationData>(id);
+        conversationData.CO_AskCount = completionData.AskCount;
+        _db.AddOrUpdate(conversationData, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("IntroUpdate.php")]
-    public string IntroUpdate([FromForm] IFormCollection body)
+    public async Task<string> IntroUpdate([FromForm] IFormCollection body)
     {
-        UserDataInfo.UD_Intro = 1;
-        Save();
-
+        if(!body.TryDecryptId(out var id))
+            return Reject(body);
+        
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_Intro = 1;
+        _db.AddOrUpdate(userData, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("EpisodeUpdate.php")]
-    public string EpisodeUpdate([FromForm] IFormCollection body)
+    public async Task<string> EpisodeUpdate([FromForm] IFormCollection body)
     {
         /* Additional post data: jsonData={"Episode":"1"} */
-        if (!body.TryGetString("jsonData", out var jsonData))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<EpisodeUpdateData>(out var jsonData, out var id))
+            return Reject(body);
       
-        var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
-        UserDataInfo.UD_Episode = int.Parse(json?["Episode"]?.GetValue<string>() ?? "1");
-        Save();
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_Episode = jsonData.Episode;
+        _db.AddOrUpdate(userData, id);
 
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
 
     [HttpPost]
     [Route("CutSceneUpdate.php")]
-    public string CutsceneUpdate([FromForm] IFormCollection body)
+    public async Task<string> CutsceneUpdate([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -133,18 +144,18 @@ public class SaveDataUpdateController : BaseController
                 QuestData-related fields
                 EventID: "EpiSodeCutScene_00", ...
         */
-        if (!body.TryDeserializeJson<QuestData>(out var data))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<QuestData>(out var data, out var id))
+            return Reject(body);
 
-        QuestInfo = data;
-        Save();
-
+        _db.AddOrUpdate(data, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("FlowerUpdate.php")]
-    public string FlowerUpdate([FromForm] IFormCollection body)
+    public async Task<string> FlowerUpdate([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -159,28 +170,35 @@ public class SaveDataUpdateController : BaseController
                 Price: AES encrypted string encoded in Base64
                 Reward: reward amount (intimacy)
         */
-        if (!body.TryDeserializeJson<FlowerUpdateData>(out var flowerData))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<FlowerUpdateData>(out var flowerData, out var id))
+            return Reject(body);
 
-        UserDataInfo.UD_Gold = flowerData.Gold;
-        UserDataInfo.UD_Flower_StartTime = flowerData.Flower_StartTime;
-        UserDataInfo.UD_Flower_CoolTime = flowerData.Flower_CoolTime;
-        GirlDataInfo.GD_Intimacy = flowerData.Intimacy;
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_Gold = flowerData.Gold;
+        userData.UD_Flower_StartTime = flowerData.Flower_StartTime;
+        userData.UD_Flower_CoolTime = flowerData.Flower_CoolTime;
+        _db.AddOrUpdate(userData, id);
+        
+        var girlData = _db.GetEntityForUser<GirlData>(id);
+        girlData.GD_Intimacy = flowerData.Intimacy;
+        _db.AddOrUpdate(girlData, id);
         
         if (flowerData.FlowerID != null)
         {
-            var dict = InventoryInfo.IN_Inven_Dic_Background ?? new Dictionary<string, string>();
+            var inventoryData = _db.GetEntityForUser<InventoryData>(id);
+            var dict = inventoryData.IN_Inven_Dic_Background ?? new Dictionary<string, string>();
             dict["Flowerpot"] = flowerData.FlowerID;
-            InventoryInfo.IN_Inven_Dic_Background = dict;
+            inventoryData.IN_Inven_Dic_Background = dict;
+            _db.AddOrUpdate(inventoryData, id);
         }
-        Save();
-
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
        [HttpPost]
     [Route("MissionUpdate.php")]
-    public string MissionUpdate([FromForm] IFormCollection body)
+    public async Task<string> MissionUpdate([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -191,18 +209,18 @@ public class SaveDataUpdateController : BaseController
                 TargetMission: mission ID
                 count: mission progress increase
         */
-        if (!body.TryDeserializeJson<MissionData>(out var data))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<MissionData>(out var data, out var id))
+            return Reject(body);
 
-        MissionInfo = data;
-        Save();
-
+        _db.AddOrUpdate(data, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("MissionComplete.php")]
-    public string MissionComplete([FromForm] IFormCollection body)
+    public async Task<string> MissionComplete([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -216,23 +234,26 @@ public class SaveDataUpdateController : BaseController
                 Gold: gold amount
                 Jewelery: jewelery amount
         */
-        if (!body.TryDeserializeJson<MissionData>(out var data))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<MissionData>(out var missionData, out var id))
+            return Reject(body);
         
         if (!body.TryDeserializeJson<MissionCompletionData>(out var completionData))
-            return RejectRequest(body);
+            return Reject(body);
         
-        MissionInfo = data;
-        UserDataInfo.UD_Gold = completionData.Gold;
-        UserDataInfo.UD_Jewelery = completionData.Jewelery;
-        Save();
-
+        _db.AddOrUpdate(missionData, id);
+        
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_Gold = completionData.Gold;
+        userData.UD_Jewelery = completionData.Jewelery;
+        _db.AddOrUpdate(userData, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("ConversationUpdate.php")]
-    public string ConversationUpdate([FromForm] IFormCollection body)
+    public async Task<string> ConversationUpdate([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -241,18 +262,18 @@ public class SaveDataUpdateController : BaseController
                 ConversationData-related fields
                 EventID: "ClickDialog", ...
         */
-        if (!body.TryDeserializeJson<ConversationData>(out var data))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<ConversationData>(out var data, out var id))
+            return Reject(body);
 
-        ConversationInfo = data;
-        Save();
+        _db.AddOrUpdate(data, id);
 
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("InventoryUpdate.php")]
-    public string InventoryUpdate([FromForm] IFormCollection body)
+    public async Task<string> InventoryUpdate([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -264,17 +285,18 @@ public class SaveDataUpdateController : BaseController
                 IT: see ItemType enum
         */
         
-        if (!body.TryDeserializeJson<InventoryData>(out var data))
-            return RejectRequest(body);
-
-        InventoryInfo = data;
-        Save();
+        if (!body.TryDeserializeJsonWithId<InventoryData>(out var data, out var id))
+            return Reject(body);
+        
+        _db.AddOrUpdate(data, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("UpdateHammer.php")]
-    public string UpdateHammer([FromForm] IFormCollection body)
+    public async Task<string> UpdateHammer([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -284,18 +306,20 @@ public class SaveDataUpdateController : BaseController
                 EventID: event ID string
 
         */
-        if (!body.TryDeserializeJson<HammerData>(out var hammerData))
-            return RejectRequest(body); 
+        if (!body.TryDeserializeJsonWithId<HammerData>(out var hammerData, out var id))
+            return Reject(body); 
 
-        PremiumInfo.PR_Hammer = hammerData.Hammer;
-        Save();
-
+        var premiumData = _db.GetEntityForUser<PremiumData>(id);
+        premiumData.PR_Hammer = hammerData.Hammer;
+        _db.AddOrUpdate(premiumData, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
 
     [HttpPost]
     [Route("PetUpdate.php")]
-    public string PetUpdate([FromForm] IFormCollection body)
+    public async Task<string> PetUpdate([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -308,20 +332,21 @@ public class SaveDataUpdateController : BaseController
                 LevelUpPet: from UserData
         */
 
-        if (!body.TryGetString("jsonData", out var jsonData))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<PetUpdateData>(out var data, out var id))
+            return Reject(body);
         
-        var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
-        UserDataInfo.UD_Exp = DictionaryConverter.ToDictionary<float>(json?["Exp"]?.GetValue<string>()); 
-        UserDataInfo.UD_LevelUpPet = DictionaryConverter.ToDictionary<string>(json?["LevelUpPet"]?.GetValue<string>());
-        Save();
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_Exp = data.Exp;
+        userData.UD_LevelUpPet = data.LevelUpPet;
+        _db.AddOrUpdate(userData, id);
 
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
         [HttpPost]
     [Route("DateStart.php")]
-    public string DateStart([FromForm] IFormCollection body)
+    public async Task<string> DateStart([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -338,25 +363,30 @@ public class SaveDataUpdateController : BaseController
                 Gold: gold amount before date
         */
         
-        if (!body.TryDeserializeJson<DateStartData>(out var data))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<DateStartData>(out var data, out var id))
+            return Reject(body);
         
         var price = int.Parse(AES.DecryptCBC(data.Price!));
         
-        UserDataInfo.UD_Gold = data.Gold - price;
-        MapInfo.MA_BuildingInfo = data.BuildingInfo;
-        MapInfo.MA_FirstClear = data.FirstClear;
-        MapInfo.MA_Date_Place = data.Date_Place;
-        MapInfo.MA_ItemTime = data.ItemTime;
-        MapInfo.MA_Date_StartTime = data.Date_StartTime;
-        Save();
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_Gold = data.Gold - price;
+        _db.AddOrUpdate(userData, id);
+        
+        var mapData = _db.GetEntityForUser<MapData>(id);
+        mapData.MA_BuildingInfo = data.BuildingInfo;
+        mapData.MA_FirstClear = data.FirstClear;
+        mapData.MA_Date_Place = data.Date_Place;
+        mapData.MA_ItemTime = data.ItemTime;
+        mapData.MA_Date_StartTime = data.Date_StartTime;
+        _db.AddOrUpdate(mapData, id);
 
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("DateComplete.php")]
-    public string DateComplete([FromForm] IFormCollection body)
+    public async Task<string> DateComplete([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -375,26 +405,33 @@ public class SaveDataUpdateController : BaseController
                 Exp: experience amount
         */
         
-        if (!body.TryDeserializeJson<DateCompleteData>(out var data))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<DateCompleteData>(out var data, out var id))
+            return Reject(body);
         
         var reward = int.Parse(data.Reward!);
         
+        var girlData = _db.GetEntityForUser<GirlData>(id);
         if(data.RewardType == RewardType.Intimacy)
-            GirlDataInfo.GD_Intimacy = data.Intimacy + reward;
+            girlData.GD_Intimacy = data.Intimacy + reward;
         else if(data.RewardType == RewardType.Sociability)
-            GirlDataInfo.GD_Sociability = data.Sociability + reward;
+            girlData.GD_Sociability = data.Sociability + reward;
         else
             throw new ArgumentOutOfRangeException(nameof(data.RewardType), data.RewardType, "Invalid reward type");
-        
-        UserDataInfo.UD_Exp = data.Exp;
-        MapInfo.MA_BuildingInfo = data.BuildingInfo;
-        MapInfo.MA_FirstClear = data.FirstClear;
-        MapInfo.MA_Date_Place = data.Date_Place;
-        MapInfo.MA_ItemTime = data.ItemTime;
-        MapInfo.MA_Date_StartTime = data.Date_StartTime;
-        Save();
+        _db.AddOrUpdate(girlData, id);
 
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_Exp = data.Exp;
+        _db.AddOrUpdate(userData, id);
+        
+        var mapData = _db.GetEntityForUser<MapData>(id);
+        mapData.MA_BuildingInfo = data.BuildingInfo;
+        mapData.MA_FirstClear = data.FirstClear;
+        mapData.MA_Date_Place = data.Date_Place;
+        mapData.MA_ItemTime = data.ItemTime;
+        mapData.MA_Date_StartTime = data.Date_StartTime;
+        _db.AddOrUpdate(mapData, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
 }

@@ -24,23 +24,26 @@ public sealed class LoginController : BaseController
                 Country=US
         */
 
+        if(!body.TryDecryptId(out var id))
+            return Reject(body);
+        
         return string.Join(';',
             ResultCode.SUCCESS.ToString(), 
-            JsonSerializer.Serialize(UserDataInfo, SerializerOptions),
-            JsonSerializer.Serialize(BugInfo, SerializerOptions),
-            JsonSerializer.Serialize(ConversationInfo, SerializerOptions),
-            JsonSerializer.Serialize(EndingInfo, SerializerOptions),
-            JsonSerializer.Serialize(InventoryInfo, SerializerOptions),
-            JsonSerializer.Serialize(MapInfo, SerializerOptions),
-            JsonSerializer.Serialize(MissionInfo, SerializerOptions),
-            JsonSerializer.Serialize(QuestInfo, SerializerOptions),
-            JsonSerializer.Serialize(PremiumInfo, SerializerOptions),
-            JsonSerializer.Serialize(GirlDataInfo, SerializerOptions));
+            JsonSerializer.Serialize(_db.GetEntityForUser<UserData>(id), SerializerOptions),
+            JsonSerializer.Serialize(_db.GetEntityForUser<BugData>(id), SerializerOptions),
+            JsonSerializer.Serialize(_db.GetEntityForUser<ConversationData>(id), SerializerOptions),
+            JsonSerializer.Serialize(_db.GetEntityForUser<EndingData>(id), SerializerOptions),
+            JsonSerializer.Serialize(_db.GetEntityForUser<InventoryData>(id), SerializerOptions),
+            JsonSerializer.Serialize(_db.GetEntityForUser<MapData>(id), SerializerOptions),
+            JsonSerializer.Serialize(_db.GetEntityForUser<MissionData>(id), SerializerOptions),
+            JsonSerializer.Serialize(_db.GetEntityForUser<QuestData>(id), SerializerOptions),
+            JsonSerializer.Serialize(_db.GetEntityForUser<PremiumData>(id), SerializerOptions),
+            JsonSerializer.Serialize(_db.GetEntityForUser<GirlData>(id), SerializerOptions));
     }
     
     [HttpPost]
     [Route("DailyCheck.php")]
-    public string DailyCheck([FromForm] IFormCollection body)
+    public async Task<string> DailyCheck([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -53,14 +56,18 @@ public sealed class LoginController : BaseController
                 AdsCount: from UserData
                 missionData: see MissionData
         */
-        if(!body.TryDeserializeJson<DailyCheckData>(out var data))
-            return RejectRequest(body);
+        if(!body.TryDeserializeJsonWithId<DailyCheckData>(out var data, out var id))
+            return Reject(body);
 
-        ConversationInfo.CO_ConversationDailyCount = data.ConversationDailyCount;
-        UserDataInfo.UD_AdsCount = data.AdsCount;
-        MissionInfo = JsonUtils.PrefixKeysAndDeserializeAs<MissionData>(data.MissionData!);
-        Save();
-
+        var userData = _db.GetEntityForUser<UserData>(id);
+        var conversationData = _db.GetEntityForUser<ConversationData>(id);
+        userData.UD_AdsCount = data.AdsCount;
+        conversationData.CO_ConversationDailyCount = data.ConversationDailyCount;
+        _db.AddOrUpdate(userData, id);
+        _db.AddOrUpdate(conversationData, id);
+        _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<MissionData>(data.MissionData!), id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     

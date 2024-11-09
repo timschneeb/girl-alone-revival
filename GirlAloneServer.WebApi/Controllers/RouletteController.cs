@@ -60,7 +60,7 @@ public class RouletteController : BaseController
         catch (Exception e)
         {
             Log.Error(e, "Failed to start roulette");
-            return RejectRequest(body);
+            return Reject(body);
         }
     }
     
@@ -80,13 +80,13 @@ public class RouletteController : BaseController
         catch (Exception e)
         {
             Log.Error(e, "Failed to start roulette");
-            return RejectRequest(body);
+            return Reject(body);
         }
     }
 
-    private int ExecuteRoulette(IFormCollection body)
+    private async Task<int> ExecuteRoulette(IFormCollection body)
     {
-        if (!body.TryDeserializeJson<RouletteStartData>(out var rouletteStartData))
+        if (!body.TryDeserializeJsonWithId<RouletteStartData>(out var rouletteStartData, out var id))
             throw new InvalidDataException("Invalid json data");
         
         var rouletteEntry = RouletteTable.Instance.Data
@@ -165,59 +165,69 @@ public class RouletteController : BaseController
             throw new ArgumentException("Required reward properties are missing.");
 
         // Apply the cost
+        var userData = _db.GetEntityForUser<UserData>(id);
         if (rouletteEntry.Price_Type == PriceType.Gold)
-            UserDataInfo.UD_Gold -= rouletteEntry.Price;
+            userData.UD_Gold -= rouletteEntry.Price;
         else if (rouletteEntry.Price_Type == PriceType.Gem)
-            UserDataInfo.UD_Jewelery -= rouletteEntry.Price;
-        else if (rouletteEntry.Price_Type == PriceType.Ruby) 
-            UserDataInfo.UD_Ruby -= rouletteEntry.Price;
+            userData.UD_Jewelery -= rouletteEntry.Price;
+        else if (rouletteEntry.Price_Type == PriceType.Ruby)
+            userData.UD_Ruby -= rouletteEntry.Price;
         
-        SendReward(rewardType.Value, rewardId, reward.Value, subRewardType, subRewardId, subReward);
-
+        var inventoryData = _db.GetEntityForUser<InventoryData>(id);
+        var premiumData = _db.GetEntityForUser<PremiumData>(id);
+        
+        SendReward(ref userData, ref inventoryData, ref premiumData, 
+            rewardType.Value, rewardId, reward.Value, subRewardType, subRewardId, subReward);
+        
+        _db.AddOrUpdate(userData, id);
+        _db.AddOrUpdate(inventoryData, id);
+        _db.AddOrUpdate(premiumData, id);
+        
+        await _db.SaveChangesAsync();
         return selectedId;
     }
 
-    private void SendReward(RewardType rewardType, string rewardId, int value, 
-        RewardType? subRewardType, string? subRewardId, int? subReward)
+    private static void SendReward(ref UserData userData, ref InventoryData inventoryData, ref PremiumData premiumData,
+        RewardType rewardType, string rewardId, int value, RewardType? subRewardType, string? subRewardId, int? subReward)
     {
         // Send the reward
         switch (rewardType)
         {
             case RewardType.Gold:
-                UserDataInfo.UD_Gold += value;
+                userData.UD_Gold += value;
                 break;
             case RewardType.Gem:
-                UserDataInfo.UD_Jewelery += value;
+                userData.UD_Jewelery += value;
                 break;
             case RewardType.Ruby:
-                UserDataInfo.UD_Ruby += value;
+                userData.UD_Ruby += value;
                 break;
             case RewardType.Ticket:
-                UserDataInfo.UD_Ticket += value;
+                userData.UD_Ticket += value;
                 break;
             case RewardType.Hammer:
-                var hammers = PremiumInfo.PR_Hammer ?? new Dictionary<string, int>(); 
+                var hammers = premiumData.PR_Hammer ?? new Dictionary<string, int>(); 
                 // Add or update the hammer count
                 if(!hammers.TryAdd(rewardId, value))
                     hammers[rewardId] += value;
-                PremiumInfo.PR_Hammer = hammers;
+                premiumData.PR_Hammer = hammers;
                 break;
             case RewardType.Costume:
-                var inv = InventoryInfo.IN_Inven_Dic_3 ?? new Dictionary<string, int>();
+                var inv = inventoryData.IN_Inven_Dic_3 ?? new Dictionary<string, int>();
                 if (inv.TryGetValue(rewardId, out var count) && count > 0)
                 {
                     // Costume already obtained, send sub reward instead
                     if (subRewardType != null && subRewardId != null && subReward != null)
-                        SendReward(subRewardType.Value, subRewardId, subReward.Value, null, null, null);
+                        SendReward(ref userData, ref inventoryData, ref premiumData,
+                            subRewardType.Value, subRewardId, subReward.Value, null, null, null);
                 }
                 else
                 {
                     inv.Remove(rewardId);
                     inv.Add(rewardId, value);
                 }
+                inventoryData.IN_Inven_Dic_3 = inv;
                 break;
         }
-
-        Save();
     }
 }

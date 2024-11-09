@@ -40,6 +40,9 @@ public class WebApiManager
             options.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
         });
         builder.Services.AddEndpointsApiExplorer();
+        
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        
         var app = builder.Build();
         app.UseAuthorization();
         app.MapControllers();

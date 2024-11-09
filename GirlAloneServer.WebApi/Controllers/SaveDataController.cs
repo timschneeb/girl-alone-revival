@@ -32,17 +32,20 @@ public sealed class SaveDataController : BaseController
         - `/CouponUpdate.php` - Similar to `ClientEventCoupon.php`, probably not important
         - `/SetInviteFriendInfo.php` - Not applicable; used by Google Play Referer service
      */
-
-    private readonly DatabaseContext _db = new();
     
     [HttpPost]
     [Route("GetAlbumInfo.php")]
-    public string GetAlbumInfo([FromForm] IFormCollection body) => 
-        string.Join(';', ResultCode.SUCCESS.ToString(), AlbumInfo);
+    public string GetAlbumInfo([FromForm] IFormCollection body)
+    {
+        if (!body.TryDecryptId(out var id))
+            return Reject(body);
+        
+        return string.Join(';', ResultCode.SUCCESS.ToString(), _db.GetEntityForUser<AlbumData>(id));
+    }
 
     [HttpPost]
     [Route("SetAlbumInfo.php")]
-    public string SetAlbumInfo([FromForm] IFormCollection body)
+    public async Task<string> SetAlbumInfo([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -50,18 +53,18 @@ public sealed class SaveDataController : BaseController
             JSON fields:
                 AL_AlbumSaveInfo: Unlock status of each album item
         */
-        if (!body.TryDeserializeJson<AlbumData>(out var data))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId< AlbumData>(out var data, out var id))
+            return Reject(body);
 
-        AlbumInfo = data;
-        Save();
+        _db.AddOrUpdate(data, id);
         
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("UpdateHighScore.php")]
-    public string UpdateHighScore([FromForm] IFormCollection body)
+    public async Task<string> UpdateHighScore([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -69,12 +72,14 @@ public sealed class SaveDataController : BaseController
                 EventID: PremiumResult ->  /NowStage : 90000002 /NowScore : 19260 /TotalRuby : 2 /Continue : 0
                 NickName:
         */
-        if (!body.TryGetString("HighScore", out var highScore))
-            return RejectRequest(body);
+        if (!body.TryGetStringWithId("HighScore", out var highScore, out var id))
+            return Reject(body);
         
-        PremiumInfo.PR_HighScore = int.Parse(highScore);
-        Save();
+        var premiumData = _db.GetEntityForUser<PremiumData>(id);
+        premiumData.PR_HighScore = int.Parse(highScore);
+        _db.AddOrUpdate(premiumData, id);
         
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -95,7 +100,7 @@ public sealed class SaveDataController : BaseController
 
     [HttpPost]
     [Route("AddMoney_StandAlone.php")]
-    public string AddMoneyStandAlone([FromForm] IFormCollection body)
+    public async Task<string> AddMoneyStandAlone([FromForm] IFormCollection body)
     {
         /*
             Additional POST data:
@@ -103,29 +108,31 @@ public sealed class SaveDataController : BaseController
                 RewardType: "Gold"
                 RewardCount: Encrypted base64 string
         */
-        if (!body.TryGetString("RewardType", out var rewardType))
-            return RejectRequest(body);
+        if (!body.TryGetStringWithId("RewardType", out var rewardType, out var id))
+            return Reject(body);
         if (!body.TryGetString("RewardCount", out var rewardCountEnc))
-            return RejectRequest(body);
+            return Reject(body);
 
         var rewardCount = int.Parse(AES.DecryptCBC(rewardCountEnc));
         
+        var userData = _db.GetEntityForUser<UserData>(id);
         if(rewardType == "Gold")
-            UserDataInfo.UD_Gold += rewardCount;
+            userData.UD_Gold += rewardCount;
         else if(rewardType == "Jewelery")
-            UserDataInfo.UD_Jewelery += rewardCount;
+            userData.UD_Jewelery += rewardCount;
         else if(rewardType == "Ruby")
-            UserDataInfo.UD_Ruby += rewardCount;
+            userData.UD_Ruby += rewardCount;
         else
             throw new ArgumentOutOfRangeException(nameof(rewardType), rewardType, "Invalid reward type");
-        Save();
+        _db.AddOrUpdate(userData, id);
         
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("AddTicket_StandAlone.php")]
-    public string AddTicketStandAlone([FromForm] IFormCollection body)
+    public async Task<string> AddTicketStandAlone([FromForm] IFormCollection body)
     {
         /*
             Additional POST data:
@@ -133,43 +140,46 @@ public sealed class SaveDataController : BaseController
                 RewardType: "Ticket"
                 RewardCount: -1, ...
         */
-        if (!body.TryGetString("RewardType", out var rewardType))
-            return RejectRequest(body);
+        if (!body.TryGetStringWithId("RewardType", out var rewardType, out var id))
+            return Reject(body);
         
         if (rewardType != "Ticket")
-            return RejectRequest(body);
+            return Reject(body);
 
         if (!body.TryGetString("RewardCount", out var rewardCount))
-            return RejectRequest(body);
+            return Reject(body);
         
-        UserDataInfo.UD_Ticket += int.Parse(rewardCount);
-        Save();
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_Ticket += int.Parse(rewardCount);
+        _db.AddOrUpdate(userData, id);
 
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
     [HttpPost]
     [Route("Save_LastQuitTime.php")]
-    public string SaveLastQuitTime([FromForm] IFormCollection body)
+    public async Task<string> SaveLastQuitTime([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
                 jsonData={"LastQuitTime":"2024-11-02 00:34:12","EventID":"Quit"}
                 Note: EventID can be: Quit, "Long Time No See Penalty", "Medium_Save"
         */
-        if (!body.TryGetString("jsonData", out var jsonData))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId<LastQuitTimeData>(out var data, out var id))
+            return Reject(body);
         
-        var json = JsonSerializer.Deserialize<JsonNode>(jsonData, SerializerOptions);
-        UserDataInfo.UD_LastQuitTime = DateTime.Parse(json?["LastQuitTime"]?.GetValue<string>() ?? "");
-        Save();
-
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_LastQuitTime = data.LastQuitTime;
+        _db.AddOrUpdate(userData, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
 
     [HttpPost]
     [Route("Save_GirlData.php")]
-    public string SaveGirlData([FromForm] IFormCollection body)
+    public async Task<string> SaveGirlData([FromForm] IFormCollection body)
     {
         /*
             Additional post data: 
@@ -178,12 +188,12 @@ public sealed class SaveDataController : BaseController
                 EventID can be: Bug_Bad_Feeling, Flower_Intimacy, Cheat_Sociability, ChangeCostume_Default, 
                                 FillUpMood, ChangePosture_GirlStandUpCutScene_Default, and a lot more
         */
-        if (!body.TryDeserializeJson<GirlData>(out var data))
-            return RejectRequest(body);
-
-        GirlDataInfo = data;
-        Save();
-
+        if (!body.TryDeserializeJsonWithId< GirlData>(out var data, out var id))
+            return Reject(body);
+        
+        _db.AddOrUpdate(data, id);
+        
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -193,7 +203,7 @@ public sealed class SaveDataController : BaseController
     {
         /* Additional post data: GirlLevel=3 */
         if (!body.TryGetString("GirlLevel", out var girlLevel))
-            return RejectRequest(body);
+            return Reject(body);
         
         // Not sure, what this was used for. Experience points are already stored in UserDataInfo.UD_Exp
         return ResultCode.SUCCESS.ToString();
@@ -201,7 +211,7 @@ public sealed class SaveDataController : BaseController
     
     [HttpPost]
     [Route("Save_MinigameResult.php")]
-    public string SaveMinigameResult([FromForm] IFormCollection body)
+    public async Task<string> SaveMinigameResult([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -223,33 +233,38 @@ public sealed class SaveDataController : BaseController
                 inventoryData: InventoryData
                 mapData: MapData
         */
-        if (!body.TryDeserializeJson<MinigameResultData>(out var data))
-            return RejectRequest(body);
+        if (!body.TryDeserializeJsonWithId< MinigameResultData>(out var data, out var id))
+            return Reject(body);
         
-        UserDataInfo.UD_Gold = data.Gold;
-        UserDataInfo.UD_TutorialStatus = data.Tutorial;
-        UserDataInfo.UD_Exp = data.Exp;
-        GirlDataInfo.GD_Sociability = data.Sociability;
-        GirlDataInfo.GD_Feeling = data.Feeling;
+        var userData = _db.GetEntityForUser<UserData>(id);
+        userData.UD_Gold = data.Gold;
+        userData.UD_TutorialStatus = data.Tutorial;
+        userData.UD_Exp = data.Exp;
+        _db.AddOrUpdate(userData, id);
+        
+        var girlData = _db.GetEntityForUser<GirlData>(id);
+        girlData.GD_Sociability = data.Sociability;
+        girlData.GD_Feeling = data.Feeling;
+        _db.AddOrUpdate(girlData, id);
+        
+        _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<InventoryData>(data.InventoryData ?? string.Empty), id);
+        _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<MapData>(data.MapData ?? string.Empty), id);
 
-        InventoryInfo = JsonUtils.PrefixKeysAndDeserializeAs<InventoryData>(data.InventoryData ?? string.Empty);
-        MapInfo = JsonUtils.PrefixKeysAndDeserializeAs<MapData>(data.MapData ?? string.Empty);
-        Save();
-
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
         
     [HttpPost]
     [Route("Save_Default.php")]
-    public string Save_Default([FromForm] IFormCollection body)
+    public async Task<string> Save_Default([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
                 jsonData={"userData":{"Gold":"0","Jewelery":"0","Ruby":"0","Ticket":"0","Episode":"1","Flower_StartTime":"2019-10-25 00:00:00","Flower_CoolTime":"2019-10-25 00:00:00","LastQuitTime":"2019-10-25 00:00:00","TutorialItemType":"-1","TutorialStatus":"7","Intro":"1","LastAdsTime":"2019-10-25 00:00:00","AdsCount":"0","Exp":"Home=&0&,Mart=&0&,Restaurant=&0&,PetShop=&0&,Park=&0&,AmusementPark=&0&","LevelUpPet":null},"bugData":{"BugSpawn":"Soot_01=&Soot_01&,Dust_01=&Dust_01&,Dust_02=&Dust_02&","BugEvent":0,"Bug_Count":"0,0,0,0,0,0,1,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0","Bug_CoolTime":"2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19,2024-11-02 15:52:19"},"conversationData":{"ConversationDailyCount":null,"Conversation_Time":"2019-10-25 00:00:00","AskCount":"0","ConversationCount":"5","ExtraConversationCount":"0"},"inventoryData":{"Inven_Dic_0":"2000000=&-1&,2100000=&-1&,2200000=&-1&,2300000=&-1&,2400000=&-1&,2500000=&-1&","Inven_Dic_1":"4000001=&1&","Inven_Dic_2":"1000000=&1&","Inven_Dic_3":"3000000=&-1&,3000001=&-1&,3600000=&-1&","Inven_Dic_4":null,"Inven_Dic_5":null,"Inven_Dic_6":null,"Inven_Dic_7":null,"Inven_Dic_Background":"Bed=&2000000&,Cabinet=&2100000&,Wallpaper=&2200000&,Floor=&2300000&,Window=&2400000&,Flowerpot=&2500000&"},"questData":{"Quest_List":null,"CutScene_List":null,"Quest_Time":"-1","Quest_MinigameTryCount":null,"Quest_ID":"","Quest_Score_0":"0","Quest_Score_1":"0","Quest_Score_2":"0","Quest_Score_3":"0","Quest_Score_4":"0","Quest_Type":"-1","CutSceneName":"","EpisodeName":"EpiSodeCutScene_00"},"missionData":{"Mission_OneDay":"700000=&0^1&,710000=&0^1&,720000=&0^1&,730000=&0^1&,740000=&0^1&,750000=&0^1&,760000=&0^1&,770000=&0^1&,780000=&0^1&,790000=&0^1&,799999=&0^1&","Mission_Level":"800000=&0^1&,810000=&0^1&,820000=&0^1&,830000=&0^1&,840000=&0^1&,850000=&0^1&,860000=&0^1&,870000=&0^1&,880000=&0^1&,800010=&0^0&,810010=&0^0&,820010=&0^0&,830010=&0^0&,840010=&0^0&,850010=&0^0&,860010=&0^0&,870010=&0^0&,880010=&0^0&,800020=&0^0&,810020=&0^0&,820020=&0^0&,830020=&0^0&,840020=&0^0&,850020=&0^0&,860020=&0^0&,870020=&0^0&,880020=&0^0&,800030=&0^0&,810030=&0^0&,820030=&0^0&,830030=&0^0&,840030=&0^0&,850030=&0^0&,860030=&0^0&,870030=&0^0&,880030=&0^0&,800040=&0^0&,810040=&0^0&,820040=&0^0&,830040=&0^0&,840040=&0^0&,850040=&0^0&","DailyCheck_Time":"2019-10-25 00:00:00"},"endingData":{"Ending_0":0,"Ending_1":0,"Ending_2":0,"Ending_3":0,"TargetEnding":"","SelectedPaper":"","EndingClearCount":0},"mapData":{"BuildingInfo":"Home=&900000&,Mart=&900100&,Restaurant=&900200&,PetShop=&900300&,Park=&900400&,AmusementPark=&900500&","FirstClear":null,"Date_StartTime":"2019-10-25 00:00:00","Date_Place":"-1","ItemTime":null},"premiumData":{"HighScore":"0","Hammer":null},"girlData":{"Intimacy":0,"Sociability":0,"Feeling":50,"Shirt":"3000000","Pants":"3000001","Hair":"3600000","Tire":"","Posture":"1","FeelingUp_DemandCount":0,"FeelingUp_GiveItemCount":0}}
         */
 
-        if (!body.TryGetString("jsonData", out var jsonData))
-            return RejectRequest(body);
+        if (!body.TryGetStringWithId("jsonData", out var jsonData, out var id))
+            return Reject(body);
                 
         /*
          * Ugly workaround: The game expects the JSON keys to be prefixed with certain values in requests.
@@ -262,41 +277,41 @@ public sealed class SaveDataController : BaseController
             switch (property.Name)
             {
                 case "userData":
-                    UserDataInfo = JsonUtils.PrefixKeysAndDeserializeAs<UserData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<UserData>(subSectionJson), id);
                     break;
                 case "bugData":
-                    BugInfo = JsonUtils.PrefixKeysAndDeserializeAs<BugData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<BugData>(subSectionJson), id);
                     break;
                 case "conversationData":
-                    ConversationInfo = JsonUtils.PrefixKeysAndDeserializeAs<ConversationData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<ConversationData>(subSectionJson), id);
                     break;
                 case "inventoryData":
-                    InventoryInfo = JsonUtils.PrefixKeysAndDeserializeAs<InventoryData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<InventoryData>(subSectionJson), id);
                     break;
                 case "questData":
-                    QuestInfo = JsonUtils.PrefixKeysAndDeserializeAs<QuestData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<QuestData>(subSectionJson), id);
                     break;
                 case "missionData":
-                    MissionInfo = JsonUtils.PrefixKeysAndDeserializeAs<MissionData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<MissionData>(subSectionJson), id);
                     break;
                 case "endingData":
-                    EndingInfo = JsonUtils.PrefixKeysAndDeserializeAs<EndingData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<EndingData>(subSectionJson), id);
                     break;
                 case "mapData":
-                    MapInfo = JsonUtils.PrefixKeysAndDeserializeAs<MapData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<MapData>(subSectionJson), id);
                     break;
                 case "premiumData":
-                    PremiumInfo = JsonUtils.PrefixKeysAndDeserializeAs<PremiumData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<PremiumData>(subSectionJson), id);
                     break;
                 case "girlData":
-                    GirlDataInfo = JsonUtils.PrefixKeysAndDeserializeAs<GirlData>(subSectionJson);
+                    _db.AddOrUpdate(JsonUtils.PrefixKeysAndDeserializeAs<GirlData>(subSectionJson), id);
                     break;
                 default:
                     throw new InvalidDataException($"Unexpected key {property.Name}");
             }
         }
         
-        Save();
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
 }

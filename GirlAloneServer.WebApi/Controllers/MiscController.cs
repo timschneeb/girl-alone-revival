@@ -1,3 +1,4 @@
+using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
 using GirlAloneServer.WebApi.Model.Responses;
 using GirlAloneServer.WebApi.Utils;
@@ -47,19 +48,23 @@ public sealed class MiscController : BaseController
         
     [HttpPost]
     [Route("AdsUpdate.php")]
-    public string AdsUpdate([FromForm] IFormCollection body)
+    public async Task<string> AdsUpdate([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
                 jsonData={"LastAdsTime":"2024-11-03 02:36:23","AdsCount":"1","ConversationCount":"5","BuyNoAds":"1"}
         */
-        if(!body.TryDeserializeJson<AdsUpdateData>(out var data))
-            return RejectRequest(body);
+        if(!body.TryDeserializeJsonWithId<AdsUpdateData>(out var data, out var id))
+            return Reject(body);
         
-        UserDataInfo.UD_AdsCount = data.AdsCount;
-        ConversationInfo.CO_ConversationCount = data.ConversationCount;
-        Save();
+        var userData = _db.GetEntityForUser<UserData>(id);
+        var conversationData = _db.GetEntityForUser<ConversationData>(id);
+        userData.UD_AdsCount = data.AdsCount;
+        conversationData.CO_ConversationCount = data.ConversationCount;
+        _db.AddOrUpdate(userData, id);
+        _db.AddOrUpdate(conversationData, id);
 
+        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     

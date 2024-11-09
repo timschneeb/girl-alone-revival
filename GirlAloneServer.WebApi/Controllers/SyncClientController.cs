@@ -1,5 +1,8 @@
 using System.Text.Json;
+using GirlAloneServer.WebApi.Database;
+using GirlAloneServer.WebApi.Model;
 using GirlAloneServer.WebApi.Model.Enums;
+using GirlAloneServer.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.WebApi.Controllers;
@@ -15,27 +18,56 @@ public sealed class SyncClientController : BaseController
 {
     [HttpPost]
     [Route("FromServerToClient_UserData.php")]
-    public string FromServerToClientUserData([FromForm] IFormCollection body) => 
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(UserDataInfo, SerializerOptions));
+    public string FromServerToClientUserData([FromForm] IFormCollection body)
+    {     
+        if (!body.TryDecryptId(out var id))
+            return Reject(body);
+
+        return string.Join(';', ResultCode.SUCCESS.ToString(),
+            JsonSerializer.Serialize(_db.GetEntityForUser<UserData>(id), SerializerOptions));
+    }
 
     [HttpPost]
     [Route("FromServerToClient_Conversation.php")]
-    public string FromServerToClientConversation([FromForm] IFormCollection body) => 
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(ConversationInfo, SerializerOptions));
+    public string FromServerToClientConversation([FromForm] IFormCollection body)
+    {
+        if (!body.TryDecryptId(out var id))
+            return Reject(body);
+        
+        return string.Join(';', ResultCode.SUCCESS.ToString(),
+            JsonSerializer.Serialize(_db.GetEntityForUser<ConversationData>(id), SerializerOptions));
+    }
 
     [HttpPost]
     [Route("FromServerToClient_GirlData.php")]
-    public string FromServerToClientGirlData([FromForm] IFormCollection body) => 
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(GirlDataInfo, SerializerOptions));
-    
+    public string FromServerToClientGirlData([FromForm] IFormCollection body)
+    {
+        if (!body.TryDecryptId(out var id))
+            return Reject(body);
+
+        return string.Join(';', ResultCode.SUCCESS.ToString(),
+            JsonSerializer.Serialize(_db.GetEntityForUser<GirlData>(id), SerializerOptions));
+    }
+
     [HttpPost]
     [Route("FromServerToClient_Inventory.php")]
-    public string FromServerToClientInventory([FromForm] IFormCollection body) => 
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(InventoryInfo, SerializerOptions));
-   
+    public string FromServerToClientInventory([FromForm] IFormCollection body)
+    {
+        if (!body.TryDecryptId(out var id))
+            return Reject(body);
+
+        return string.Join(';', ResultCode.SUCCESS.ToString(),
+            JsonSerializer.Serialize(_db.GetEntityForUser<InventoryData>(id), SerializerOptions));
+    }
+
     [HttpPost]
     [Route("FromServerToClient_Premium.php")] 
-    public string FromServerToClientPremium([FromForm] IFormCollection body) =>
-        string.Join(';', ResultCode.SUCCESS.ToString(), JsonSerializer.Serialize(PremiumInfo, SerializerOptions));
+    public string FromServerToClientPremium([FromForm] IFormCollection body)
+    {
+        if (!body.TryDecryptId(out var id))
+            return Reject(body);
 
+        return string.Join(';', ResultCode.SUCCESS.ToString(),
+            JsonSerializer.Serialize(_db.GetEntityForUser<PremiumData>(id), SerializerOptions));
+    }
 }
