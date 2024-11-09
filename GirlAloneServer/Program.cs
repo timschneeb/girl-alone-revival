@@ -1,4 +1,7 @@
-using GirlAloneServer.WebApi;
+using System.Reflection;
+using GirlAloneServer.Core.Database;
+using GirlAloneServer;
+using GirlAloneServer.Core.Converters.Json;
 using Serilog;
 using Sigurn.CommandLine;
 
@@ -25,15 +28,39 @@ public static class Program
             .WriteTo.Console()
             .CreateLogger();
 
-       Options options = null!;
-       await Parser.New<Options>(o => { options = o; }).RunAsync(args);
+        Options options = null!;
+        await Parser.New<Options>(o => { options = o; }).RunAsync(args);
 
-       var webApi = new WebApiManager(options.Port, options.DbConnectionString);
-        while (!webApi.IsDone())
+        DatabaseContext.DbConnectionString = options.DbConnectionString;
+
+        var builder = WebApplication.CreateBuilder();
+        builder.WebHost.UseUrls($"http://0.0.0.0:{options.Port}");
+
+        // Add services to the container.
+        var assembly = Assembly.GetAssembly(typeof(Program))!;
+        builder.Services
+            .AddControllersWithViews()
+            .AddApplicationPart(assembly)
+            .AddControllersAsServices();
+        
+        builder.Services.AddControllers().AddJsonOptions(opt =>
         {
-            await Task.Delay(250);
-        }
-
+            opt.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+        });
+        builder.Services.AddEndpointsApiExplorer();
+        
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        
+        var app = builder.Build();
+        app.UseStaticFiles();
+        app.UseRouting();
+        app.UseAuthorization();
+        app.MapControllers();
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+        
+        await app.RunAsync();
         await Log.CloseAndFlushAsync();
     }
 }

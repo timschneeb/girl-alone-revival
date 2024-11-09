@@ -1,0 +1,1332 @@
+{
+    "Info": {
+        "Version": 9999,
+        "Type": ""
+    },
+    "Asset": {
+        "prefabs/fairygoingoutcutscene_00_prefabs": [
+            1,
+            2365460
+        ],
+        "prefabs/catchingmoles_hiteffect_prefabs": [
+            1,
+            4679
+        ],
+        "sound/minigame_bgm_00_sound": [
+            1,
+            1223360
+        ],
+        "prefabs/presentclosthescutscene_00_prefabs": [
+            1,
+            2257049
+        ],
+        "table/g_dialog_table": [
+            1,
+            124767
+        ],
+        "atlas/furniture_icon_atlas": [
+            1,
+            1079230
+        ],
+        "prefabs/girlfirstmeetcutscene_00_prefabs": [
+            1,
+            280399
+        ],
+        "sound/hurryup_sfx_sound": [
+            1,
+            102785
+        ],
+        "table/g_questfaileddialogtable_table": [
+            1,
+            1553
+        ],
+        "table/m_eventrankrewardtable_table": [
+            1,
+            1552
+        ],
+        "table/g_levelmission_table": [
+            1,
+            4371
+        ],
+        "sound/level_up_pet_sound": [
+            1,
+            81105
+        ],
+        "table/m_albafirstclearitemtable_table": [
+            1,
+            1370
+        ],
+        "table/g_questcleardialogtable_table": [
+            1,
+            7393
+        ],
+        "atlas/ui_mail_atlas": [
+            1,
+            58439
+        ],
+        "prefabs/datingbravelycutscene_00_prefabs": [
+            1,
+            2261120
+        ],
+        "sound/bug_touch_sfx_sound": [
+            1,
+            20015
+        ],
+        "atlas/map_atlas": [
+            1,
+            1899281
+        ],
+        "atlas/intro_scene_02_atlas": [
+            1,
+            347155
+        ],
+        "table/m_packageitemtable_table": [
+            1,
+            2998
+        ],
+        "atlas/sh_atlas": [
+            1,
+            685059
+        ],
+        "prefabs/intropanel_prefabs": [
+            1,
+            8520
+        ],
+        "sound/building_touch_sfx_sound": [
+            1,
+            41756
+        ],
+        "sound/ui_button_sfx_sound": [
+            1,
+            18704
+        ],
+        "prefabs/wisp_04_prefabs": [
+            1,
+            110648
+        ],
+        "table/p_dogsnacktable_table": [
+            1,
+            4717
+        ],
+        "atlas/ui_labelimage_atlas": [
+            1,
+            1125526
+        ],
+        "prefabs/shopitem_prefabs": [
+            1,
+            8975
+        ],
+        "prefabs/girlgetsickcutscene_02_prefabs": [
+            1,
+            236092
+        ],
+        "table/m_mainlobbytutorial_table": [
+            1,
+            1306
+        ],
+        "prefabs/decoratingtheroomcutscene_00_prefabs": [
+            1,
+            2258694
+        ],
+        "sound/town_bgm_00_sound": [
+            1,
+            896732
+        ],
+        "sound/moledie_sfx_sound": [
+            1,
+            43581
+        ],
+        "table/m_findfoodscore_table": [
+            1,
+            2704
+        ],
+        "atlas/introgroup1_atlas": [
+            1,
+            1899075
+        ],
+        "prefabs/effect_firecracker_prefabs": [
+            1,
+            123166
+        ],
+        "prefabs/electricitybustlecutscene_00_prefabs": [
+            1,
+            319719
+        ],
+        "prefabs/dust_01_prefabs": [
+            1,
+            43771
+        ],
+        "atlas/minigame_catchingmoles_atlas": [
+            1,
+            1031982
+        ],
+        "prefabs/wormbustlecutscene_01_prefabs": [
+            1,
+            260788
+        ],
+        "atlas/introgroup2_atlas": [
+            1,
+            2225588
+        ],
+        "sound/roulette_rolling_sound": [
+            1,
+            4614
+        ],
+        "prefabs/hiteffect_prefabs": [
+            1,
+            46816
+        ],
+        "prefabs/episodecutscene_00_prefabs": [
+            1,
+            14283
+        ],
+        "atlas/bug_atlas": [
+            1,
+            37858
+        ],
+        "prefabs/girlfindmemorycutscene_00_prefabs": [
+            1,
+            432225
+        ],
+        "prefabs/electricitybustlecutscene_01_prefabs": [
+            1,
+            320955
+        ],
+        "atlas/background2_atlas": [
+            1,
+            2473507
+        ],
+        "prefabs/restaurant_prefabs": [
+            1,
+            9258
+        ],
+        "table/g_petreaction_table": [
+            1,
+            5877
+        ],
+        "atlas/minigame_shisensho_atlas": [
+            1,
+            305760
+        ],
+        "table/i_pettable_table": [
+            1,
+            9374
+        ],
+        "table/g_feelingtable_table": [
+            1,
+            1362
+        ],
+        "table/g_soliloquytable_table": [
+            1,
+            12052
+        ],
+        "sound/production_bgm_00_sound": [
+            1,
+            668833
+        ],
+        "prefabs/girl_stand_prefabs": [
+            1,
+            2241008
+        ],
+        "prefabs/pet_dog_00_prefabs": [
+            1,
+            98296
+        ],
+        "table/m_premiumgameobjecttable_table": [
+            1,
+            1458
+        ],
+        "prefabs/npccutscene_00_prefabs": [
+            1,
+            385641
+        ],
+        "atlas/tutorial_atlas": [
+            1,
+            1118288
+        ],
+        "table/m_premiumgamecontinuetable_table": [
+            1,
+            1262
+        ],
+        "table/m_albaadvertisingtable_table": [
+            1,
+            1389
+        ],
+        "prefabs/building_prefabs": [
+            1,
+            6825
+        ],
+        "prefabs/missionobject_prefabs": [
+            1,
+            8706
+        ],
+        "table/p_dogsnacktabel_table": [
+            1,
+            1584
+        ],
+        "sound/frog_die_sound": [
+            1,
+            13371
+        ],
+        "table/u_dialog_ask_table": [
+            1,
+            135362
+        ],
+        "prefabs/caringmindcutscene_00_prefabs": [
+            1,
+            271276
+        ],
+        "prefabs/boss_00_prefabs": [
+            1,
+            122106
+        ],
+        "prefabs/catchingmoles_prefabs": [
+            1,
+            15284
+        ],
+        "prefabs/debugpanel_prefabs": [
+            1,
+            10053
+        ],
+        "table/g_foodreaction_table": [
+            1,
+            6061
+        ],
+        "atlas/minigame_atlas": [
+            1,
+            1064594
+        ],
+        "prefabs/catchingmoles_hearteffect_prefabs": [
+            1,
+            24304
+        ],
+        "table/m_shisenshoscore_table": [
+            1,
+            2703
+        ],
+        "prefabs/mosquito_01_prefabs": [
+            1,
+            33099
+        ],
+        "prefabs/dust_02_prefabs": [
+            1,
+            95243
+        ],
+        "prefabs/girl_sitdown_prefabs": [
+            1,
+            258640
+        ],
+        "prefabs/popupyesorno_prefabs": [
+            1,
+            9553
+        ],
+        "atlas/intro_scene_05_1_atlas": [
+            1,
+            572511
+        ],
+        "prefabs/tutorial_ant_prefabs": [
+            1,
+            33883
+        ],
+        "prefabs/cardgame_prefabs": [
+            1,
+            12599
+        ],
+        "table/g_demandcleardialogtable_table": [
+            1,
+            10421
+        ],
+        "prefabs/catchingmoles_comboeffect_prefabs": [
+            1,
+            6395
+        ],
+        "sound/goodresult_sound": [
+            1,
+            53545
+        ],
+        "prefabs/pet_dog_03_prefabs": [
+            1,
+            98010
+        ],
+        "sound/cat_bark_sfx_sound": [
+            1,
+            77561
+        ],
+        "sound/failed_sfx_sound": [
+            1,
+            100922
+        ],
+        "table/m_lighttranslationtable_table": [
+            1,
+            1412
+        ],
+        "table/g_objecttouchreaction_table": [
+            1,
+            2073
+        ],
+        "sound/object_select_sfx_sound": [
+            1,
+            11423
+        ],
+        "prefabs/spider_01_prefabs": [
+            1,
+            30827
+        ],
+        "atlas/minigame_findfood_atlas": [
+            1,
+            780851
+        ],
+        "prefabs/goldcockroach_01_prefabs": [
+            1,
+            53863
+        ],
+        "atlas/ui_option_atlas": [
+            1,
+            20748
+        ],
+        "table/g_demand_table": [
+            1,
+            1922
+        ],
+        "prefabs/cockroach_01_prefabs": [
+            1,
+            35554
+        ],
+        "atlas/intro_scene_00_atlas": [
+            1,
+            798450
+        ],
+        "sound/episode_bgm_02_sound": [
+            1,
+            1418887
+        ],
+        "atlas/girlsample_atlas": [
+            1,
+            18697
+        ],
+        "atlas/ui_lobby_atlas": [
+            1,
+            1713625
+        ],
+        "table/i_questitemtable_table": [
+            1,
+            1776
+        ],
+        "table/m_npcwavetable_table": [
+            1,
+            1321
+        ],
+        "prefabs/girlrecoverycutscene_00_prefabs": [
+            1,
+            457165
+        ],
+        "table/g_demand_reaction_table": [
+            1,
+            3137
+        ],
+        "prefabs/inventoryitem_prefabs": [
+            1,
+            7945
+        ],
+        "sound/building_levelup_sfx_sound": [
+            1,
+            173420
+        ],
+        "table/m_suddenmissiontable_table": [
+            1,
+            19388
+        ],
+        "table/g_sociabilitytable_table": [
+            1,
+            1284
+        ],
+        "sound/furniture_sfx_sound": [
+            1,
+            122543
+        ],
+        "table/m_aoscoupontable_table": [
+            1,
+            3132
+        ],
+        "table/m_ending_table": [
+            1,
+            9454
+        ],
+        "table/m_building_table": [
+            1,
+            4266
+        ],
+        "prefabs/catchingmoles_hiteffect2_prefabs": [
+            1,
+            4697
+        ],
+        "prefabs/datingbravelycutscene_01_prefabs": [
+            1,
+            2269213
+        ],
+        "atlas/npc_atlas": [
+            1,
+            137548
+        ],
+        "prefabs/hole_prefabs": [
+            1,
+            26602
+        ],
+        "atlas/intro_scene_05_2_atlas": [
+            1,
+            587288
+        ],
+        "prefabs/caringmindcutscene_03_prefabs": [
+            1,
+            2259168
+        ],
+        "table/m_specialanim_table": [
+            1,
+            1737
+        ],
+        "table/m_bigmoletable_table": [
+            1,
+            2804
+        ],
+        "prefabs/episodecutscene_01_prefabs": [
+            1,
+            14789
+        ],
+        "sound/item_buy_failed_sfx_sound": [
+            1,
+            53075
+        ],
+        "sound/minigamelasttime_sfx_sound": [
+            1,
+            31467
+        ],
+        "prefabs/goldfrog_04_prefabs": [
+            1,
+            48049
+        ],
+        "table/g_demandtable_table": [
+            1,
+            25768
+        ],
+        "prefabs/globalpanel_prefabs": [
+            1,
+            25784
+        ],
+        "prefabs/effect_getexp_pet_prefabs": [
+            1,
+            61833
+        ],
+        "atlas/ui_date_atlas": [
+            1,
+            103412
+        ],
+        "sound/clear_sfx_sound": [
+            1,
+            78068
+        ],
+        "atlas/pet_icon_atlas": [
+            1,
+            2135368
+        ],
+        "prefabs/minigame_bigmole_00_prefabs": [
+            1,
+            104182
+        ],
+        "prefabs/frog_01_prefabs": [
+            1,
+            61690
+        ],
+        "atlas/gift_icon_atlas": [
+            1,
+            2314833
+        ],
+        "prefabs/findfood_prefabs": [
+            1,
+            15750
+        ],
+        "prefabs/wisp_01_prefabs": [
+            1,
+            117700
+        ],
+        "atlas/endinggroup1_atlas": [
+            1,
+            1051645
+        ],
+        "prefabs/intimacyaddeffect_prefabs": [
+            1,
+            6073
+        ],
+        "prefabs/effect_levelup_girl_prefabs": [
+            1,
+            64496
+        ],
+        "sound/fairy_giggle_sound": [
+            1,
+            60651
+        ],
+        "prefabs/pet_cat_02_prefabs": [
+            1,
+            84302
+        ],
+        "prefabs/tutorialguide_arrow_prefabs": [
+            1,
+            4603
+        ],
+        "prefabs/pet_dog_02_prefabs": [
+            1,
+            100104
+        ],
+        "sound/episode_bgm_03_sound": [
+            1,
+            1744370
+        ],
+        "table/m_albaclearitemtable_table": [
+            1,
+            1787
+        ],
+        "prefabs/decoratingtheroomcutscene_01_prefabs": [
+            1,
+            2259051
+        ],
+        "atlas/minigame_cardgame_atlas": [
+            1,
+            308943
+        ],
+        "atlas/albumgroup1_atlas": [
+            1,
+            1649575
+        ],
+        "sound/production_bgm_01_sound": [
+            1,
+            380823
+        ],
+        "atlas/ui_inventory_atlas": [
+            1,
+            58934
+        ],
+        "table/i_furnituretable_table": [
+            1,
+            12758
+        ],
+        "table/g_demandfaileddialogtable_table": [
+            1,
+            8297
+        ],
+        "table/m_friendinviterewardtable_table": [
+            1,
+            1426
+        ],
+        "prefabs/goldaddeffect_prefabs": [
+            1,
+            6068
+        ],
+        "prefabs/shisenshocardformaker_prefabs": [
+            1,
+            6461
+        ],
+        "sound/stageclear_sfx_sound": [
+            1,
+            37511
+        ],
+        "prefabs/gatherpowercutscene_00_prefabs": [
+            1,
+            2428016
+        ],
+        "prefabs/catchingmoles_scoreaddeffect_prefabs": [
+            1,
+            5222
+        ],
+        "prefabs/girlfindmemorystartcutscene_03_prefabs": [
+            1,
+            420152
+        ],
+        "prefabs/goldcockroach_04_prefabs": [
+            1,
+            53919
+        ],
+        "prefabs/girlgetsickcutscene_01_prefabs": [
+            1,
+            234029
+        ],
+        "table/g_onedaymission_table": [
+            1,
+            3472
+        ],
+        "prefabs/girlfindmemorystartcutscene_00_prefabs": [
+            1,
+            418130
+        ],
+        "prefabs/shisensho_prefabs": [
+            1,
+            12346
+        ],
+        "prefabs/girlgetsickcutscene_03_prefabs": [
+            1,
+            450722
+        ],
+        "prefabs/petshop_prefabs": [
+            1,
+            10587
+        ],
+        "prefabs/girlfindmemorycutscene_04_prefabs": [
+            1,
+            443495
+        ],
+        "prefabs/completeeffect_prefabs": [
+            1,
+            4981
+        ],
+        "table/m_cardgamescore_table": [
+            1,
+            2708
+        ],
+        "atlas/ui_popup_atlas": [
+            1,
+            46024
+        ],
+        "prefabs/popupserverloading_prefabs": [
+            1,
+            23988
+        ],
+        "table/m_minigamescore_table": [
+            1,
+            1506
+        ],
+        "table/g_girllevel_table": [
+            1,
+            3848
+        ],
+        "table/m_premiumgameitemtable_table": [
+            1,
+            2740
+        ],
+        "atlas/flowerpot_atlas": [
+            1,
+            262618
+        ],
+        "table/u_demand_ask_table": [
+            1,
+            1710
+        ],
+        "prefabs/map_02_prefabs": [
+            1,
+            46141
+        ],
+        "prefabs/ladybug_01_prefabs": [
+            1,
+            48969
+        ],
+        "sound/getreward_sound": [
+            1,
+            128572
+        ],
+        "sound/footsteps_sfx_sound": [
+            1,
+            58769
+        ],
+        "prefabs/mailrewardobject_prefabs": [
+            1,
+            5648
+        ],
+        "prefabs/gatherpowercutscene_01_prefabs": [
+            1,
+            2425075
+        ],
+        "prefabs/girlstandupcutscene_00_prefabs": [
+            1,
+            268791
+        ],
+        "table/m_phototable_table": [
+            1,
+            3478
+        ],
+        "table/m_systemmailtable_table": [
+            1,
+            6419
+        ],
+        "prefabs/popupuiroot_prefabs": [
+            1,
+            4145
+        ],
+        "prefabs/girlfindmemorycutscene_02_prefabs": [
+            1,
+            434401
+        ],
+        "prefabs/girlfindmemorycutscene_01_prefabs": [
+            1,
+            433030
+        ],
+        "atlas/ui_girlinfo_atlas": [
+            1,
+            55744
+        ],
+        "sound/girldialogtouch_sfx_sound": [
+            1,
+            26629
+        ],
+        "table/g_reaction_table": [
+            1,
+            190624
+        ],
+        "prefabs/map_03_prefabs": [
+            1,
+            45815
+        ],
+        "sound/roulettebgm_sound": [
+            1,
+            907091
+        ],
+        "table/g_giftreaction_table": [
+            1,
+            5406
+        ],
+        "table/m_hammertable_table": [
+            1,
+            1372
+        ],
+        "table/m_endingcleartable_table": [
+            1,
+            1530
+        ],
+        "prefabs/presentclosthescutscene_01_prefabs": [
+            1,
+            2262168
+        ],
+        "prefabs/pet_cat_01_prefabs": [
+            1,
+            93889
+        ],
+        "prefabs/feelingeffect_prefabs": [
+            1,
+            5924
+        ],
+        "prefabs/ant_01_prefabs": [
+            1,
+            34448
+        ],
+        "sound/episode_bgm_01_sound": [
+            1,
+            575762
+        ],
+        "atlas/intro_scene_04_atlas": [
+            1,
+            903040
+        ],
+        "prefabs/shisensholine_prefabs": [
+            1,
+            3723
+        ],
+        "prefabs/mart_prefabs": [
+            1,
+            10089
+        ],
+        "prefabs/wisp_02_prefabs": [
+            1,
+            110752
+        ],
+        "atlas/ui_furniture_atlas": [
+            1,
+            749445
+        ],
+        "table/g_questtable_table": [
+            1,
+            24770
+        ],
+        "atlas/heartwave_atlas": [
+            1,
+            19848
+        ],
+        "atlas/food_icon_atlas": [
+            1,
+            715886
+        ],
+        "sound/primumeobjecttouch_sound": [
+            1,
+            7089
+        ],
+        "atlas/ui_cashshop_atlas": [
+            1,
+            366117
+        ],
+        "table/i_gifttable_table": [
+            1,
+            7807
+        ],
+        "atlas/ui_mission_atlas": [
+            1,
+            76412
+        ],
+        "prefabs/pet_dog_01_prefabs": [
+            1,
+            90001
+        ],
+        "sound/hit_sfx_sound": [
+            1,
+            12739
+        ],
+        "prefabs/givecouragecutscene_00_prefabs": [
+            1,
+            2276413
+        ],
+        "prefabs/minigame_mole_00_prefabs": [
+            1,
+            56760
+        ],
+        "table/m_fairydialogtable_table": [
+            1,
+            3887
+        ],
+        "prefabs/rankplayer_prefabs": [
+            1,
+            5486
+        ],
+        "sound/dog_bark_sfx_sound": [
+            1,
+            62656
+        ],
+        "atlas/intro_scene_03_atlas": [
+            1,
+            99327
+        ],
+        "table/thisistest_table": [
+            1,
+            4151
+        ],
+        "table/m_freegemtable_table": [
+            1,
+            1461
+        ],
+        "prefabs/introtimeline_prefabs": [
+            1,
+            381538
+        ],
+        "prefabs/npccutscene_02_prefabs": [
+            1,
+            2432554
+        ],
+        "prefabs/lobbypanel_prefabs": [
+            1,
+            256845
+        ],
+        "prefabs/goldfrog_03_prefabs": [
+            1,
+            48005
+        ],
+        "prefabs/gamegirl_prefabs": [
+            1,
+            2336
+        ],
+        "atlas/fairy_atlas": [
+            1,
+            50128
+        ],
+        "prefabs/mappanel_prefabs": [
+            1,
+            2539055
+        ],
+        "sound/slime_die_sound": [
+            1,
+            31898
+        ],
+        "prefabs/mister_00_prefabs": [
+            1,
+            139195
+        ],
+        "prefabs/disappearlabel_background_prefabs": [
+            1,
+            6259
+        ],
+        "prefabs/caringmindcutscene_02_prefabs": [
+            1,
+            2259299
+        ],
+        "atlas/ui_premiumrank_atlas": [
+            1,
+            1237762
+        ],
+        "table/m_dateadvertisingtable_table": [
+            1,
+            1549
+        ],
+        "prefabs/serverpanel_prefabs": [
+            1,
+            24949
+        ],
+        "prefabs/wormbustlecutscene_00_prefabs": [
+            1,
+            281828
+        ],
+        "table/g_girltouchreaction_table": [
+            1,
+            5160
+        ],
+        "prefabs/episodecutscene_02_prefabs": [
+            1,
+            15256
+        ],
+        "table/m_ticketitemtable_table": [
+            1,
+            1440
+        ],
+        "atlas/ui_common_atlas": [
+            1,
+            1325941
+        ],
+        "table/m_tipmessage_table": [
+            1,
+            6304
+        ],
+        "sound/episode_bgm_00_sound": [
+            1,
+            1366014
+        ],
+        "table/i_costume_table": [
+            1,
+            13665
+        ],
+        "table/m_questitemtable_table": [
+            1,
+            7144
+        ],
+        "prefabs/scenechangepanel_prefabs": [
+            1,
+            22969
+        ],
+        "prefabs/goldcockroach_03_prefabs": [
+            1,
+            53852
+        ],
+        "table/m_gemstoretable_table": [
+            1,
+            2081
+        ],
+        "table/m_eventtable_table": [
+            1,
+            1665
+        ],
+        "prefabs/slime_01_prefabs": [
+            1,
+            48581
+        ],
+        "atlas/ui_quest_atlas": [
+            1,
+            141046
+        ],
+        "prefabs/wisp_03_prefabs": [
+            1,
+            109609
+        ],
+        "prefabs/girlgetcouragecutscene_00_prefabs": [
+            1,
+            306009
+        ],
+        "table/m_roulettetable_table": [
+            1,
+            1944
+        ],
+        "table/m_flowertable_table": [
+            1,
+            1403
+        ],
+        "sound/level_up_girl_sound": [
+            1,
+            93120
+        ],
+        "prefabs/card_prefabs": [
+            1,
+            6383
+        ],
+        "atlas/ui_roulette_atlas": [
+            1,
+            791373
+        ],
+        "sound/dust_touch_sfx_sound": [
+            1,
+            50034
+        ],
+        "table/m_bugtable_table": [
+            1,
+            1965
+        ],
+        "prefabs/disappearlabel_prefabs": [
+            1,
+            5206
+        ],
+        "table/read me!_table": [
+            1,
+            1192
+        ],
+        "prefabs/pet_cat_04_prefabs": [
+            1,
+            100403
+        ],
+        "prefabs/popupisalone_prefabs": [
+            1,
+            9527
+        ],
+        "prefabs/popuppanel_prefabs": [
+            1,
+            3895
+        ],
+        "prefabs/goldfrog_01_prefabs": [
+            1,
+            48019
+        ],
+        "table/i_foodtable_table": [
+            1,
+            9083
+        ],
+        "prefabs/cashshopitem_prefabs": [
+            1,
+            8801
+        ],
+        "sound/answer_sfx_sound": [
+            1,
+            50963
+        ],
+        "table/m_combotable_table": [
+            1,
+            1633
+        ],
+        "prefabs/girlfindmemorystartcutscene_01_prefabs": [
+            1,
+            418771
+        ],
+        "atlas/ui_shop_atlas": [
+            1,
+            235503
+        ],
+        "sound/production_bgm_02_sound": [
+            1,
+            757338
+        ],
+        "atlas/intro_scene_01_atlas": [
+            1,
+            104997
+        ],
+        "table/m_minigametutorial_table": [
+            1,
+            6561
+        ],
+        "prefabs/pet_cat_00_prefabs": [
+            1,
+            88458
+        ],
+        "atlas/costume_icon_atlas": [
+            1,
+            831284
+        ],
+        "sound/item_buy_sfx_sound": [
+            1,
+            87213
+        ],
+        "prefabs/npccutscene_01_prefabs": [
+            1,
+            2500554
+        ],
+        "prefabs/wisp_05_prefabs": [
+            1,
+            112104
+        ],
+        "table/m_endingfairy_table": [
+            1,
+            4968
+        ],
+        "table/m_intro_table": [
+            1,
+            6729
+        ],
+        "prefabs/endingpanel_prefabs": [
+            1,
+            12716
+        ],
+        "prefabs/girlfindmemorycutscene_03_prefabs": [
+            1,
+            435231
+        ],
+        "table/m_cutscenedialog_table": [
+            1,
+            96009
+        ],
+        "prefabs/tutorialguide_label_prefabs": [
+            1,
+            4522
+        ],
+        "atlas/background_atlas": [
+            1,
+            2596840
+        ],
+        "prefabs/map_00_prefabs": [
+            1,
+            45872
+        ],
+        "prefabs/goldcockroach_02_prefabs": [
+            1,
+            53881
+        ],
+        "prefabs/mainsceneuiroot_prefabs": [
+            1,
+            4316
+        ],
+        "prefabs/shopitem_costume_prefabs": [
+            1,
+            3290091
+        ],
+        "table/ui_labeltable_table": [
+            1,
+            63556
+        ],
+        "atlas/ui_ending_atlas": [
+            1,
+            1722490
+        ],
+        "prefabs/girlfindmemorystartcutscene_02_prefabs": [
+            1,
+            421566
+        ],
+        "prefabs/soot_01_prefabs": [
+            1,
+            52465
+        ],
+        "table/m_goldstoretable_table": [
+            1,
+            1830
+        ],
+        "prefabs/caringmindcutscene_01_prefabs": [
+            1,
+            273305
+        ],
+        "atlas/timelineimage_atlas": [
+            1,
+            145394
+        ],
+        "table/m_functionalitemtable_table": [
+            1,
+            1444
+        ],
+        "prefabs/minigamepanel_prefabs": [
+            1,
+            42213
+        ],
+        "table/d_dialogtable_table": [
+            1,
+            4144
+        ],
+        "prefabs/map_01_prefabs": [
+            1,
+            45868
+        ],
+        "atlas/endinggroup2_atlas": [
+            1,
+            1989362
+        ],
+        "prefabs/episodecutscene_03_prefabs": [
+            1,
+            15644
+        ],
+        "prefabs/girlgetsickcutscene_00_prefabs": [
+            1,
+            270574
+        ],
+        "prefabs/catchingmoles_misseffect_prefabs": [
+            1,
+            5219
+        ],
+        "sound/heartbreak_sfx_sound": [
+            1,
+            63939
+        ],
+        "prefabs/effect_levelup_pet_prefabs": [
+            1,
+            64475
+        ],
+        "prefabs/popupnotice_prefabs": [
+            1,
+            62656
+        ],
+        "table/m_premiumgametable_table": [
+            1,
+            3168
+        ],
+        "sound/hedgehogdie_sfx_sound": [
+            1,
+            38508
+        ],
+        "prefabs/fairy_prefabs": [
+            1,
+            129624
+        ],
+        "sound/wrong_answer_sfx_sound": [
+            1,
+            44616
+        ],
+        "table/m_specialitemtable_table": [
+            1,
+            1973
+        ],
+        "prefabs/shisenshocard_prefabs": [
+            1,
+            6764
+        ],
+        "sound/bug_hit_sfx_sound": [
+            1,
+            10549
+        ],
+        "prefabs/girl_lie_prefabs": [
+            1,
+            529422
+        ],
+        "prefabs/mailobject_prefabs": [
+            1,
+            7883
+        ],
+        "table/p_catsnacktable_table": [
+            1,
+            4825
+        ],
+        "prefabs/goldfrog_02_prefabs": [
+            1,
+            48048
+        ],
+        "sound/badresult_sound": [
+            1,
+            139227
+        ],
+        "prefabs/girlfindmemorystartcutscene_04_prefabs": [
+            1,
+            418677
+        ],
+        "prefabs/minigame_hedgehog_00_prefabs": [
+            1,
+            103996
+        ],
+        "table/m_npctable_table": [
+            1,
+            1229
+        ],
+        "atlas/ui_invitefriend_atlas": [
+            1,
+            56747
+        ],
+        "prefabs/sprayer_prefabs": [
+            1,
+            36039
+        ],
+        "prefabs/albagatherspowercutscene_00_prefabs": [
+            1,
+            2279779
+        ],
+        "sound/ending_bgm_sound": [
+            1,
+            3857390
+        ],
+        "prefabs/map_04_prefabs": [
+            1,
+            45921
+        ],
+        "table/maptable": [
+            1,
+            4040
+        ]
+    }
+}
