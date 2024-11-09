@@ -46,14 +46,14 @@ public class RouletteController : BaseController
     
     [HttpPost]
     [Route("StartRoulette.php")]
-    public string StartRoulette([FromForm] IFormCollection body)
+    public async Task<string> StartRoulette([FromForm] IFormCollection body)
     {
         /* Additional post data: jsonData={"RouletteID":"990000"} */
         try
         {
             return string.Join(';', [
                 ResultCode.SUCCESS.ToString(),
-                ExecuteRoulette(body), // upgrade id 0-5
+                await ExecuteRoulette(body), // upgrade id 0-5
                 0, // selected id 0-1, not sure what this is
             ]);
         }
@@ -66,14 +66,14 @@ public class RouletteController : BaseController
     
     [HttpPost]
     [Route("StartRoulette_Upgrade.php")]
-    public string StartRoulette_Upgrade([FromForm] IFormCollection body)
+    public async Task<string> StartRoulette_Upgrade([FromForm] IFormCollection body)
     {
         /* Additional post data: jsonData={"RouletteID":"991000"} */
         try
         {
             return string.Join(';', [
                 ResultCode.SUCCESS.ToString(),
-                ExecuteRoulette(body), // upgrade id 0-5
+                await ExecuteRoulette(body), // upgrade id 0-5
                 0, // selected id 0-1, not sure what this is
             ]);
         }
