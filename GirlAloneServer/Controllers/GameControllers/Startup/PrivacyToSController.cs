@@ -13,9 +13,12 @@ public sealed class PrivacyToSController : BaseController
         </p>
         <p>
             The game also contains dependencies to third-party services, which may collect additional data.
-            This includes several ad networks, unity analytics, and Google Firebase.
+            This includes several ad networks, Unity Analytics, and Google Firebase.
             While I have patched the game to disable most of these dependencies, some may still attempt to connect to third-party services.
             I, the developer of this custom replacement server, do not have access to any data from these third-party providers.
+        </p>
+        <p>
+            The replacement server uses crash and error reporting using Sentry. If an API request causes an issue, the error, including the request data is sent to Sentry for further troubleshooting.
         </p>
         """;
     
