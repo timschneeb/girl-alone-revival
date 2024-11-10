@@ -4,6 +4,7 @@ using GirlAloneServer.Core.Model;
 using GirlAloneServer.Core.Utils;
 using GirlAloneServer.Model;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace GirlAloneServer.Controllers.WebAppControllers;
 
@@ -95,8 +96,10 @@ public class AppController : BaseController
         }
     }
     
-    public IActionResult Coupons()
+    public IActionResult Coupons(string? showMsg)
     {
+        Log.Error("Coupons page accessed with showMailMsg: {showMailMsg}", showMsg);
+        ViewBag.ShowMessages = showMsg == "on";
         return View();
     }
     

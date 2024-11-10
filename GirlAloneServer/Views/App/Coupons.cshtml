@@ -11,14 +11,21 @@
     <p>
         This page lists all available in-game rewards that can be sent via to your mail inbox in the game. 
         You can use the coupon codes on the left side to trigger them. Coupons can be redeemed in the settings menu of the game.
-        There are no restrictions on how many coupons can be redeemed per day, however, 
-        you need to claim the reward mail before you can redeem the same coupon again.
+        There are no restrictions on how many coupons can be redeemed per day.
     </p>
-    <p>
-        <!-- TODO -->
-        IMPORTANT: In-game coupon redeem system is not yet implemented.
-    </p>
-    
+
+    @using (Html.BeginForm("Coupons", "App", new {}, FormMethod.Get))
+    {
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="showMsg" 
+                   @(ViewBag.ShowMessages ? "checked" : "") onchange="this.form.submit()" id="showMsgsCheck">
+            <label class="form-check-label" for="showMsgsCheck">
+                Show mail messages
+            </label>
+        </div>
+    }
+
+
     @foreach(var mailGroup in mailTable)
     {
         var group = mailGroup.Key switch
@@ -36,8 +43,12 @@
             var description = mail.RewardID.Length > 0 ? 
                 $"{mail.RewardCount}x {mail.RewardType} (ID: {mail.RewardID})" : 
                 $"{mail.RewardCount}x {mail.RewardType}";
-
+            
             var mailMessage = mail.MailName_ENG.Length > 0 ? mail.MailName_ENG : mail.MailName_KOR;
+            if (ViewBag.ShowMessages)
+            {
+                description = mailMessage + " - " + description;
+            }
             
             <div class="row" title="Mail message: '@mailMessage'">
                 <div class="col-4 col-xs-3 col-sm-2">
