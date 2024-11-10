@@ -4,7 +4,7 @@ using GirlAloneServer.Core.Model.Enums;
 
 namespace GirlAloneServer.Core.Model.Tables;
 
-public class MailPreset : ITableHasId
+public class MailEntry : ITableHasId
 {
     public required string ID { get; set; }
     public required string MailName_KOR { get; set; }
