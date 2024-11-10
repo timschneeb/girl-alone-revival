@@ -59,7 +59,7 @@ public static class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{action=Index}/{id?}", 
-            new { controller = "Home" });
+            new { controller = "App" });
         
         await app.RunAsync();
         await Log.CloseAndFlushAsync();

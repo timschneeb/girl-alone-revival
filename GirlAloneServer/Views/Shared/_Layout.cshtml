@@ -31,7 +31,7 @@
     </symbol>
 </svg>
 
-<div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+<div class="dropdown position-fixed bottom-0 end-0 mb-2 me-2 bd-mode-toggle">
     <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
             id="bd-theme"
             type="button"
@@ -69,16 +69,16 @@
 <header class="header-shadow header-blur fixed-top">
     <div class="container">
         <div class="d-flex flex-wrap justify-content-center py-3">
-            <a asp-area="" asp-controller="Home" asp-action="Index"
+            <a asp-area="" asp-controller="App" asp-action="Index"
                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                 <span class="fs-4">Girl Alone Revival</span>
             </a>
 
             <ul class="nav nav-pills">
-                <li class="nav-item">@(Html.NavigationLink<HomeController>("Home", nameof(HomeController.Index)))</li>
-                <li class="nav-item">@(Html.NavigationLink<HomeController>("Account", nameof(HomeController.Account)))</li>
-                <li class="nav-item">@(Html.NavigationLink<HomeController>("Coupons", nameof(HomeController.Coupons)))</li>
-                <li class="nav-item">@(Html.NavigationLink<HomeController>("Privacy", nameof(HomeController.Privacy)))</li>
+                <li class="nav-item">@(Html.NavigationLink<AppController>("Home", nameof(AppController.Index)))</li>
+                <li class="nav-item">@(Html.NavigationLink<AppController>("Account", nameof(AppController.Account)))</li>
+                <li class="nav-item">@(Html.NavigationLink<AppController>("Coupons", nameof(AppController.Coupons)))</li>
+                <li class="nav-item">@(Html.NavigationLink<AppController>("Privacy", nameof(AppController.Privacy)))</li>
                 <li class="nav-item"><a class="nav-link" href="https://github.com/timschneeb/girl-alone-revival" target="_blank">GitHub</a></li>
             </ul>
         </div>
@@ -93,7 +93,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2024 - Girl Alone Revival - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2024 - Girl Alone Revival - <a asp-area="" asp-controller="App" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

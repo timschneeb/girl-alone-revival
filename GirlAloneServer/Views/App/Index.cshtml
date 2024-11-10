@@ -1,7 +1,5 @@
-﻿@using GirlAloneServer.Core.Database
-@{
-    ViewData["Title"] = "Home Page";
-    DatabaseContext db = new();
+﻿@{
+    ViewData["Title"] = "Home";
 }
 
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -54,7 +52,7 @@
         Please note that all shop items obtainable via in-app purchases have their prices blanked out and cannot be used. Similarly, ads and ad rewards have been removed.
     </p>
     <p>
-        Furthermore, several quality-of-life improvements have been made to the game, such as an option to <a asp-area="" asp-controller="Home" asp-action="Account">import and export your save data from the server</a>.
+        Furthermore, several quality-of-life improvements have been made to the game, such as an option to <a asp-area="" asp-controller="App" asp-action="Account">import and export your save data from the server</a>.
         This allows you to keep your save data when switching devices, or to modify your save data to give yourself an advantage.
     </p>
 </div>
@@ -69,8 +67,8 @@
     <ul>
         <li>No server-side anti-cheat</li>
         <li>Five free conversation refills per day</li>
-        <li>Unlimited in-game <a asp-area="" asp-controller="Home" asp-action="Coupons">coupons</a> (not yet implemented)</li>
-        <li>Save data stored on server <a asp-area="" asp-controller="Home" asp-action="Account">can be uploaded &amp; downloaded</a></li>
+        <li>Unlimited in-game <a asp-area="" asp-controller="App" asp-action="Coupons">coupons</a></li>
+        <li>Save data stored on server <a asp-area="" asp-controller="App" asp-action="Account">can be uploaded &amp; downloaded</a></li>
     </ul>
     <h3 class="pb-2 border-bottom">Client-side game patches</h3>
     <ul>

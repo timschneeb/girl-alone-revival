@@ -1,0 +1,89 @@
+﻿@using System.Text
+@{
+    ViewData["Title"] = "Account";
+}
+
+<div class="container p-4">
+    <h2 class="pb-2 border-bottom">@ViewData["Title"]</h2>
+    <p>
+        This page allows you to import and export your save data from the server. 
+    </p>
+    <p>
+        Please enter your user ID below. You can find your user ID on the bottom right of the loading screen when logging into the game.
+        The ID is 15 characters long and looks like this: <code>abc1XyZ03PdZFkW</code>.
+        If there is no user ID displayed, you need to log in to the game first and then restart the game to see it.
+    </p>
+    <p>
+        <strong class="text-danger">Important: Close the game on your phone before importing new save data!</strong>
+    </p>
+
+    @if (ViewBag.HasError == true)
+    {
+        <div class="my-3 alert alert-danger alert-dismissible fade show" role="alert">
+            <div>@ViewBag.ErrorMessage</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else if (ViewBag.HasError == false)
+    {
+        <div class="my-3 alert alert-success alert-dismissible fade show" role="alert">
+            @if (string.Equals(ViewBag.Action, "Import", StringComparison.OrdinalIgnoreCase))
+            {
+                <div>Import complete. You may now start the game on your phone.</div>
+            }
+            else
+            {
+                <div>Export complete. Download has started.</div>
+            }
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    @using (Html.BeginForm("Account", "App", new {}, 
+                FormMethod.Post, true, new { enctype = "multipart/form-data" })) 
+    {
+        <div class="col-auto mb-3">
+            <label for="id" class="visually-hidden">User ID</label>
+            <input type="text" class="form-control" id="id" name="id" value="@ViewBag.UserId" placeholder="User ID">
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Import save data</h5>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Save data file (*.json)</label>
+                            <input class="form-control" name="importData" type="file" id="formFile">
+                        </div>
+                        
+                        <input type="submit" name="action" value="Import" class="btn btn-primary">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Export save data</h5>
+                        <p class="card-text">The data will be formatted as a *.json file.</p>
+                        <input type="submit" name="action" value="Export" class="btn btn-primary">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (ViewBag.ExportData != null)
+{
+    // Start download
+    <script>
+        let a = document.createElement('a');
+        const content = atob("@(Convert.ToBase64String(Encoding.UTF8.GetBytes(ViewBag.ExportData)))")
+        let blob = new Blob([content],  { type: "application/json" });
+        let url = URL.createObjectURL(blob);
+        a.setAttribute('href', url)
+        a.setAttribute('download', "save_data.json")
+        a.click()
+    </script>
+}

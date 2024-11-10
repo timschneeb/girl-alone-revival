@@ -1,0 +1,54 @@
+﻿@using GirlAloneServer.Core.Utils
+@{
+    ViewData["Title"] = "Coupons";
+    var mailTable = SystemMailTable.Instance.Data
+            .Select(x => x.Value)
+            .GroupBy(x => x.ID.First()); // Group by first letter of ID
+}
+
+<div class="container p-4">
+    <h2 class="pb-2 border-bottom">@ViewData["Title"]</h2>
+    <p>
+        This page lists all available in-game rewards that can be sent via to your mail inbox in the game. 
+        You can use the coupon codes on the left side to trigger them. Coupons can be redeemed in the settings menu of the game.
+        There are no restrictions on how many coupons can be redeemed per day, however, 
+        you need to claim the reward mail before you can redeem the same coupon again.
+    </p>
+    <p>
+        <!-- TODO -->
+        IMPORTANT: In-game coupon redeem system is not yet implemented.
+    </p>
+    
+    @foreach(var mailGroup in mailTable)
+    {
+        var group = mailGroup.Key switch
+        {
+            '1' => "Shop packages",
+            '2' => "Event rewards",
+            '3' => "Maintenance compensation",
+            _ => "Other"
+        };
+        
+        <h4 class="pb-2 border-bottom">@group</h4>
+        
+        @foreach (var mail in mailGroup)
+        {
+            var description = mail.RewardID.Length > 0 ? 
+                $"{mail.RewardCount}x {mail.RewardType} (ID: {mail.RewardID})" : 
+                $"{mail.RewardCount}x {mail.RewardType}";
+
+            var mailMessage = mail.MailName_ENG.Length > 0 ? mail.MailName_ENG : mail.MailName_KOR;
+            
+            <div class="row" title="Mail message: '@mailMessage'">
+                <div class="col-4 col-xs-3 col-sm-2">
+                    <code>@mail.ID</code>
+                </div>
+                <div class="col-8 col-xs-9 col-sm-10">
+                    <span>@description</span>
+                </div>
+            </div>
+        }
+        
+        <div class="mb-3"></div>
+    }
+</div>
