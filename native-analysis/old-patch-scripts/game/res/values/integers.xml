@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <integer name="google_play_services_version">12451000</integer>
-    <integer name="ia_ib_button_size_dp">32</integer>
-    <integer name="ia_ib_toolbar_height_dp">48</integer>
-    <integer name="status_bar_notification_info_maxnum">999</integer>
-    <integer name="tt_video_progress_max">100</integer>
-</resources>

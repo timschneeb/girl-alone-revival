@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:id="@id/tt_hand_container" android:layout_width="110.0dip" android:layout_height="110.0dip">
-        <ImageView android:id="@id/tt_splash_rock_img" android:layout_width="60.0dip" android:layout_height="60.0dip" android:src="@drawable/tt_splash_rock" />
-        <TextView android:textSize="14.0sp" android:textColor="@android:color/white" android:id="@id/tt_splash_rock_top_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="摇一摇" android:singleLine="true" />
-    </LinearLayout>
-    <TextView android:textColor="@android:color/white" android:layout_gravity="center" android:id="@id/tt_splash_rock_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:text="前往详情页或第三方应用" android:shadowColor="#99000000" android:shadowDx="3.0" android:shadowDy="3.0" android:shadowRadius="4.0" />
-</LinearLayout>

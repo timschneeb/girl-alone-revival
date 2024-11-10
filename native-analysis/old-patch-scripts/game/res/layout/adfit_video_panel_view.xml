@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merge android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <ProgressBar android:layout_gravity="bottom" android:id="@id/videoProgressBar" android:focusable="false" android:layout_width="fill_parent" android:layout_height="2.0dip" android:progressDrawable="@drawable/adfit_video_progress" android:thumb="@null" style="@android:style/Widget.ProgressBar.Horizontal" />
-    <ImageView android:layout_gravity="end|center|top" android:id="@id/videoSoundButton" android:visibility="gone" android:layout_width="26.0dip" android:layout_height="26.0dip" android:layout_margin="8.0dip" android:src="@drawable/adfit_video_sound_off_btn" android:scaleType="fitCenter" android:contentDescription="@string/adfit_sound_off_description" />
-    <ImageView android:layout_gravity="center" android:id="@id/videoPlayButton" android:layout_width="50.0dip" android:layout_height="50.0dip" android:src="@drawable/adfit_video_play_btn" android:scaleType="fitCenter" android:contentDescription="@string/adfit_play_btn_description" />
-    <ProgressBar android:layout_gravity="center" android:id="@id/videoLoadingProgressBar" android:focusable="false" android:visibility="gone" android:layout_width="50.0dip" android:layout_height="50.0dip" android:scaleType="fitCenter" android:indeterminate="true" />
-</merge>

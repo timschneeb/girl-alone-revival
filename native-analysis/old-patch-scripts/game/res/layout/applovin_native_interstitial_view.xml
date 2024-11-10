@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="@android:color/black" android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout android:id="@id/ad_container" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="10.0dip" android:layout_marginTop="80.0dip" android:layout_marginRight="10.0dip" android:layout_marginBottom="80.0dip">
-        <include layout="@layout/applovin_native_template" />
-    </RelativeLayout>
-    <ImageView android:id="@id/btn_close_ad" android:layout_width="48.0dip" android:layout_height="48.0dip" android:src="@drawable/adx_interstitial_close" android:scaleType="center" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
-</RelativeLayout>
