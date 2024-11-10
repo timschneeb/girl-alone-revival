@@ -101,7 +101,15 @@ public class InventoryData : IHasUserId
     public Dictionary<string, int>? IN_Inven_Dic_5 { get; set; }
     public Dictionary<string, int>? IN_Inven_Dic_6 { get; set; }
     public Dictionary<string, int>? IN_Inven_Dic_7 { get; set; }
-    public Dictionary<string, string>? IN_Inven_Dic_Background { get; set; }
+    public Dictionary<string, string>? IN_Inven_Dic_Background { get; set; } = new()
+    {
+        [ "Bed" ] = "2000000",
+        [ "Cabinet" ] = "2100000",
+        [ "Wallpaper" ] = "2200000",
+        [ "Floor" ] = "2300000",
+        [ "Window" ] = "2400000",
+        [ "Flowerpot" ] = "2500000"
+    };
 }
 
 public class MapData : IHasUserId
