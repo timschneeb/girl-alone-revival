@@ -9,13 +9,6 @@ namespace GirlAloneServer.Controllers.WebAppControllers;
 
 public class AppController : BaseController
 {
-    private readonly ILogger<AppController> _logger;
-
-    public AppController(ILogger<AppController> logger)
-    {
-        _logger = logger;
-    }
-
     public IActionResult Index()
     {
         return View();

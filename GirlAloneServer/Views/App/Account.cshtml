@@ -14,6 +14,9 @@
         If there is no user ID displayed, you need to log in to the game first and then restart the game to see it.
     </p>
     <p>
+        Do not share your user ID with anyone. It is unique to your account and can be used to access or edit your save data.
+    </p>
+    <p>
         <strong class="text-danger">Important: Close the game on your phone before importing new save data!</strong>
     </p>
 
@@ -83,7 +86,7 @@
         let blob = new Blob([content],  { type: "application/json" });
         let url = URL.createObjectURL(blob);
         a.setAttribute('href', url)
-        a.setAttribute('download', "save_data.json")
+        a.setAttribute('download', "save_data_@(ViewBag.UserId).json")
         a.click()
     </script>
 }
