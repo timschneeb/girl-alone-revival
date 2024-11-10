@@ -15,8 +15,9 @@ public abstract class BaseController : Controller
     protected static JsonSerializerOptions SerializerOptions => JsonUtils.SerializerOptions;
     protected static JsonSerializerOptions SerializerOptionsVerbose => JsonUtils.SerializerOptionsVerbose;
     
-    protected static string Reject(IFormCollection body, [CallerMemberName] string? callerName = null)
+    protected static string Reject(IFormCollection body, Exception? e = null, [CallerMemberName] string? callerName = null)
     {
+        SentrySdk.CaptureException(e ?? new Exception($"Failed to process request {callerName}"));
         Log.Error("Failed to process request {0}\n{1}", callerName, body);
         return ResultCode.FAIL.ToString();
     }

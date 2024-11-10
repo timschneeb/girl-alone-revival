@@ -27,5 +27,8 @@
       <Reference Include="Microsoft.AspNetCore.Http.Features">
         <HintPath>..\..\..\..\..\usr\share\dotnet\shared\Microsoft.AspNetCore.App\8.0.10\Microsoft.AspNetCore.Http.Features.dll</HintPath>
       </Reference>
+      <Reference Include="Sentry">
+        <HintPath>..\..\..\.nuget\packages\sentry\4.13.0\lib\net8.0\Sentry.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>

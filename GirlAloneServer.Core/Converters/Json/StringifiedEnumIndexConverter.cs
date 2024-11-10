@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Sentry;
 using Serilog;
 
 namespace GirlAloneServer.Core.Converters.Json;
@@ -16,6 +17,7 @@ public class StringifiedEnumIndexConverter<T> : JsonConverter<T?> where T : stru
         }
         catch (Exception ex)
         {
+            SentrySdk.CaptureException(ex);
             Log.Error(ex, "Failed to parse enum value");
             return null;
         }

@@ -1,6 +1,7 @@
 using System.Reflection;
 using GirlAloneServer.Core.Database;
 using GirlAloneServer.Core.Converters.Json;
+using Sentry.Extensibility;
 using Serilog;
 using Sigurn.CommandLine;
 
@@ -16,6 +17,10 @@ public static class Program
         [Option('d', "dbconn")]
         [HelpText("Database connection string (PostgreSQL)")]
         public string DbConnectionString { get; set; } = "Host=localhost; Port=5432; Username=postgres; Database=girlalone; Include Error Detail=true";
+
+        [Option('s', "sentry")]
+        [HelpText("Sentry ingest URL for crash reporting (optional)")]
+        public string? SentryIngestUrl { get; set; }
     }
     
     public static async Task Main(string[] args)
@@ -34,7 +39,21 @@ public static class Program
 
         var builder = WebApplication.CreateBuilder();
         builder.WebHost.UseUrls($"http://0.0.0.0:{options.Port}");
+        
+        // Sentry crash reporting
+        if (options.SentryIngestUrl is not null) {
+            builder.WebHost.UseSentry(o =>
+            {
+                o.Dsn = options.SentryIngestUrl;
+                o.AttachStacktrace = true;
+                o.MaxRequestBodySize = RequestSize.Always;
+                o.TracesSampleRate = 0.5;
 
+                o.DefaultTags["server-name"] = Environment.MachineName;
+                o.DefaultTags["server-args"] = Environment.CommandLine;
+            });
+        }
+        
         // Add services to the container.
         var assembly = Assembly.GetAssembly(typeof(Program))!;
         builder.Services

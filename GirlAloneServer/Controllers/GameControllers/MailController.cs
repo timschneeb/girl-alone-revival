@@ -95,6 +95,7 @@ public sealed class MailController : BaseController
         } 
         catch (Exception e)
         {
+            SentrySdk.CaptureException(e);
             Log.Error(e, "Failed to add coupon mail");
             return string.Join(';', ResultCode.FAIL.ToString(), "Failed to add coupon mail: " + e.Message);
         }

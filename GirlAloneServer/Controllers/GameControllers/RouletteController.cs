@@ -60,7 +60,7 @@ public class RouletteController : BaseController
         catch (Exception e)
         {
             Log.Error(e, "Failed to start roulette");
-            return Reject(body);
+            return Reject(body, e);
         }
     }
     
@@ -80,7 +80,7 @@ public class RouletteController : BaseController
         catch (Exception e)
         {
             Log.Error(e, "Failed to start roulette");
-            return Reject(body);
+            return Reject(body, e);
         }
     }
 
