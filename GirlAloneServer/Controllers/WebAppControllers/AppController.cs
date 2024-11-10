@@ -98,7 +98,6 @@ public class AppController : BaseController
     
     public IActionResult Coupons(string? showMsg)
     {
-        Log.Error("Coupons page accessed with showMailMsg: {showMailMsg}", showMsg);
         ViewBag.ShowMessages = showMsg == "on";
         return View();
     }
