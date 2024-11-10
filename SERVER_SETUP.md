@@ -15,7 +15,7 @@ This document explains how to self-host your own game server.
 ## Part 1: Patching the game
 
 First, you need to replace the game server URL with your own and apply some other patches to the APK.
-[Follow these instructions here to complete this step.](patches/) Please note that the URLs in the Unity assets are not stored as null terminated strings. Therefore your replacement URL must have the exact length as the original server URL.
+[Follow these instructions here to complete this step.](patches/#girl-alone-patches) Please note that the URLs in the Unity assets are not stored as null-terminated strings. Therefore your replacement URL must have the exact length as the original server URL.
 
 ## Part 2: Preparing the server
 
