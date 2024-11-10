@@ -5,3 +5,5 @@ Girl Alone is a discontinued simulation game originally created by fleximindg th
 This custom server implementation serves as a replacement for the official servers, allowing you to continue playing the game on Android. Server-sided anti-cheat measures have been removed, and the game has been patched to connect to this server instead of the official servers. Please note that all shop items obtainable via in-app purchases have their prices blanked out and cannot be used. Similarly, ads and ad rewards have been removed. 
 
 Please visit <https://ga.0001002.xyz> for more information.
+
+If you'd like to host your own game server, see [SERVER_SETUP.md](SERVER_SETUP.md).
