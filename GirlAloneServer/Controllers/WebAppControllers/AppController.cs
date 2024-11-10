@@ -4,7 +4,6 @@ using GirlAloneServer.Core.Model;
 using GirlAloneServer.Core.Utils;
 using GirlAloneServer.Model;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
 
 namespace GirlAloneServer.Controllers.WebAppControllers;
 

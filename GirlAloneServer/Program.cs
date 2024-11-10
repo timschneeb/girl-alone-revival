@@ -1,6 +1,5 @@
 using System.Reflection;
 using GirlAloneServer.Core.Database;
-using GirlAloneServer;
 using GirlAloneServer.Core.Converters.Json;
 using Serilog;
 using Sigurn.CommandLine;
