@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace GirlAloneServer.WebApi.Migrations
+namespace GirlAloneServer.Core.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
     partial class DatabaseContextModelSnapshot : ModelSnapshot
@@ -23,7 +23,7 @@ namespace GirlAloneServer.WebApi.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "pg_trgm");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.AlbumData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.AlbumData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -43,7 +43,7 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("AlbumData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.BugData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.BugData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -61,12 +61,6 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.Property<int?>("BU_Event")
                         .HasColumnType("integer");
 
-                    b.Property<string>("xmin")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("text");
-
                     b.HasKey("UserId")
                         .HasName("BU_UserId_pk");
 
@@ -78,7 +72,7 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("BugData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.ConversationData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.ConversationData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -110,7 +104,7 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("ConversationData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.EndingData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.EndingData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -148,7 +142,7 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("EndingData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.GirlData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.GirlData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -195,7 +189,7 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("GirlData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.InventoryData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.InventoryData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -239,7 +233,47 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("InventoryData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.MapData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.MailData", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("MailId")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
+
+                    b.Property<DateTime>("SentDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Source")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex(new[] { "UserId" }, "ML_UserId_gin");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex(new[] { "UserId" }, "ML_UserId_gin"), "gin");
+                    NpgsqlIndexBuilderExtensions.HasOperators(b.HasIndex(new[] { "UserId" }, "ML_UserId_gin"), new[] { "gin_trgm_ops" });
+
+                    b.ToTable("MailData");
+                });
+
+            modelBuilder.Entity("GirlAloneServer.Core.Model.MapData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -271,7 +305,7 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("MapData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.MissionData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.MissionData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -297,7 +331,7 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("MissionData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.PremiumData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.PremiumData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -320,7 +354,7 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("PremiumData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.QuestData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.QuestData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)
@@ -376,7 +410,7 @@ namespace GirlAloneServer.WebApi.Migrations
                     b.ToTable("QuestData");
                 });
 
-            modelBuilder.Entity("GirlAloneServer.WebApi.Model.UserData", b =>
+            modelBuilder.Entity("GirlAloneServer.Core.Model.UserData", b =>
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(32)

@@ -85,9 +85,9 @@ public class InventoryData : IHasUserId
         IN_Inven_Dic_2 - Gift 1x
         IN_Inven_Dic_3 - Costume 3x
         IN_Inven_Dic_4 - Pet 5x
-        IN_Inven_Dic_5 - ????
-        IN_Inven_Dic_6 - Pet Food 6x
-        IN_Inven_Dic_7 - ????
+        IN_Inven_Dic_5 - Quest
+        IN_Inven_Dic_6 - Dog Food 60x
+        IN_Inven_Dic_7 - Cat Food 61x
     */
     [JsonIgnore]
     [Key, StringLength(32)]

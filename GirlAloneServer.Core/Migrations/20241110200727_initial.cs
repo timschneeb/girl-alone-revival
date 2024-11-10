@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace GirlAloneServer.WebApi.Migrations
+namespace GirlAloneServer.Core.Migrations
 {
     /// <inheritdoc />
     public partial class initial : Migration
@@ -114,6 +115,24 @@ namespace GirlAloneServer.WebApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("IN_UserId_pk", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MailData",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
+                    MailId = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
+                    Source = table.Column<int>(type: "integer", nullable: false),
+                    SentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsRead = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MailData", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,6 +277,13 @@ namespace GirlAloneServer.WebApi.Migrations
                 .Annotation("Npgsql:IndexOperators", new[] { "gin_trgm_ops" });
 
             migrationBuilder.CreateIndex(
+                name: "ML_UserId_gin",
+                table: "MailData",
+                column: "UserId")
+                .Annotation("Npgsql:IndexMethod", "gin")
+                .Annotation("Npgsql:IndexOperators", new[] { "gin_trgm_ops" });
+
+            migrationBuilder.CreateIndex(
                 name: "MA_UserId_gin",
                 table: "MapData",
                 column: "UserId")
@@ -313,6 +339,9 @@ namespace GirlAloneServer.WebApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "InventoryData");
+
+            migrationBuilder.DropTable(
+                name: "MailData");
 
             migrationBuilder.DropTable(
                 name: "MapData");

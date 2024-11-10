@@ -21,6 +21,8 @@ public class DatabaseContext : DbContext
     public DbSet<PremiumData> PremiumData { get; set; } = null!;
     public DbSet<GirlData> GirlData { get; set; } = null!;
     public DbSet<EndingData> EndingData { get; set; } = null!;
+    
+    public DbSet<MailData> MailData { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options
@@ -119,6 +121,12 @@ public class DatabaseContext : DbContext
         {
             entity.HasKey(e => e.UserId).HasName("EN_UserId_pk");
             entity.HasIndex(e => e.UserId, "EN_UserId_gin")
+                .HasMethod("gin")
+                .HasOperators("gin_trgm_ops");
+        });
+        modelBuilder.Entity<MailData>(entity =>
+        {
+            entity.HasIndex(e => e.UserId, "ML_UserId_gin")
                 .HasMethod("gin")
                 .HasOperators("gin_trgm_ops");
         });

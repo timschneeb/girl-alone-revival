@@ -21,12 +21,6 @@ public abstract class BaseController : Controller
         return ResultCode.FAIL.ToString();
     }
     
-    protected string TrackNotImplemented(IFormCollection body, [CallerMemberName] string callerName = "")
-    {
-        Log.Error("TODO: {0}\n{1}", callerName, body);
-        return ResultCode.SUCCESS.ToString();
-    }
-    
     protected string HtmlTemplate(string body, string? head = null) =>
         $$"""
               <!DOCTYPE html>
