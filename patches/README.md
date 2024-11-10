@@ -5,7 +5,7 @@ This repository contains a collection of patches for Girl Alone. It is based on 
 ## Custom server URL
 
 To change the URL of the custom server, you need to edit [CustomGameServerPatch.kt](patches/src/main/kotlin/app/revanced/patches/girlalone/url/CustomGameServerPatch.kt) before patching the APK file.
-
+The new URLs must have the same length as the original ones.
 ## Building
 
 This project is based on ReVanced's project structure, you can follow the [ReVanced documentation](https://github.com/ReVanced/revanced-documentation). Most of the steps in their documentation can be skipped, you only need build the `revanced-cli` project and the Gradle project located in this folder.
