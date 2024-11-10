@@ -8,7 +8,7 @@ To change the URL of the custom server, you need to edit [CustomGameServerPatch.
 The new URLs must have the same length as the original ones.
 ## Building
 
-This project is based on ReVanced's project structure, you can follow the [ReVanced documentation](https://github.com/ReVanced/revanced-documentation). Most of the steps in their documentation can be skipped, you only need build the `revanced-cli` project and the Gradle project located in this folder.
+This project is based on ReVanced's project structure, you can follow the [ReVanced documentation](https://github.com/ReVanced/revanced-documentation). Most of the steps in their documentation can be skipped, you only need to build the `revanced-cli` project and the Gradle project located in this folder.
 
 After compiling `revanced-cli` and this project, you can begin with the patching process:
 ```bash
