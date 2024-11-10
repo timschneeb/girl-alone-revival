@@ -12,7 +12,7 @@ public sealed class LoginController : BaseController
 {
     [HttpPost]
     [Route("Login.php")]
-    public string Login([FromForm] IFormCollection body)
+    public async Task<string> Login([FromForm] IFormCollection body)
     {
         /*
             Additional post data:
@@ -26,6 +26,27 @@ public sealed class LoginController : BaseController
 
         if(!body.TryDecryptId(out var id))
             return Reject(body);
+
+        if (_db.LoginData.Any(x => x.UserId == id))
+        {
+            // Update last login time and increment login count
+            var loginData = _db.LoginData.First(x => x.UserId == id);
+            loginData.LastLoginTime = DateTime.Now;
+            loginData.LoginCount++;
+            _db.Update(loginData);
+        }
+        else
+        {
+            // New user
+            _db.LoginData.Add(new LoginData
+            {
+                UserId = id,
+                FirstLoginTime = DateTime.Now,
+                LastLoginTime = DateTime.Now,
+                LoginCount = 1
+            });
+        }
+        await _db.SaveChangesAsync();
         
         return string.Join(';',
             ResultCode.SUCCESS.ToString(), 
