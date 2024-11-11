@@ -77,12 +77,13 @@ public sealed class ShopController : BaseController
                 inventoryData.IN_Inven_Dic_4 = UpdateInventorySlot(inventoryData.IN_Inven_Dic_4);
                 break;
             case ItemType.ITEM_QUEST:
-                // Not sure if slot 5 is correct
                 inventoryData.IN_Inven_Dic_5 = UpdateInventorySlot(inventoryData.IN_Inven_Dic_5);
                 break;
             case ItemType.ITEM_PETFOOD_DOG:
-            case ItemType.ITEM_PETFOOD_CAT:
                 inventoryData.IN_Inven_Dic_6 = UpdateInventorySlot(inventoryData.IN_Inven_Dic_6);
+                break;
+            case ItemType.ITEM_PETFOOD_CAT:
+                inventoryData.IN_Inven_Dic_7 = UpdateInventorySlot(inventoryData.IN_Inven_Dic_7);
                 break;
             default:
                 Log.Error("Invalid item type {0}", itemData.Item_Type);
