@@ -1,6 +1,9 @@
 using System.Reflection;
 using GirlAloneServer.Core.Database;
 using GirlAloneServer.Core.Converters.Json;
+using GirlAloneServer.Jobs;
+using Quartz;
+using Quartz.AspNetCore;
 using Sentry.Extensibility;
 using Serilog;
 using Sigurn.CommandLine;
@@ -66,6 +69,27 @@ public static class Program
             opt.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
         });
         builder.Services.AddEndpointsApiExplorer();
+        
+        builder.Services.AddQuartz(q =>
+        {
+            var jobKey = new JobKey(nameof(ResetDailyMissionsJob));
+            q.AddJob<ResetDailyMissionsJob>(opts => opts.WithIdentity(jobKey));
+            q.AddTrigger(opts => opts
+                .ForJob(jobKey)
+                .WithIdentity($"{nameof(ResetDailyMissionsJob)}-trigger")
+                // Run at midnight UTC
+                .WithDailyTimeIntervalSchedule(DailyTimeIntervalScheduleBuilder
+                    .Create()
+                    .WithIntervalInHours(24)
+                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
+                    .InTimeZone(TimeZoneInfo.Utc))
+            );
+        });
+        builder.Services.AddQuartzServer(o =>
+        {
+            // when shutting down we want jobs to complete gracefully
+            o.WaitForJobsToComplete = true;
+        });
         
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         
