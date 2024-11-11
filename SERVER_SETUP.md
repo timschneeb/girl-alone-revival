@@ -31,7 +31,7 @@ dotnet tool install -g dotnet-ef
 
 Generate the initial database schema:
 ```
-dotnet ef migrations script --project GirlAloneServer.WebApi > schema.sql
+dotnet ef migrations script --project GirlAloneServer > schema.sql
 ```
 
 Import the `schema.sql` into the girlalone database:
