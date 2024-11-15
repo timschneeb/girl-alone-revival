@@ -116,7 +116,7 @@ public sealed class SaveDataController : BaseController
         var userData = _db.GetEntityForUser<UserData>(id);
         if(rewardType == "Gold")
             userData.UD_Gold += rewardCount;
-        else if(rewardType == "Jewelery")
+        else if(rewardType is "Jewelery" or "Gem")
             userData.UD_Jewelery += rewardCount;
         else if(rewardType == "Ruby")
             userData.UD_Ruby += rewardCount;
