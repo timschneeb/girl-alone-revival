@@ -1,5 +1,8 @@
 /revanced-cli
 
+bin/
+obj/
+
 *.pyc
 nupkg/
 
