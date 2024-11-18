@@ -2,6 +2,8 @@
 
 using System.Security.Cryptography;
 using System.Text;
+using Sentry;
+
 #pragma warning disable SYSLIB0022
 
 namespace GirlAloneServer.Core.Utils;
@@ -75,6 +77,8 @@ public static class AES
         }
         catch (Exception e)
         {
+            SentrySdk.AddBreadcrumb("Failed to decrypt ID using preferred option: " + e, "decrypt", level: BreadcrumbLevel.Error);
+            
             // Fall back to brute-forcing the key and IV.
             for (var i = 0; i < _keyList.Length; i++)
             {
@@ -86,6 +90,7 @@ public static class AES
                     }
                     catch
                     {
+                        SentrySdk.AddBreadcrumb($"Failed to decrypt ID using option (i={i}; j={j})", "decrypt", level: BreadcrumbLevel.Error);
                         // Continue
                     }
                 }
