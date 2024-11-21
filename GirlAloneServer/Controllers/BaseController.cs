@@ -15,13 +15,19 @@ public abstract class BaseController : Controller
     protected static JsonSerializerOptions SerializerOptions => JsonUtils.SerializerOptions;
     protected static JsonSerializerOptions SerializerOptionsVerbose => JsonUtils.SerializerOptionsVerbose;
     
-    protected static string Reject(IFormCollection body, Exception? e = null, [CallerMemberName] string? callerName = null)
+    protected static string Reject(IFormCollection? body, Exception? e = null, [CallerMemberName] string? callerName = null)
     {
         SentrySdk.AddBreadcrumb($"Rejecting request for {callerName}", callerName, level: BreadcrumbLevel.Warning);
         
+        // Report if exception attached
         if (e != null)
         {
             SentrySdk.CaptureException(e);
+        }
+        // We ignore rejections due to empty request bodies
+        else if (body != null)
+        {
+            SentrySdk.CaptureMessage($"Request for {callerName} rejected. Body field count: {body.Count}");
         }
         
         Log.Error("Failed to process request {0}\n{1}", callerName, body);
