@@ -16,6 +16,7 @@ namespace GirlAloneServer.Controllers.GameControllers;
     
     Some endpoints also receive additional POST data, which is documented separately.
 */
+[GameApiExceptionFilter]
 [Route("/Build/{version}")]
 public sealed class SaveDataController : BaseController
 {

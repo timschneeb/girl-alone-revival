@@ -1,8 +1,10 @@
 using GirlAloneServer.Core.Model.Enums;
+using GirlAloneServer.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.Controllers.GameControllers.Startup;
 
+[GameApiExceptionFilter]
 [Route("/Build")]
 public class BootstrapController : BaseController
 {
@@ -28,4 +30,8 @@ public class BootstrapController : BaseController
             "https://ga.0001002.xyz/Build/", 
             "https://ga.0001002.xyz/Build/");
     }
+    
+    [HttpGet]
+    [Route("GenerateError")]
+    public string GenerateError() => throw new Exception("This is a test exception.");
 }

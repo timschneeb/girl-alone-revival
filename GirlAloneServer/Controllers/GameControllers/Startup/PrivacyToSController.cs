@@ -1,7 +1,9 @@
+using GirlAloneServer.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.Controllers.GameControllers.Startup;
 
+[GameApiExceptionFilter]
 [Route("/")]
 public sealed class PrivacyToSController : BaseController
 {

@@ -1,4 +1,5 @@
 using GirlAloneServer.Core.Model.Enums;
+using GirlAloneServer.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.Controllers.GameControllers;
@@ -9,6 +10,7 @@ namespace GirlAloneServer.Controllers.GameControllers;
         id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
         DBAddress=http://ga-sb0.0001002.xyz/Build/
 */
+[GameApiExceptionFilter]
 [Route("/Build/{version}")]
 public sealed class RankingController : BaseController
 {

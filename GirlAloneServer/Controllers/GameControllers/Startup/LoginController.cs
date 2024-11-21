@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GirlAloneServer.Controllers.GameControllers.Startup;
 
+[GameApiExceptionFilter]
 [Route("/Build/{version}")]
 public sealed class LoginController : BaseController
 {

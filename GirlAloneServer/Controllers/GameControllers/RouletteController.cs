@@ -16,6 +16,7 @@ namespace GirlAloneServer.Controllers.GameControllers;
         id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
         DBAddress=http://ga-sb0.0001002.xyz/Build/
 */
+[GameApiExceptionFilter]
 [Route("/Build/{version}")]
 public class RouletteController : BaseController
 {
