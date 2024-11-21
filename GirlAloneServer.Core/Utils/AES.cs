@@ -31,23 +31,17 @@ public static class AES
         "masdfjklqeuio7890zvnasdfjk234u"
     ];
     
-    private static string GetIV(int? index = null)
+    private static string GetIV(int index)
     {
-        if(index != null) 
-            return _ivList[index.Value % _ivList.Length];
-        
-        var updatedTime = DateTimeOffset.UtcNow.AddSeconds(9875.0);
-        return _ivList[updatedTime.Hour % _ivList.Length];
+        return _ivList[index % _ivList.Length];
     }
 
-    private static string GetKey(int? index = null, int? timestampPrefix = null)
+    private static string GetKey(DateTimeOffset time, int? index = null, int? timestampPrefix = null)
     {
-        var serverTime = DateTimeOffset.UtcNow.AddSeconds(9875);
-
-        var year = serverTime.Year;
-        var month = serverTime.Month;
-        var day = serverTime.Day;
-        var hour = serverTime.Hour;
+        var year = time.Year;
+        var month = time.Month;
+        var day = time.Day;
+        var hour = time.Hour;
 
         var timestamp = (year + month + day + hour) * 0x85;
         
@@ -70,10 +64,11 @@ public static class AES
     public static string DecryptCBC(string cipherTextBase64)
     {
         using var rijndael = new RijndaelManaged();
-
+        var time = DateTimeOffset.UtcNow.AddSeconds(9875.0);
+        
         try
         {
-            return DecryptCBC(rijndael, cipherTextBase64);
+            return DecryptCBC(rijndael, cipherTextBase64, time);
         }
         catch (Exception e)
         {
@@ -101,14 +96,15 @@ public static class AES
     }
     
     private static string DecryptCBC(RijndaelManaged rijndael, string cipherTextBase64, 
-        int? index = null, int? timestampPrefix = null)
+        DateTimeOffset time, int? index = null, int? timestampPrefix = null)
     {
         rijndael.KeySize = 256;
         rijndael.BlockSize = 128;
         rijndael.Mode = CipherMode.CBC; 
         rijndael.Padding = PaddingMode.PKCS7;
-        rijndael.Key = Encoding.UTF8.GetBytes(GetKey(index));
-        rijndael.IV = Encoding.UTF8.GetBytes(GetIV(timestampPrefix));
+        
+        rijndael.Key = Encoding.UTF8.GetBytes(GetKey(time, index, timestampPrefix));
+        rijndael.IV = Encoding.UTF8.GetBytes(GetIV(index ?? time.Hour));
 
         var cipherBytes = Convert.FromBase64String(cipherTextBase64);
 
