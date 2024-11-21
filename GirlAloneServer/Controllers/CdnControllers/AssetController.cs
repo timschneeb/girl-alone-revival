@@ -38,6 +38,9 @@ public sealed class AssetController : Controller
     [ResponseCache(Duration = 604800)]
     public ActionResult GetAsset(string type, string name)
     {
+        if (type.Contains("..") || name.Contains(".."))
+            return BadRequest("Invalid asset path");
+        
         var path = $"{BasePath}/assets/{type}/{name}";
         if(!System.IO.File.Exists(path))
             return NotFound("Asset not found");
