@@ -36,7 +36,7 @@ public static class Extensions
     }
     
     
-    public static bool TryDecryptId(this IFormCollection body, [NotNullWhen(true)] out string? id)
+    public static bool TryDecryptId(this IFormCollection? body, [NotNullWhen(true)] out string? id)
     {
         if (body.TryGetString("id", out var encId))
         {
@@ -64,7 +64,7 @@ public static class Extensions
         return false;
     }
     
-    public static bool TryDeserializeJsonWithId<T>(this IFormCollection body,
+    public static bool TryDeserializeJsonWithId<T>(this IFormCollection? body,
         [NotNullWhen(true)] out T? value, [NotNullWhen(true)] out string? id)
     {
         id = null;
@@ -78,7 +78,7 @@ public static class Extensions
         return true;
     }
     
-    public static bool TryDeserializeJson<T>(this IFormCollection body, [NotNullWhen(true)] out T? value)
+    public static bool TryDeserializeJson<T>(this IFormCollection? body, [NotNullWhen(true)] out T? value)
     {
         value = default;
 
@@ -89,7 +89,7 @@ public static class Extensions
         return value is not null;
     }
     
-    public static bool TryGetStringWithId(this IFormCollection body, string key, 
+    public static bool TryGetStringWithId(this IFormCollection? body, string key, 
         [NotNullWhen(true)] out string? value, [NotNullWhen(true)] out string? id)
     {
         id = null;
@@ -103,9 +103,21 @@ public static class Extensions
         return true;
     }
     
-    public static bool TryGetString(this IFormCollection body, string key, [NotNullWhen(true)] out string? value)
+    public static bool TryGetString(this IFormCollection? body, string key, [NotNullWhen(true)] out string? value)
     {
         value = null;
+
+        if (body == null)
+        {
+            SentrySdk.AddBreadcrumb("Form collection is null", 
+                nameof(TryGetString), 
+                level: BreadcrumbLevel.Error,
+                data: new Dictionary<string, string>()
+                {
+                    { "key", key }
+                });
+            return false;
+        }
 
         if (!body.TryGetValue(key, out var data) || data.FirstOrDefault() == null)
         {

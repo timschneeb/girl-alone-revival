@@ -17,7 +17,13 @@ public abstract class BaseController : Controller
     
     protected static string Reject(IFormCollection body, Exception? e = null, [CallerMemberName] string? callerName = null)
     {
-        SentrySdk.CaptureException(e ?? new Exception($"Failed to process request {callerName}"));
+        SentrySdk.AddBreadcrumb($"Rejecting request for {callerName}", callerName, level: BreadcrumbLevel.Warning);
+        
+        if (e != null)
+        {
+            SentrySdk.CaptureException(e);
+        }
+        
         Log.Error("Failed to process request {0}\n{1}", callerName, body);
         return ResultCode.FAIL.ToString();
     }
