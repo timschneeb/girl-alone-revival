@@ -124,9 +124,11 @@ public sealed class MailController : BaseController
                 mail.IsRead = true;
                 _db.AddOrUpdate(mail, id);
             }
+            
+            // Save changes right away to prevent ID collisions on fresh accounts
+            await _db.SaveChangesAsync();
         }
         
-        await _db.SaveChangesAsync();
         return ResultCode.SUCCESS.ToString();
     }
     
