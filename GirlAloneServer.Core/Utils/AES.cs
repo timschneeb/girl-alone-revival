@@ -2,7 +2,6 @@
 
 using System.Security.Cryptography;
 using System.Text;
-using Sentry;
 
 #pragma warning disable SYSLIB0022
 
@@ -81,7 +80,7 @@ public static class AES
                 {
                     try
                     {
-                        return DecryptCBC(rijndael, cipherTextBase64, i, j);
+                        return DecryptCBC(rijndael, cipherTextBase64, time, i, j);
                     }
                     catch
                     {
