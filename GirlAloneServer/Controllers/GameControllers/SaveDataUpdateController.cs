@@ -4,6 +4,8 @@ using GirlAloneServer.Core.Utils;
 using GirlAloneServer.Model.Responses;
 using GirlAloneServer.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace GirlAloneServer.Controllers.GameControllers;
 
@@ -31,10 +33,23 @@ public class SaveDataUpdateController : BaseController
         
         if (!body.TryDeserializeJsonWithId<BugData>(out var data, out var id))
             return Reject(body);
-        
-        _db.AddOrUpdate(data, id);
-        
-        await _db.SaveChangesAsync();
+
+        try
+        {
+            _db.AddOrUpdate(data, id);
+            await _db.SaveChangesAsync();
+        }
+        catch (DbUpdateException e) 
+        {
+            /*
+             * The game spams several requests to BugUpdate at once.
+             * This may cause a DbUpdateException due to the same entity being updated multiple times.
+             * We can safely ignore this exception and pretend it was successful. At least one of the requests will succeed.
+             */
+            Log.Warning(e, "Failed to update bug data for user {0} due to DbUpdateException", id);
+            return ResultCode.SUCCESS.ToString();
+        }
+
         return ResultCode.SUCCESS.ToString();
     }
 
