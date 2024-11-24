@@ -34,7 +34,18 @@ public static class Extensions
                 aria_current = "page"
             } : new { @class = "nav-link" });
     }
+
+
+    private static void AttachUserId(string? decryptedId)
+    {
+        SentrySdk.ConfigureScope(scope => { scope.User.Id = decryptedId; });
+    }
     
+    public static void AttachUserId(this IFormCollection body)
+    {
+        // TryDecryptId implicitly attaches the user ID to the current context
+        TryDecryptId(body, out _);
+    }
     
     public static bool TryDecryptId(this IFormCollection? body, [NotNullWhen(true)] out string? id)
     {
@@ -45,6 +56,7 @@ public static class Extensions
                 id = AES.DecryptCBC(encId)
                     .Replace("*23#Fleximind", "")
                     .Replace("K$a!t@i#s$m%S^e&c*u(r)i_t+y|", "");
+                AttachUserId(id);
                 return true;
             }
             catch (CryptographicException ex)

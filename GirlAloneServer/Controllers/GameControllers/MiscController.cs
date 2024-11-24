@@ -21,8 +21,10 @@ public sealed class MiscController : BaseController
 {
     [HttpPost]
     [Route("GetExtraAds.php")]
-    public string GetExtraAds([FromForm] IFormCollection body) =>
-        string.Join(';',
+    public string GetExtraAds([FromForm] IFormCollection body)
+    {
+        body.AttachUserId();
+        return string.Join(';',
             ResultCode.SUCCESS,
             /*
              * EA_FreePremiumCount is the number of Ads the user has watched to revive in the premium game.
@@ -34,6 +36,7 @@ public sealed class MiscController : BaseController
                     "EA_FreeFillUpMoodDateTime": "2024-01-01 00:00:00"
                 }
             """);
+    }
 
 
     [HttpPost]
@@ -44,6 +47,7 @@ public sealed class MiscController : BaseController
             Additional post data: jsonData={"ExtraAdsType":"0"}
             JSON field: see ExtraAdsType enum
         */
+        body.AttachUserId();
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -77,13 +81,17 @@ public sealed class MiscController : BaseController
         /* Friend referrals are not supported.
            The game only allows to invite up to 20 friends, so we set the count to 20 
            to signal the user that the feature is not available. */
+        body.AttachUserId();
         return string.Join(';', ResultCode.SUCCESS, """{"IF_Count": 20, "IF_Friend": []}""");
     }
     
     [HttpPost]
     [Route("GetResetCount.php")]
-    public string GetResetCount([FromForm] IFormCollection body) =>
-        string.Join(';', ResultCode.SUCCESS, "0");
+    public string GetResetCount([FromForm] IFormCollection body)
+    {
+        body.AttachUserId();
+        return string.Join(';', ResultCode.SUCCESS, "0");
+    }
 
 
     [HttpPost]
@@ -91,6 +99,7 @@ public sealed class MiscController : BaseController
     public string SetResetCount([FromForm] IFormCollection body)
     {
         /* Ignore the reset count. The original server only allowed 2 resets per account. */
+        body.AttachUserId();
         return ResultCode.SUCCESS.ToString();
     }
 }

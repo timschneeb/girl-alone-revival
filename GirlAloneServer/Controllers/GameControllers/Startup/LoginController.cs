@@ -104,6 +104,7 @@ public sealed class LoginController : BaseController
                 id=d4TRz3CGrKAKyM/39qi5AkNIOOSknYiXR203EViYkJs23ALNBunsJaflG8dcYiR0
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
         */
+        body.AttachUserId();
         return "0"; // or "1" for tester accounts
     }
     
@@ -140,7 +141,6 @@ public sealed class LoginController : BaseController
                 "PN_EventValue5": "5",
             }
          */
-        
         return ResultCode.SUCCESS.ToString();
     }
     
@@ -152,6 +152,7 @@ public sealed class LoginController : BaseController
             Available post data:
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
         */
+        
         return string.Join(';', ResultCode.SUCCESS.ToString(), "{}");
     }
     
@@ -175,6 +176,7 @@ public sealed class LoginController : BaseController
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
                 ID=*23#FleximindK$a!t@i#s$m%S^e&c*u(r)i_t+y|
         */
+        body.AttachUserId();
         return ResultCode.SUCCESS.ToString();
     }
 }

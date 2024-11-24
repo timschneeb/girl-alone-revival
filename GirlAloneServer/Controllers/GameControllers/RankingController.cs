@@ -24,7 +24,7 @@ public sealed class RankingController : BaseController
           Individual JSON ranking data is separated by ^.
           {"RK_NickName":"Player","RK_Rank":"1","RK_HighScore":"1000","RK_Platform":"Android"}
          */
-        // Is this even used anywhere?
+        body.AttachUserId();
         return string.Join(';', ResultCode.SUCCESS, "{}");
     }  
     
@@ -37,7 +37,7 @@ public sealed class RankingController : BaseController
           Individual JSON ranking data is separated by ^.
           {"ER_NickName":"Player","ER_Rank":"1","ER_EventScore":"1000","ER_Platform":"Android"}
          */
-        // Is this even used anywhere?
+        body.AttachUserId();
         return string.Join(';', ResultCode.SUCCESS, "{}");
     }
     
@@ -47,7 +47,7 @@ public sealed class RankingController : BaseController
     {
         /* Additional post data: HighScore=0 */
         
-        // Is this even used anywhere?
+        body.AttachUserId();
         return string.Join(';', ResultCode.SUCCESS, """{"Rank": "1", "Percent": "100"}""");
     } 
     
@@ -55,7 +55,7 @@ public sealed class RankingController : BaseController
     [Route("GetMyEventRanking.php")]
     public string GetMyEventRanking([FromForm] IFormCollection body)
     {
-        // Is this even used anywhere?
+        body.AttachUserId();
         return string.Join(';', ResultCode.SUCCESS, """{"EventRank": "1", "EventPercent": "100"}""");
     } 
     
@@ -63,7 +63,7 @@ public sealed class RankingController : BaseController
     [Route("GetEventScore.php")]
     public string GetEventScore([FromForm] IFormCollection body)
     {
-        // Is this even used anywhere?
+        body.AttachUserId();
         return string.Join(';', ResultCode.SUCCESS, """{"EventScore": "0"}""");
     } 
     
@@ -76,8 +76,7 @@ public sealed class RankingController : BaseController
                 EventScore=0
                 Tester=0 (or 1)
         */
-        
-        // Is this even used anywhere?
+        body.AttachUserId();
         return ResultCode.SUCCESS.ToString();
     }
 }

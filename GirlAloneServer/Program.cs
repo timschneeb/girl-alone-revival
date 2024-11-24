@@ -54,6 +54,7 @@ public static class Program
             builder.WebHost.UseSentry(o =>
             {
                 o.Dsn = options.SentryIngestUrl;
+                o.IsGlobalModeEnabled = false;
                 o.AttachStacktrace = true;
                 o.MaxRequestBodySize = RequestSize.Always;
                 o.TracesSampleRate = 0.5;

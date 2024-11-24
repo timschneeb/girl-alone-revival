@@ -32,6 +32,10 @@ public class BootstrapController : BaseController
     }
     
     [HttpGet]
-    [Route("GenerateError")]
-    public string GenerateError() => throw new Exception("This is a test exception.");
+    [Route("GenerateError/{uid}")]
+    public string GenerateError(string uid)
+    {
+        SentrySdk.ConfigureScope(scope => { scope.User.Id = uid; });
+        throw new Exception("This is a test exception.");
+    }
 }

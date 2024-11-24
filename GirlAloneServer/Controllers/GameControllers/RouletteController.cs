@@ -25,6 +25,7 @@ public class RouletteController : BaseController
     public string GetRouletteTable([FromForm] IFormCollection body)
     {
         /* Additional post data: Secret=FlexiCorona */
+        body.AttachUserId();
         List<string> result = [ResultCode.SUCCESS.ToString()];
         foreach (var (_, value) in RouletteTable.Instance.Data)
         {
@@ -38,6 +39,7 @@ public class RouletteController : BaseController
     public string GetRouletteTableUpgrade([FromForm] IFormCollection body)
     {
         /* Additional post data: Secret=FlexiCorona */
+        body.AttachUserId();
         List<string> result = [ResultCode.SUCCESS.ToString()];
         foreach (var (_, value) in RouletteTable.Instance.Data)
         {
@@ -51,6 +53,7 @@ public class RouletteController : BaseController
     public async Task<string> StartRoulette([FromForm] IFormCollection body)
     {
         /* Additional post data: jsonData={"RouletteID":"990000"} */
+        body.AttachUserId();
         try
         {
             return string.Join(';', [
