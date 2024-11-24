@@ -26,9 +26,9 @@ public class BootstrapController : BaseController
         // Available post data: DB_ID=0&Country=US
         return string.Join(';',
             ResultCode.SUCCESS.ToString(), 
-            "https://ga.0001002.xyz/Build/", 
-            "https://ga.0001002.xyz/Build/", 
-            "https://ga.0001002.xyz/Build/");
+            $"{Program.PublicServerUrl}/Build/", 
+            $"{Program.PublicServerUrl}/Build/", 
+            $"{Program.PublicServerUrl}/Build/");
     }
     
     [HttpGet]

@@ -12,8 +12,13 @@ namespace GirlAloneServer;
 
 public static class Program
 {
+    public static string PublicServerUrl { get; set; } = null!;
+    
     private class Options
     {
+        [Option('u', "url")]
+        [HelpText("Game server public base URL (example: https://<yourdomain>)")]
+        public string PublicUrl { get; set; } = "https://ga.0001002.xyz";
         [Option('p', "port")]
         [HelpText("Game server port")]
         public int Port { get; set; } = 8005;
@@ -38,6 +43,7 @@ public static class Program
         Options options = null!;
         await Parser.New<Options>(o => { options = o; }).RunAsync(args);
 
+        PublicServerUrl = options.PublicUrl;
         DatabaseContext.DbConnectionString = options.DbConnectionString;
 
         var builder = WebApplication.CreateBuilder();
