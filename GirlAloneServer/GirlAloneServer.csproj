@@ -7,7 +7,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <RuntimeIdentifiers>linux-x64;linux-arm;linux-arm64</RuntimeIdentifiers>
         
-        <Version>1.0.3</Version>
+        <Version>1.0.3.1</Version>
     </PropertyGroup>
 
     <ItemGroup>
