@@ -176,7 +176,6 @@ public sealed class LoginController : BaseController
                 DBAddress=http://ga-sb0.0001002.xyz/Build/
                 ID=*23#FleximindK$a!t@i#s$m%S^e&c*u(r)i_t+y|
         */
-        body.AttachUserId();
         return ResultCode.SUCCESS.ToString();
     }
 }
