@@ -188,7 +188,25 @@ public sealed class SaveDataController : BaseController
                 EventID can be: Bug_Bad_Feeling, Flower_Intimacy, Cheat_Sociability, ChangeCostume_Default, 
                                 FillUpMood, ChangePosture_GirlStandUpCutScene_Default, and a lot more
         */
-        if (!body.TryDeserializeJsonWithId< GirlData>(out var data, out var id))
+        if (!body.TryDeserializeJsonWithId<GirlData>(out var data, out var id))
+            return Reject(body);
+        
+        _db.AddOrUpdate(data, id);
+        
+        await _db.SaveChangesAsync();
+        return ResultCode.SUCCESS.ToString();
+    } 
+    
+    [HttpPost]
+    [Route("Save_Ending.php")]
+    public async Task<string> SaveEnding([FromForm] IFormCollection body)
+    {
+        /*
+            Additional post data:
+                jsonData={"Ending_0":0,"Ending_1":0,"Ending_2":0,"Ending_3":0,"TargetEnding":"Ending_00","SelectedPaper":"","EndingClearCount":0,"EventID":""}
+                Note: JSON data corresponds to EndingData, except that EventID is added.
+        */
+        if (!body.TryDeserializeJsonWithId<EndingData>(out var data, out var id))
             return Reject(body);
         
         _db.AddOrUpdate(data, id);
